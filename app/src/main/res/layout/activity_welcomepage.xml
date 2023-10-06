@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context=".authentication.welcomepage">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="Welcome to Examify"
+        android:id="@+id/welcometextview"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="20sp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="Choose Role"
+        android:id="@+id/examify_textview"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="20sp"/>
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="match_parent"
+        android:layout_margin="20dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/studentbtn"
+        android:text="STUDENT"
+        android:textStyle="bold"
+        android:textSize="25dp"/>
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="match_parent"
+        android:layout_margin="20dp"
+        android:layout_height="wrap_content"
+        android:text="ADMIN"
+        android:id="@+id/adminbtn"
+        android:textStyle="bold"
+        android:textSize="25dp"/>
+
+</LinearLayout>

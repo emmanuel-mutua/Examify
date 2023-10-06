@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">elimuapp</string>
+    <string-array name="roles">
+        <item>Lecturer</item>
+        <item>Student</item>
+    </string-array>
 </resources>

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "129595805946",
+    "project_id": "elimuapp-7e77d",
+    "storage_bucket": "elimuapp-7e77d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:129595805946:android:18f0badf49ed3d53e13943",
+        "android_client_info": {
+          "package_name": "com.example.elimuapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-OwCP41Rl-OvZ1XBfbWlCkIx0aMS53SU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
