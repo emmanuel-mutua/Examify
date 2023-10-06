@@ -11,13 +11,7 @@
     android:layout_marginVertical="16dp"
     tools:context=".authentication.Login">
 
-    <ImageView
-        android:layout_width="128dp"
-        android:layout_height="128dp"
-        android:layout_marginTop="32dp"
-        android:src="@drawable/login"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/sign_up_icon"/>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,7 +19,6 @@
         android:layout_marginTop="15dp"
         android:orientation="vertical"
         android:padding="15dp"
-        android:layout_below="@+id/sign_up_icon"
         android:id="@+id/layout_greeting">
 
         <TextView
@@ -112,6 +105,7 @@
             android:textColor="@color/black"
             android:textSize="20sp"/>
         <TextView
+            android:id="@+id/sign_in_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"

@@ -26,21 +26,6 @@
         android:textStyle="bold"
         android:textColor="@color/black"
         android:textSize="20sp"/>
-    <com.google.android.material.button.MaterialButton
-        android:layout_width="match_parent"
-        android:layout_margin="20dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/studentbtn"
-        android:text="STUDENT"
-        android:textStyle="bold"
-        android:textSize="25dp"/>
-    <com.google.android.material.button.MaterialButton
-        android:layout_width="match_parent"
-        android:layout_margin="20dp"
-        android:layout_height="wrap_content"
-        android:text="ADMIN"
-        android:id="@+id/adminbtn"
-        android:textStyle="bold"
-        android:textSize="25dp"/>
+
 
 </LinearLayout>
