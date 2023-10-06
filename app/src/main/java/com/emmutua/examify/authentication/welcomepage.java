@@ -1,4 +1,4 @@
-package com.example.elimuapp.authentication;
+package com.emmutua.examify.authentication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.elimuapp.R;
+import com.emmutua.examify.R;
 
 public class welcomepage extends AppCompatActivity {
     Button studentbutton, lecbutton, adminbutton;

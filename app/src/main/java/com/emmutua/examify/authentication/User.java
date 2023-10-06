@@ -1,4 +1,4 @@
-package com.example.elimuapp.authentication;
+package com.emmutua.examify.authentication;
 
 public class User {
     String email;

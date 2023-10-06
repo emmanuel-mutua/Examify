@@ -1,4 +1,4 @@
-package com.example.elimuapp;
+package com.emmutua.examify;
 
 import android.content.Context;
 

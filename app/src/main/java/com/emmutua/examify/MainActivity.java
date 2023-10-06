@@ -1,4 +1,4 @@
-package com.example.elimuapp;
+package com.emmutua.examify;
 
 import androidx.appcompat.app.AppCompatActivity;
 

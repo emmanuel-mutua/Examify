@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.elimuapp"
+    namespace = "com.emmutua.examify"
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "com.example.elimuapp"
+        applicationId = "com.emmutua.examify"
         minSdk = 24
         targetSdk = 33
         versionCode = 1

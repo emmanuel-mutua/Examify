@@ -1,10 +1,10 @@
-package com.example.elimuapp.authentication;
+package com.emmutua.examify.authentication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.example.elimuapp.R;
+import com.emmutua.examify.R;
 
 public class Login extends AppCompatActivity {
 

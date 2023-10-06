@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "elimuapp"
+rootProject.name = "examify"
 include(":app")
  

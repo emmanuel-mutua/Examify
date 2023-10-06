@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">elimuapp</string>
+    <string name="app_name">examify</string>
     <string-array name="roles">
         <item>Lecturer</item>
         <item>Student</item>
