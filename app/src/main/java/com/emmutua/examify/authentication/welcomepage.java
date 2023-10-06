@@ -24,6 +24,6 @@ public class welcomepage extends AppCompatActivity {
                 startActivity(new Intent(welcomepage.this, Login.class));
                 finish(); // Optional: Finish the current activity
             }
-        }, 3000);
+        }, 2000);
     }
 }

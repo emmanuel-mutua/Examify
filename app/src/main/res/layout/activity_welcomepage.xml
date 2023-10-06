@@ -16,16 +16,6 @@
         android:textStyle="bold"
         android:textColor="@color/black"
         android:textSize="20sp"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:text="Choose Role"
-        android:id="@+id/examify_textview"
-        android:layout_marginTop="10dp"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:textSize="20sp"/>
 
 
 </LinearLayout>
