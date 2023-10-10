@@ -3,6 +3,7 @@ package com.emmutua.examify.authentication;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -53,6 +54,14 @@ public class SignUp extends AppCompatActivity {
         progressBar = findViewById(R.id.progress_circular);
         radioGroup = findViewById(R.id.role_radio_group);
 
+        logintextview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SignUp.this, Login.class));
+                finish();
+            }
+        });
+
         createaccbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,8 +99,9 @@ public class SignUp extends AppCompatActivity {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> emailTask) {
                                                     if (emailTask.isSuccessful()) {
+                                                        String uid = user.getUid();
                                                         // Email sent successfully
-                                                        User newUser = new User(email, fullName, regNo, selectedRole);
+                                                        User newUser = new User(uid,email, fullName, regNo, selectedRole);
                                                         saveUserToFirestore(newUser);
                                                         showToast("Account created successfully. Check your email to verify.");
                                                         finish();

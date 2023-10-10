@@ -1,17 +1,27 @@
 package com.emmutua.examify.authentication;
 
 public class User {
+    String uid;
     String email;
     String fullName;
     String regNo;
     String role;
 
-    public User(String email, String fullName, String regNo, String role) {
+    public User(String uid,String email, String fullName, String regNo, String role) {
+        this.uid = uid;
         this.email = email;
         this.fullName = fullName;
         this.regNo = regNo;
         this.role = role;
     }
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
 
     public String getEmail() {
         return email;
