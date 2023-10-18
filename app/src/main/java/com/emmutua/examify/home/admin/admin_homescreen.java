@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent; // Add this import statement
 import com.emmutua.examify.R;
-import com.emmutua.examify.addUnitsClass;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class admin_homescreen extends AppCompatActivity {

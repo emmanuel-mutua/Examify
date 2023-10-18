@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context=".addUnitsClass"
+    tools:context=".home.admin.addUnitsClass"
     >
 
     <RelativeLayout
@@ -54,6 +54,7 @@
 
             <EditText
                 android:id="@+id/unit_code"
+                android:layout_marginTop="10dp"
                 android:layout_width="290sp"
                 android:layout_height="wrap_content"
                 android:hint="Unit Code"
@@ -65,6 +66,7 @@
 
             <EditText
                 android:id="@+id/unit_name"
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Unit Name"
@@ -72,10 +74,22 @@
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:id="@+id/unit_lecturer"
+                android:layout_height="wrap_content"
+                android:hint="Unit Lecturer"
+                android:maxLines="1"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
 
             <EditText
                 android:id="@+id/semester_stage"
                 android:layout_width="290sp"
+                android:layout_marginTop="10dp"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:hint="Semester"
@@ -84,6 +98,7 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
             <TextView
+                android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Choose semester stage"
@@ -94,63 +109,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-
-
-                <RadioGroup
-                    android:id="@+id/role_radio_group"
+                <Spinner
+                    android:id="@+id/role_spinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:orientation="vertical">
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:id="@+id/linear_y1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-                        <RadioButton
-                            android:id="@+id/radio_y1s1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Y1s1"
-                            android:layout_marginRight="15dp"
-                            android:textSize="20sp" />
-
-                        <RadioButton
-                            android:id="@+id/radio_y1s2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Y1s2"
-                            android:textSize="20sp" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:id="@+id/linear_y2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-                        <RadioButton
-                            android:id="@+id/radio_y2s1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Y2s1"
-                            android:visibility="gone"
-                            android:layout_marginRight="15dp"
-                            android:textSize="20sp" />
-                        <RadioButton
-                            android:id="@+id/radio_y2s2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Y2s2"
-                            android:visibility="gone"
-                            android:textSize="20sp" />
-                    </LinearLayout>
-
-                </RadioGroup>
-
-
+                    android:spinnerMode="dropdown" />
             </LinearLayout>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/create_account_btn"
+                android:id="@+id/submit_units_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
@@ -159,7 +127,7 @@
                 android:textStyle="bold" />
 
             <ProgressBar
-                android:id="@+id/progress_circular"
+                android:id="@+id/progress_circular2"
                 android:layout_width="24dp"
                 android:layout_height="64dp"
                 android:layout_gravity="center"
