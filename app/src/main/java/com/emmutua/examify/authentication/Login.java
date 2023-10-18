@@ -106,9 +106,15 @@ public class Login extends AppCompatActivity {
                                         finish();
                                     } else if (role.equals("Lecturer")) {
                                         // Navigate to the lecturer homepage
-                                        utility.showToast(Login.this,"Lecturer loggedIn");
+                                        utility.showToast(Login.this, "Lecturer loggedIn");
                                         startActivity(new Intent(Login.this, lecturer_homescreen.class));
                                         finish();
+                                    }
+                                        else if (role.equals("admin")) {
+                                            // Navigate to the lecturer homepage
+                                            utility.showToast(Login.this,"Lecturer loggedIn");
+                                            startActivity(new Intent(Login.this, admin_homescreen.class));
+                                            finish();
                                     } else {
                                         utility.showToast(Login.this,"Unknown role: " + role);
                                     }
