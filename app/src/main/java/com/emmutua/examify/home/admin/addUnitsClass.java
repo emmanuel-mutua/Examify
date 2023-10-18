@@ -68,7 +68,7 @@ public class addUnitsClass extends AppCompatActivity {
         Units unit = new Units(unitName, unitCode, unitLecturer, semester, role);
 
         // Reference to the "units" collection in Firestore, with the document ID being unitCode
-        DocumentReference documentReference = db.collection("units").document(unitCode);
+        DocumentReference documentReference = db.collection("units").document().collection(role).document(unitCode);
 
         // Set the unit data in Firestore
         documentReference.set(unit)
