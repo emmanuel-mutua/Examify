@@ -112,7 +112,7 @@ public class Login extends AppCompatActivity {
                                     }
                                         else if (role.equals("admin")) {
                                             // Navigate to the lecturer homepage
-                                            utility.showToast(Login.this,"Lecturer loggedIn");
+                                            utility.showToast(Login.this,"Admin loggedIn");
                                             startActivity(new Intent(Login.this, admin_homescreen.class));
                                             finish();
                                     } else {
