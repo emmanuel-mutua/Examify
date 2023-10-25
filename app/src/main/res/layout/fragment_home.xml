@@ -183,6 +183,33 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
+            <LinearLayout
+                app:layout_constraintTop_toBottomOf="@id/notificationsCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp"
+                tools:ignore="MissingConstraints">
+                <TextView
+                    android:paddingTop="30dp"
+                    android:id="@+id/updateContact"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Update Contact details"
+                    android:textColor="?attr/colorPrimary"
+                    android:textSize="20sp"
+                    android:layout_marginBottom="16dp" />
+                <TextView
+                    android:id="@+id/logoutTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="LogOut"
+                    android:textColor="?attr/colorPrimary"
+                    android:textSize="20sp"
+                    android:layout_marginBottom="16dp" />
+            </LinearLayout>
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

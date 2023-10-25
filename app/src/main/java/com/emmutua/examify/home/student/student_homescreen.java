@@ -13,7 +13,7 @@ public class student_homescreen extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
     Fragment home_fragment = new home();
-    Fragment units_fragment = new courses();
+    Fragment units_fragment = new units();
     Fragment academics_fragment = new academics();
 
     @Override

@@ -76,6 +76,11 @@ public class home extends Fragment {
         TextView emailTextView = view.findViewById(R.id.emailTextView);
         TextView phoneTextView = view.findViewById(R.id.phoneTextView);
 
+        TextView logoutTextView = view.findViewById(R.id.logoutTextView);
+        logoutTextView.setOnClickListener(v -> {
+            studentHomeViewModel.logout();
+        });
+
         // Observe LiveData from the ViewModel and update UI elements
         studentHomeViewModel.getGreetingText().observe(getViewLifecycleOwner(), greeting -> {
             greetingTextView.setText(greeting);
