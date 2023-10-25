@@ -1,44 +1,93 @@
-package com.emmutua.examify.home.admin;
+package com.emmutua.examify.home.admin.AddUnitsBar;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.emmutua.examify.R;
-import com.emmutua.examify.home.admin.Units;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import kotlin.Unit;
-
-public class addUnitsClass extends AppCompatActivity {
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link adminAddUnits#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class adminAddUnits extends Fragment {
     Spinner spinner;
     EditText unitNameEditText, unitCodeEditText,
             unitLecturerEditText,semesterEditText;
     Button submitButton;
+
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
+
+    public adminAddUnits() {
+        // Required empty public constructor
+    }
+
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment adminAddUnits.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static adminAddUnits newInstance(String param1, String param2) {
+        adminAddUnits fragment = new adminAddUnits();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_unit);
-        unitNameEditText = findViewById(R.id.unit_name);
-        unitCodeEditText = findViewById(R.id.unit_code);
-        unitLecturerEditText = findViewById(R.id.unit_lecturer);
-        semesterEditText = findViewById(R.id.semester_stage);
-        submitButton = findViewById(R.id.submit_units_btn);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }
+
+    @SuppressLint("MissingInflatedId")
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_admin_add_units, container, false);
+        //correct all the errors in the code
+        unitNameEditText = view.findViewById(R.id.unit_name);
+        unitCodeEditText = view.findViewById(R.id.unit_code);
+        unitLecturerEditText = view.findViewById(R.id.unit_lecturer);
+        semesterEditText = view.findViewById(R.id.semester_stage);
+        submitButton = view.findViewById(R.id.submit_units_btn);
        /*set the spinner to be able to enter diffrent sem stages in an array
         and allow user to select only one option at a time*/
-     spinner = findViewById(R.id.role_spinner);
+        spinner = view.findViewById(R.id.role_spinner);
         String[] options = {"Y1S1", "Y1S2", "Y2S1", "Y2S2",
                 "Y3S1", "Y3S2", "Y4S1", "Y4S2"};
         ArrayAdapter<String> adapter = new
-                ArrayAdapter<>(this, android.R.layout.
+                ArrayAdapter<>(requireContext(), android.R.layout.
                 simple_spinner_dropdown_item, options);
         adapter.setDropDownViewResource(android.R.layout.
                 simple_spinner_dropdown_item);
@@ -54,7 +103,7 @@ public class addUnitsClass extends AppCompatActivity {
                 }
             }
         });
-
+        return view;
     }
     // get the values entered by the user and send them to firestore database
     void SendUnitDetailsToFirebase() {
@@ -73,7 +122,7 @@ public class addUnitsClass extends AppCompatActivity {
         // Set the unit data in Firestore
         documentReference.set(unit)
                 .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(getApplicationContext(), "Unit added successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), "Unit added successfully", Toast.LENGTH_SHORT).show();
                     // Clear input fields after successful addition
                     unitNameEditText.setText("");
                     unitCodeEditText.setText("");
@@ -82,7 +131,7 @@ public class addUnitsClass extends AppCompatActivity {
                     spinner.setSelection(0);
                 })
                 .addOnFailureListener(e -> {
-                    Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
     }
 
@@ -107,7 +156,7 @@ public class addUnitsClass extends AppCompatActivity {
             semesterEditText.setError("Semester is required");
             return false;
         } else if (role.isEmpty()) {
-            Toast.makeText(getApplicationContext(), "Please select a role", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), "Please select a role", Toast.LENGTH_SHORT).show();
             return false;
         } else {
             return true;

@@ -25,7 +25,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".home.admin.admin_homescreen"
+            android:name=".home.admin.admin_homeScreen"
             android:exported="false" />
         <activity
             android:name=".home.lecture.lecturer_homescreen"

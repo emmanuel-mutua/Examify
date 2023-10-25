@@ -5,16 +5,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".home.admin.admin_homescreen"
+    tools:context=".home.admin.admin_homeScreen"
     android:gravity="center">
 
     <FrameLayout
-        android:id="@+id/container"
+        android:id="@+id/flContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bottomNavigationView"
         android:layout_gravity="center"
         android:layout_marginTop="?attr/actionBarSize" />
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
