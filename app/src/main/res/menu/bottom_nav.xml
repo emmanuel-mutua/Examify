@@ -7,16 +7,12 @@
         android:title="Home" />
 
     <item
-        android:id="@+id/courses"
+        android:id="@+id/units"
         android:icon="@drawable/courses"
-        android:title="Courses" />
+        android:title="Units" />
 
     <item
         android:id="@+id/academics"
         android:icon="@drawable/academics"
         android:title="Academics" />
-    <item
-        android:id="@+id/profile"
-        android:icon="@drawable/profile"
-        android:title="Profile" />
 </menu>

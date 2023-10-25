@@ -1,12 +1,15 @@
 package com.emmutua.examify.home.student;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.emmutua.examify.R;
 
@@ -16,6 +19,7 @@ import com.emmutua.examify.R;
  * create an instance of this fragment.
  */
 public class home extends Fragment {
+    StudentHomeViewModel studentHomeViewModel;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -56,11 +60,44 @@ public class home extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        studentHomeViewModel = new ViewModelProvider(this).get(StudentHomeViewModel.class);
+
+        TextView greetingTextView = view.findViewById(R.id.greetingTextView);
+        TextView courseTextView = view.findViewById(R.id.courseTextView);
+        TextView regNoTextView = view.findViewById(R.id.regNoTextView);
+        TextView nameTextView = view.findViewById(R.id.nameTextView);
+        TextView semesterTextView = view.findViewById(R.id.currentSemesterTextView);
+        TextView emailTextView = view.findViewById(R.id.emailTextView);
+        TextView phoneTextView = view.findViewById(R.id.phoneTextView);
+
+        // Observe LiveData from the ViewModel and update UI elements
+        studentHomeViewModel.getGreetingText().observe(getViewLifecycleOwner(), greeting -> {
+            greetingTextView.setText(greeting);
+        });
+        studentHomeViewModel.getCourseText().observe(getViewLifecycleOwner(), course -> {
+            courseTextView.setText(course);
+        });
+        studentHomeViewModel.getRegNoText().observe(getViewLifecycleOwner(), regNo -> {
+            regNoTextView.setText(regNo);
+        });
+        studentHomeViewModel.getNameText().observe(getViewLifecycleOwner(), name -> {
+            nameTextView.setText(name);
+        });
+        studentHomeViewModel.getSemesterText().observe(getViewLifecycleOwner(), semester -> {
+            semesterTextView.setText(semester);
+        });
+        studentHomeViewModel.getEmailText().observe(getViewLifecycleOwner(), email -> {
+            emailTextView.setText(email);
+        });
+        studentHomeViewModel.getPhoneText().observe(getViewLifecycleOwner(), phone -> {
+            phoneTextView.setText(phone);
+        });
+        return view;
     }
 }

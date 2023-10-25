@@ -27,6 +27,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class SignUp extends AppCompatActivity {
 
     EditText emailedittext, passwordedittext, confirmpasswordedittext, fullNameEditText, regNo_pf;
+    EditText phoneNumberEditText;
     Button createaccbtn;
 
     RadioGroup radioGroup;
@@ -45,6 +46,7 @@ public class SignUp extends AppCompatActivity {
         firestore = FirebaseFirestore.getInstance();
 
         fullNameEditText = findViewById(R.id.fullNameEditText);
+        phoneNumberEditText = findViewById(R.id.phoneNumberEditText);
         regNo_pf = findViewById(R.id.reg_no);
         emailedittext = findViewById(R.id.email);
         passwordedittext = findViewById(R.id.psw);
@@ -76,12 +78,13 @@ public class SignUp extends AppCompatActivity {
         String confirmPassword = confirmpasswordedittext.getText().toString();
         String fullName = fullNameEditText.getText().toString();
         String regNo = regNo_pf.getText().toString();
+        String phoneNumber = phoneNumberEditText.getText().toString();
 
         int selectedRoleId = radioGroup.getCheckedRadioButtonId();
         RadioButton selectedRadioButton = findViewById(selectedRoleId);
         String selectedRole = selectedRadioButton.getText().toString();
 
-        boolean isValid = validateInput(email, password, confirmPassword, fullName, regNo);
+        boolean isValid = validateInput(email, password, confirmPassword, fullName, regNo, phoneNumber);
 
         if (isValid) {
             progressIndicator(true);
@@ -101,7 +104,7 @@ public class SignUp extends AppCompatActivity {
                                                     if (emailTask.isSuccessful()) {
                                                         String uid = user.getUid();
                                                         // Email sent successfully
-                                                        User newUser = new User(uid,email, fullName, regNo, selectedRole);
+                                                        User newUser = new User(uid, email, fullName, regNo, selectedRole, phoneNumber);
                                                         saveUserToFirestore(newUser);
                                                         showToast("Account created successfully. Check your email to verify.");
                                                         finish();
@@ -134,7 +137,7 @@ public class SignUp extends AppCompatActivity {
                 });
     }
 
-    boolean validateInput(String email, String password, String confirmPassword, String fullName, String regNo) {
+    boolean validateInput(String email, String password, String confirmPassword, String fullName, String regNo, String phoneNumber) {
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             showToast("Invalid email address");
             return false;
@@ -157,6 +160,10 @@ public class SignUp extends AppCompatActivity {
 
         if (regNo.isEmpty()) {
             showToast("Registration number is required");
+            return false;
+        }
+        if (phoneNumber.isEmpty()) {
+            showToast("Phone number is required");
             return false;
         }
 
