@@ -64,8 +64,8 @@
                 android:layout_width="290sp"
                 android:layout_height="wrap_content"
                 android:hint="FullName"
-                android:maxLines="1"
                 android:inputType="text"
+                android:maxLines="1"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -85,8 +85,19 @@
                 android:layout_width="290sp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
-                android:maxLines="1"
                 android:hint="Email"
+                android:maxLines="1"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/phoneNumberEditText"
+                android:layout_width="290sp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:hint="Phone Number"
+                android:maxLines="1"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -95,9 +106,9 @@
                 android:id="@+id/psw"
                 android:layout_width="290sp"
                 android:layout_height="wrap_content"
-                android:maxLines="1"
                 android:hint="Password"
                 android:inputType="textPassword"
+                android:maxLines="1"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -107,9 +118,9 @@
                 android:layout_width="290sp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:maxLines="1"
                 android:hint="Confirm password"
                 android:inputType="textPassword"
+                android:maxLines="1"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -147,13 +158,14 @@
                         android:layout_height="wrap_content"
                         android:text="Student"
                         android:textSize="20sp" />
+
                     <RadioButton
                         android:id="@+id/radio_admin"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="admin"
-                        android:visibility="gone"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        android:visibility="gone" />
                 </RadioGroup>
 
 
