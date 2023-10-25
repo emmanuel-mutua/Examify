@@ -1,21 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    tools:context=".home.admin.HomeBar.adminHome"
-    >
-<FrameLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
-  <TextView
+    tools:context=".home.admin.HomeBar.adminHome">
+
+  <LinearLayout
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:text="Welcome Admin"
-      android:layout_gravity="center"
-      />
+      android:layout_height="match_parent"
+      android:orientation="vertical"
+      android:background="@drawable/rounded_bottom_edges"
+      android:layout_marginTop="15dp"
+      android:layout_marginRight="15dp"
+      android:layout_marginLeft="15dp">
+
+    <!-- First LinearLayout with Good Morning greetings -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:orientation="vertical"
+          android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/admin_goodMorningTextView"
+            android:text="Good Morning,"
+            />
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:id="@+id/admin_nameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Admin,"
+            />
+      </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Second LinearLayout with Welcome text -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        >
+
+      <androidx.cardview.widget.CardView
+          android:id="@+id/studentInfoCardView"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+          <!-- Student Info: Course, Name, Current Semester -->
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Course: Computer Science"
+              android:textSize="18sp" />
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Name: John Doe"
+              android:textSize="18sp" />
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Current Semester: 3 / 8"
+              android:textSize="18sp" />
+
+          <!-- Contact Details -->
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Email: john.doe@example.com"
+              android:textSize="18sp" />
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Phone: +1 123-456-7890"
+              android:textSize="18sp" />
+        </LinearLayout>
+      </androidx.cardview.widget.CardView>
+
+      <!-- Notifications -->
+      <androidx.cardview.widget.CardView
+          android:id="@+id/notificationsCardView"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+          <!-- Notifications: Use a RecyclerView to display dynamic notifications -->
+
+          <!-- For now, add some sample notifications -->
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Latest Notifications"
+              android:textSize="20sp"
+              android:textColor="@android:color/black"
+              android:layout_marginBottom="16dp" />
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Exam details processed."
+              android:textSize="16sp" />
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Assignment due tomorrow."
+              android:textSize="16sp" />
+        </LinearLayout>
+      </androidx.cardview.widget.CardView>
+    </LinearLayout>
+  </LinearLayout>
 </FrameLayout>
-</ScrollView>
