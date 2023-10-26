@@ -12,10 +12,15 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.emmutua.examify.R;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class adminViewUnits extends AppCompatActivity {
     CardView viewAllStudentsRegisteredUNits,notificationsCardView;
@@ -39,32 +44,53 @@ public class adminViewUnits extends AppCompatActivity {
         recyclerView.setAdapter(unitsAdapter);
         fetchUnitsFromFirebase();
     }
+    List<String> semesterStages = Arrays.asList("Y1S1", "Y1S2", "Y2S1", "Y2S2", "Y3S1", "Y3S2", "Y4S1", "Y4S2");
+   Map<String, List<UnitModel>> unitListMap = new HashMap<>();
     void fetchUnitsFromFirebase() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("units").document("AllUnits").collection("Y1S1")
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        unitList.clear();
-                        for (int i = 0; i < task.getResult().size(); i++) {
-                            //get the unit name
-                            String unitName = task.getResult().getDocuments().get(i).get("unitName").toString();
-                            //get the unit code
-                            String unitCode = task.getResult().getDocuments().get(i).get("unitCode").toString();
-                            //get the unit lecturer
-                            String unitLecturer = task.getResult().getDocuments().get(i).get("unitLecturer").toString();
-                            //get the unit semester
-                            String unitSemesterStage = task.getResult().getDocuments().get(i).get("role").toString();
-                            // Create a UnitModel object and add it to the list
-                            UnitModel unitModel = new UnitModel(unitName,unitCode,unitLecturer,unitSemesterStage);
-                            unitList.add(unitModel);
+
+        for (String semesterStage : semesterStages) {
+            db.collection("units")
+                    .document("AllUnits")
+                    .collection(semesterStage)
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            List<UnitModel> semesterUnits = new ArrayList<>();
+                            for (QueryDocumentSnapshot unitSnapshot : task.getResult()) {
+                                String unitName = unitSnapshot.getString("unitName");
+                                String unitCode = unitSnapshot.getString("unitCode");
+                                String unitLecturer = unitSnapshot.getString("unitLecturer");
+                                String unitSemesterStage = unitSnapshot.getString("role");
+
+                                UnitModel unitModel = new UnitModel(unitName, unitCode, unitLecturer, unitSemesterStage);
+                                semesterUnits.add(unitModel);
+                            }
+                            unitListMap.put(semesterStage, semesterUnits);
+                            // Notify the adapter of the data change after all data is fetched.
+                            unitsAdapter.notifyDataSetChanged();
+                            if (unitListMap.size() == semesterStages.size()) {
+                                // All data has been fetched, now you can classify and display the data.
+                                classifyAndDisplayData();
+                            }
+                        } else {
+                            Log.e("FirebaseFetchError", "Error: " + task.getException());
+                            Toast.makeText(adminViewUnits.this, "Failed to fetch data: " + task.getException().getLocalizedMessage(), Toast.LENGTH_LONG).show();
                         }
-                        //notify the adapter of the data change
-                        unitsAdapter.notifyDataSetChanged();
-                    } else{
-                        Log.e("FirebaseFetchError", "Error: " + task.getException());
-                        Toast.makeText(adminViewUnits.this, "Failed to fetch data: " + task.getException().getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
+                    });
+        }
+    }
+    private void classifyAndDisplayData() {
+        // Iterate through the semester stages and add units to the RecyclerView adapter
+        for (String semesterStage : semesterStages) {
+            List<UnitModel> units = unitListMap.get(semesterStage);
+            if (units != null) {
+                unitList.addAll(units);
+            }
+        }
+
+        // Notify the adapter of the data change
+        unitsAdapter.notifyDataSetChanged();
     }
 }
+

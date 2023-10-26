@@ -18,6 +18,9 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.emmutua.examify.R;
+import com.emmutua.examify.authentication.Login;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -31,6 +34,7 @@ import java.util.List;
  */
 public class adminHome extends Fragment {
     Button allUnitsButton;
+    Button logOutButton;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -78,6 +82,20 @@ public class adminHome extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_admin_home, container, false);
         allUnitsButton = view.findViewById(R.id.all_units_button);
+        logOutButton = view.findViewById(R.id.log_out_button);
+        logOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut(); // Log out the user
+                // Start the login activity
+                Intent intent = new Intent(getContext(), Login.class); // Replace YourCurrentActivity with your current activity class and LoginActivity with your login activity class
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK); // This clears the current activity stack and creates a new one.
+                startActivity(intent);
+                getActivity().finish();
+                // logout user
+
+            }
+        });
         allUnitsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
