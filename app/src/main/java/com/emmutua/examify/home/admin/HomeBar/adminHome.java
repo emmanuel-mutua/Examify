@@ -1,6 +1,7 @@
 package com.emmutua.examify.home.admin.HomeBar;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
@@ -29,10 +30,7 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class adminHome extends Fragment {
-
     Button allUnitsButton;
-
-
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -83,15 +81,9 @@ public class adminHome extends Fragment {
         allUnitsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Create a new UnitsList fragment and navigate to it
-                UnitsList unitsListFragment = new UnitsList();
-                FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.flFragmentRecycler, unitsListFragment);
-                fragmentTransaction.addToBackStack(null); // Optional, adds the transaction to the back stack
-                fragmentTransaction.commit();
+                startActivity(new Intent(getContext(), adminViewUnits.class));
             }
         });
-
         return view;
     }
     //method for fetching allUnits In fireBase

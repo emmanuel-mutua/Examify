@@ -5,30 +5,31 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardElevation="8dp"
+    android:layout_marginTop="15dp"
     app:cardCornerRadius="8dp"
-    android:layout_margin="16dp"
+    android:layout_margin="10dp"
     >
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
+        android:layout_marginRight="10dp"
         android:orientation="vertical"
         >
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
+            android:layout_marginLeft="8dp"
             android:layout_gravity="center_vertical"
             android:orientation="horizontal"
             >
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Unit Name: "
                 android:textColor="@color/black"
-                android:textSize="26sp"
-                android:textStyle="bold"
-                />
+                android:textSize="26sp" />
+
             <TextView
                 android:id="@+id/Unit_name_id"
                 android:layout_width="wrap_content"
@@ -38,10 +39,11 @@
                 android:textSize="20sp"
                 />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
+            android:layout_marginLeft="8dp"
             android:layout_gravity="center_vertical"
             android:orientation="horizontal"
             >
@@ -51,7 +53,6 @@
                 android:text="Unit Code: "
                 android:textColor="@color/black"
                 android:textSize="26sp"
-                android:textStyle="bold"
                 />
             <TextView
                 android:id="@+id/Unit_code_id"
@@ -62,34 +63,33 @@
                 android:textSize="20sp"
                 />
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="25dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="16dp"
-            android:orientation="horizontal">
-
+            android:orientation="horizontal"
+            >
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Lecturer: "
                 android:textColor="@color/black"
                 android:textSize="26sp"
-                android:textStyle="bold" />
-
+                />
             <TextView
-                android:id="@+id/Unit_Lecturer_id"
+                android:id="@+id/unit_lecturer_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="DR Kihuga "
+                android:text="DR Kihuga"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                />
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
+            android:layout_marginLeft="8dp"
             android:layout_gravity="center_vertical"
             android:orientation="horizontal"
             >
@@ -99,7 +99,6 @@
                 android:text="Semester Stage: "
                 android:textColor="@color/black"
                 android:textSize="26sp"
-                android:textStyle="bold"
                 />
             <TextView
                 android:id="@+id/Unit_semester_stage_id"

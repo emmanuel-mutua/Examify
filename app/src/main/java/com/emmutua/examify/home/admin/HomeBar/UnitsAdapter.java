@@ -49,7 +49,7 @@ public class UnitsAdapter extends RecyclerView.Adapter<UnitsAdapter.UnitsViewHol
             super(itemView);
             unitNameTextView = itemView.findViewById(R.id.Unit_name_id);
             unitCodeTextView = itemView.findViewById(R.id.Unit_code_id);
-            unitLecturerTextView = itemView.findViewById(R.id.Unit_Lecturer_id);
+            unitLecturerTextView = itemView.findViewById(R.id.unit_lecturer_id);
             unitSemesterStageTextView = itemView.findViewById(R.id.Unit_semester_stage_id);
         }
     }
