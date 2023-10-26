@@ -5,12 +5,22 @@ import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.emmutua.examify.R;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,7 +28,11 @@ import com.emmutua.examify.R;
  * create an instance of this fragment.
  */
 public class adminHome extends Fragment {
-    CardView viewAllUnitsCardView,viewAllStudentsRegisteredUNits,notificationsCardView;
+    CardView viewAllStudentsRegisteredUNits,notificationsCardView;
+    RecyclerView recyclerView;
+    Button allUnitsButton;
+    UnitsAdapter unitsAdapter;
+    List<UnitModel> unitList;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -65,18 +79,54 @@ public class adminHome extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_admin_add_units, container, false);
+        View view = inflater.inflate(R.layout.fragment_admin_home, container, false);
         viewAllStudentsRegisteredUNits = view.findViewById(R.id.studentUnitsInfoCardView);
-        viewAllUnitsCardView = view.findViewById(R.id.view_all_units);
+        allUnitsButton = view.findViewById(R.id.all_units_button);
         notificationsCardView = view.findViewById(R.id.notificationsCardView);
-        viewAllUnitsCardView.setOnClickListener(new View.OnClickListener() {
+        recyclerView = view.findViewById(R.id.recyclerView); // Replace with your RecyclerView ID
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        unitList = new ArrayList<>();
+        unitsAdapter = new UnitsAdapter(unitList);
+        recyclerView.setAdapter(unitsAdapter);
+        allUnitsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                try {
+                    fetchUnitsFromFirebase();
+                }catch (Exception e){
+                    Toast.makeText(getContext(), "Failed to fetch data: " , Toast.LENGTH_LONG).show();
+                }
             }
         });
         return view;
     }
     //method for fetching allUnits In fireBase
-
+    void fetchUnitsFromFirebase() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("units")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        unitList.clear();
+                        for (int i = 0; i < task.getResult().size(); i++) {
+                            //get the unit name
+                            String unitName = task.getResult().getDocuments().get(i).get("unitName").toString();
+                            //get the unit code
+                            String unitCode = task.getResult().getDocuments().get(i).get("unitCode").toString();
+                            //get the unit lecturer
+                            String unitLecturer = task.getResult().getDocuments().get(i).get("unitLecturer").toString();
+                            //get the unit semester
+                            String unitSemesterStage = task.getResult().getDocuments().get(i).get("unitSemesterStage").toString();
+                            // Create a UnitModel object and add it to the list
+                            UnitModel unitModel = new UnitModel(unitName,unitCode,unitLecturer,unitSemesterStage);
+                            unitList.add(unitModel);
+                        }
+                        //notify the adapter of the data change
+                        unitsAdapter.notifyDataSetChanged();
+                    } else{
+                        Log.e("FirebaseFetchError", "Error: " + task.getException());
+                        Toast.makeText(getContext(), "Failed to fetch data: " + task.getException().getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
 }
