@@ -50,8 +50,10 @@
         >
 
       <androidx.cardview.widget.CardView
-          android:id="@+id/studentInfoCardView"
-          android:layout_width="match_parent"
+          android:layout_marginEnd="15dp"
+          android:layout_marginStart="15dp"
+          android:id="@+id/studentUnitsInfoCardView"
+          android:layout_width="350sp"
           android:layout_height="wrap_content"
           android:layout_marginTop="16dp">
 
@@ -63,41 +65,52 @@
 
           <!-- Student Info: Course, Name, Current Semester -->
           <TextView
+              android:gravity="center"
               android:layout_width="match_parent"
+              android:textColor="@android:color/black"
               android:layout_height="wrap_content"
-              android:text="Course: Computer Science"
-              android:textSize="18sp" />
-          <TextView
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:text="Name: John Doe"
-              android:textSize="18sp" />
-          <TextView
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:text="Current Semester: 3 / 8"
+              android:text="View All students"
               android:textSize="18sp" />
 
-          <!-- Contact Details -->
+        </LinearLayout>
+      </androidx.cardview.widget.CardView>
+
+      <androidx.cardview.widget.CardView
+          android:layout_marginEnd="15dp"
+          android:layout_marginStart="15dp"
+          android:id="@+id/view_all_units"
+          android:layout_width="350sp"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+          <!-- Student Info: Course, Name, Current Semester -->
           <TextView
+              android:gravity="center"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:text="Email: john.doe@example.com"
+              android:textColor="@android:color/black"
+              android:text="All Units"
               android:textSize="18sp" />
-          <TextView
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:text="Phone: +1 123-456-7890"
-              android:textSize="18sp" />
+
         </LinearLayout>
       </androidx.cardview.widget.CardView>
 
       <!-- Notifications -->
       <androidx.cardview.widget.CardView
+          android:layout_marginEnd="15dp"
+          android:layout_marginStart="15dp"
           android:id="@+id/notificationsCardView"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginTop="16dp">
+          android:layout_marginTop="16dp"
+
+          >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -113,18 +126,9 @@
               android:layout_height="wrap_content"
               android:text="Latest Notifications"
               android:textSize="20sp"
+              android:gravity="center"
               android:textColor="@android:color/black"
               android:layout_marginBottom="16dp" />
-          <TextView
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:text="Exam details processed."
-              android:textSize="16sp" />
-          <TextView
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:text="Assignment due tomorrow."
-              android:textSize="16sp" />
         </LinearLayout>
       </androidx.cardview.widget.CardView>
     </LinearLayout>

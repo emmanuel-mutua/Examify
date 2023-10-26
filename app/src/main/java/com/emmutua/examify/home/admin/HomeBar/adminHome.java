@@ -1,7 +1,9 @@
 package com.emmutua.examify.home.admin.HomeBar;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -16,6 +18,7 @@ import com.emmutua.examify.R;
  * create an instance of this fragment.
  */
 public class adminHome extends Fragment {
+    CardView viewAllUnitsCardView,viewAllStudentsRegisteredUNits,notificationsCardView;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -57,10 +60,23 @@ public class adminHome extends Fragment {
         }
     }
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_admin_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_admin_add_units, container, false);
+        viewAllStudentsRegisteredUNits = view.findViewById(R.id.studentUnitsInfoCardView);
+        viewAllUnitsCardView = view.findViewById(R.id.view_all_units);
+        notificationsCardView = view.findViewById(R.id.notificationsCardView);
+        viewAllUnitsCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        return view;
     }
+    //method for fetching allUnits In fireBase
+
 }
