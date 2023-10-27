@@ -1,4 +1,4 @@
-package com.emmutua.examify.home.admin.HomeBar;
+package com.emmutua.examify.home.admin.HomeBar.Units;
 
 // unitModel Class
 public class UnitModel {

@@ -1,4 +1,4 @@
-package com.emmutua.examify.home.admin.HomeBar;
+package com.emmutua.examify.home.admin.HomeBar.Units;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.emmutua.examify.R;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -23,7 +22,6 @@ import java.util.List;
 import java.util.Map;
 
 public class adminViewUnits extends AppCompatActivity {
-    CardView viewAllStudentsRegisteredUNits,notificationsCardView;
     RecyclerView recyclerView;
     Button allUnitsButton;
     UnitsAdapter unitsAdapter;
@@ -34,9 +32,7 @@ public class adminViewUnits extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_view_units);
-        viewAllStudentsRegisteredUNits = findViewById(R.id.studentUnitsInfoCardView);
         allUnitsButton =findViewById(R.id.all_units_button);
-        notificationsCardView = findViewById(R.id.notificationsCardView);
         recyclerView =findViewById(R.id.All_units_list); // Replace with your RecyclerView ID
         recyclerView.setLayoutManager(new LinearLayoutManager(adminViewUnits.this));
         unitList = new ArrayList<>();

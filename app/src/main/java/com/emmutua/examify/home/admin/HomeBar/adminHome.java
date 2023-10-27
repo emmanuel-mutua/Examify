@@ -4,28 +4,18 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.emmutua.examify.R;
 import com.emmutua.examify.authentication.Login;
+import com.emmutua.examify.home.admin.HomeBar.EnrolledStudents.adminViewEnrolledStudents;
+import com.emmutua.examify.home.admin.HomeBar.Units.adminViewUnits;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,7 +23,7 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class adminHome extends Fragment {
-    Button allUnitsButton;
+    Button allUnitsButton,enrolledStudentsButton;
     Button logOutButton;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -83,6 +73,7 @@ public class adminHome extends Fragment {
         View view = inflater.inflate(R.layout.fragment_admin_home, container, false);
         allUnitsButton = view.findViewById(R.id.all_units_button);
         logOutButton = view.findViewById(R.id.log_out_button);
+        enrolledStudentsButton = view.findViewById(R.id.all_enrolled_students_button);
         logOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,6 +92,9 @@ public class adminHome extends Fragment {
             public void onClick(View v) {
                 startActivity(new Intent(getContext(), adminViewUnits.class));
             }
+        });
+        enrolledStudentsButton.setOnClickListener((v)->{
+            startActivity(new Intent(getContext(), adminViewEnrolledStudents.class));
         });
         return view;
     }
