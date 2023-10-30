@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".home.student.addUnit.AddUnit">
+    <ImageButton
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@null"
+        android:src="@drawable/ic_arrow_back_black_24dp" />
+
+    <ScrollView
+        android:layout_below="@+id/back_button"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-127dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/layout_set_stage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/back_button"
+                android:orientation="horizontal">
+
+                <RadioGroup
+                    android:id="@+id/stage_radio_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <RadioButton
+                        android:id="@+id/y1s1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Y1S1"
+                        android:textSize="20sp" />
+
+                    <RadioButton
+                        android:id="@+id/y1s2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Y1S2"
+                        android:textSize="20sp" />
+
+                    <RadioButton
+                        android:id="@+id/y2s1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Y2S1"
+                        android:textSize="20sp" />
+
+                    <RadioButton
+                        android:id="@+id/y2s2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Y2S2"
+                        android:textSize="20sp" />
+
+                    <RadioButton
+                        android:id="@+id/y3s1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Y3S1"
+                        android:textSize="20sp" />
+
+                    <RadioButton
+                        android:id="@+id/y3s2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Y3S2"
+                        android:textSize="20sp" />
+
+                    <RadioButton
+                        android:id="@+id/y4s1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Y4S1"
+                        android:textSize="20sp" />
+
+                    <RadioButton
+                        android:id="@+id/y4s2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Y4S2"
+                        android:textSize="20sp" />
+
+                    <RadioButton
+                        android:id="@+id/y5s1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Y5S1"
+                        android:textSize="20sp" />
+
+                    <RadioButton
+                        android:id="@+id/y5s2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Y5S2"
+                        android:textSize="20sp" />
+                </RadioGroup>
+
+
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layout_set_stage"
+                android:orientation="horizontal"
+                android:paddingTop="40dp">
+
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="16dp"
+                    android:visibility="gone"
+                    app:indicatorColor="?attr/colorPrimary"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/units_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:paddingBottom="15dp"
+                    android:text="Loading Units..."
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/progress_bar"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <ListView
+                    android:paddingTop="10dp"
+                    android:id="@+id/units_list_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/progress_bar"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:choiceMode="multipleChoice"
+                    android:divider="@android:color/darker_gray"
+                    android:dividerHeight="1dp"
+                    android:listSelector="@android:color/darker_gray"
+                    android:padding="16dp" />
+            <LinearLayout
+                android:id="@+id/layout_units_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layout_set_stage"
+                android:orientation="vertical"
+                android:paddingTop="40dp">
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
