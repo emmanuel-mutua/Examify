@@ -1,12 +1,12 @@
     package com.emmutua.examify.home.student.addUnit;
 
     public class UnitDetails {
-        private String unitName;
-        private String unitCode;
-        private String unitLecturer;
+        private String unitName = "Unit Name";
+        private String unitCode = "Unit Code";
+        private String unitLecturer = "Unit Lecturer";
 
         private String unitDepartment = "Computer Science";
-        private String unitStage;
+        private String unitStage = "Stage 1";
         private Integer unitAssign1Marks = 0;
         private Integer unitAssign2Marks = 0;
         private Integer unitCat1Marks = 0;

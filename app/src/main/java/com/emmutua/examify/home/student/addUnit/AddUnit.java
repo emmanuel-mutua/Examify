@@ -15,12 +15,14 @@ import android.widget.Toast;
 
 import com.emmutua.examify.R;
 import com.emmutua.examify.home.student.StudentHomeViewModel;
+import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AddUnit extends AppCompatActivity {
     AddUnitViewModel addUnitViewModel;
+    MaterialButton add_units_button;
     private RadioGroup radioGroup;
     private ProgressBar progress_bar;
     private TextView unitsTextView;
@@ -36,6 +38,7 @@ public class AddUnit extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_unit);
         addUnitViewModel = new ViewModelProvider(this).get(AddUnitViewModel.class);
+        add_units_button = findViewById(R.id.add_units_button);
         back_button = findViewById(R.id.back_button);
         radioGroup = findViewById(R.id.stage_radio_group);
         unitsTextView = findViewById(R.id.units_text_view);
@@ -88,7 +91,15 @@ public class AddUnit extends AppCompatActivity {
                 Toast.makeText(AddUnit.this, "Selected: " + selectedStage[0], Toast.LENGTH_SHORT).show();
             }
         });
-
+        add_units_button.setOnClickListener(onClick -> {
+            Boolean isSuccess = addUnitViewModel.registerUnits(selectedUnits);
+            if (isSuccess == true){
+                Toast.makeText(this, "Units added successfully", Toast.LENGTH_SHORT).show();
+                finish();
+            } else {
+                Toast.makeText(this, "Please select atleast 5 units", Toast.LENGTH_SHORT).show();
+            }
+        });
         Toast.makeText(this, selectedStage[0], Toast.LENGTH_SHORT).show();
         adapter = new SingleSelectionAdapter(this, R.layout.list_radio_button, options);
         back_button.setOnClickListener(onClick -> {

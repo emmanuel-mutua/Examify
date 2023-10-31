@@ -52,6 +52,13 @@ public class AddUnitViewModel extends ViewModel {
     String uid = mAuth.getCurrentUser().getUid();
     CollectionReference registeredUnits = db.collection("students").document(uid).collection("registered_units");
     private MutableLiveData<List<String>> unitDetails = new MutableLiveData<>();
+    private MutableLiveData<String> _stage = new MutableLiveData<>();
+    private MutableLiveData<String> _unitName = new MutableLiveData<>();
+    private MutableLiveData<String> _unitCode = new MutableLiveData<>();
+    private MutableLiveData<String> _unitLecturer = new MutableLiveData<>();
+    private MutableLiveData<String> _unitDepartment = new MutableLiveData<>();
+    private String _unitStage;
+
     public LiveData<List<String>> getUnitDetails(){
         return unitDetails;
     }
@@ -71,6 +78,9 @@ public class AddUnitViewModel extends ViewModel {
                     String unitCode = document.getString("unitCode");
                     String unitLecturer = document.getString("unitLecturer");
                     String unitName = document.getString("unitName");
+                    _stage.setValue(unitStage);
+                    _unitCode.setValue(unitCode);
+                    _unitLecturer.setValue(unitLecturer);
                     new UnitDetails(unitName, unitCode, unitLecturer, "Computer Science", unitStage,0,0,0,0, 0 , 0);
                     unitDetailsList.add(unitName);
                 }
@@ -86,4 +96,28 @@ public class AddUnitViewModel extends ViewModel {
     }
 
 
+    public Boolean registerUnits(List<String> selectedUnits) {
+        if (selectedUnits.size() < 5) {
+            return false;
+        }
+         String unitCode =  _unitCode.getValue().toString();
+         String unitLecturer = _unitLecturer.getValue().toString();
+
+         String unitDepartment = "Computer Science";
+         String unitStage = _stage.getValue().toString();
+        for (String unitName : selectedUnits) {
+            UnitDetails unitDetails =  new UnitDetails(unitName, unitCode, unitLecturer, unitDepartment, unitStage,0,0,0,0, 0 , 0);
+            registeredUnits.add(unitDetails)
+                    .addOnSuccessListener(documentReference -> {
+                        // Unit added successfully
+                        String documentId = documentReference.getId();
+                        Log.d("Firestore", "Unit added with ID: " + documentId);
+                    })
+                    .addOnFailureListener(e -> {
+                        // Error occurred while adding the unit
+                        Log.e("Firestore", "Error adding unit", e);
+                    });
+        }
+        return true;
+    }
 }
