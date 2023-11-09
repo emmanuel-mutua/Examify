@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home_nav"
+        android:icon="@drawable/baseline_home_24"
+        android:title="Home" />
+
+    <item
+        android:id="@+id/courses"
+        android:icon="@drawable/courses"
+        android:title="Courses"
+        />
+
+    <item
+        android:id="@+id/academics"
+        android:icon="@drawable/academics"
+        android:title="Academics" />
+    <item
+        android:id="@+id/profile"
+        android:icon="@drawable/profile"
+        android:title="Profile" />
+</menu>

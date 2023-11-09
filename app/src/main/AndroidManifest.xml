@@ -31,7 +31,7 @@
             android:name=".home.admin.admin_homeScreen"
             android:exported="false" />
         <activity
-            android:name=".home.lecture.lecturer_homescreen"
+            android:name=".home.lecture.lecturer_homeScreen"
             android:exported="false" />
         <activity
             android:name=".home.student.student_homescreen"

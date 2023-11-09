@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.emmutua.examify.R;
 import com.emmutua.examify.home.admin.admin_homeScreen;
-import com.emmutua.examify.home.lecture.lecturer_homescreen;
+import com.emmutua.examify.home.lecture.lecturer_homeScreen;
 import com.emmutua.examify.home.student.student_homescreen;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -94,7 +94,7 @@ public class Login extends AppCompatActivity {
                                     } else if (role.equals("Lecturer")) {
                                         // Navigate to the lecturer homepage
                                         utility.showToast(Login.this, "Lecturer loggedIn");
-                                        startActivity(new Intent(Login.this, lecturer_homescreen.class));
+                                        startActivity(new Intent(Login.this, lecturer_homeScreen.class));
                                         finish();
                                     }
                                         else if (role.equals("admin")) {
