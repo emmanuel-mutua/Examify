@@ -13,7 +13,10 @@
         android:theme="@style/Base.Theme.Examify"
         tools:targetApi="31">
         <activity
-            android:name=".home.admin.addUnitsClass"
+            android:name=".home.admin.HomeBar.Units.adminViewUnits"
+            android:exported="false" />
+        <activity
+            android:name=".home.admin.HomeBar.EnrolledStudents.adminViewEnrolledStudents"
             android:exported="false" />
         <activity
             android:name=".authentication.welcomepage"
@@ -25,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".home.admin.admin_homescreen"
+            android:name=".home.admin.admin_homeScreen"
             android:exported="false" />
         <activity
             android:name=".home.lecture.lecturer_homescreen"

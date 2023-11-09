@@ -1,4 +1,4 @@
-package com.emmutua.examify.home.admin;
+package com.emmutua.examify.home.admin.AddUnitsBar;
 
 public class Units {
     // contains the details about the units registered by the admin
