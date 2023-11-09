@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.emmutua.examify.R;
-import com.emmutua.examify.home.admin.admin_homescreen;
+import com.emmutua.examify.home.admin.admin_homeScreen;
 import com.emmutua.examify.home.lecture.lecturer_homescreen;
 import com.emmutua.examify.home.student.student_homescreen;
 import com.google.firebase.auth.FirebaseAuth;
@@ -54,7 +54,7 @@ public class welcomepage extends AppCompatActivity {
                                 }
                                 else if (role.equals("admin")) {
                                     utility.showToast(welcomepage.this, "Admin loggedIn");
-                                    Intent adminIntent = new Intent(welcomepage.this, admin_homescreen.class);
+                                    Intent adminIntent = new Intent(welcomepage.this, admin_homeScreen.class);
                                     adminIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(adminIntent);
                                     finish();

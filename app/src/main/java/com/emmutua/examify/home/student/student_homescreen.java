@@ -1,14 +1,18 @@
 package com.emmutua.examify.home.student;
 
 import android.os.Bundle;
+import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.emmutua.examify.R;
 import com.emmutua.examify.databinding.ActivityStudentHomescreenBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-public class student_homescreen extends AppCompatActivity {
+import com.google.firebase.firestore.FirebaseFirestore;
 
+public class student_homescreen extends AppCompatActivity {
     ActivityStudentHomescreenBinding binding;
 
     BottomNavigationView bottomNavigationView;
@@ -16,6 +20,8 @@ public class student_homescreen extends AppCompatActivity {
     Fragment units_fragment = new Units();
     Fragment academics_fragment = new academics();
 
+
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,4 +49,6 @@ public class student_homescreen extends AppCompatActivity {
                 .replace(R.id.flFragment, fragment)
                 .commit();
     }
+
+
 }

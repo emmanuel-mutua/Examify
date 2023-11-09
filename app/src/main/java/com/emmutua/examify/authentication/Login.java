@@ -1,40 +1,27 @@
 package com.emmutua.examify.authentication;
 
-import static com.emmutua.examify.authentication.utility.showToast;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.emmutua.examify.R;
-import com.emmutua.examify.home.admin.admin_homescreen;
+import com.emmutua.examify.home.admin.admin_homeScreen;
 import com.emmutua.examify.home.lecture.lecturer_homescreen;
 import com.emmutua.examify.home.student.student_homescreen;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
 
 public class Login extends AppCompatActivity {
 
@@ -113,7 +100,7 @@ public class Login extends AppCompatActivity {
                                         else if (role.equals("admin")) {
                                             // Navigate to the lecturer homepage
                                             utility.showToast(Login.this,"Admin loggedIn");
-                                            startActivity(new Intent(Login.this, admin_homescreen.class));
+                                            startActivity(new Intent(Login.this, admin_homeScreen.class));
                                             finish();
                                     } else {
                                         utility.showToast(Login.this,"Unknown role: " + role);
