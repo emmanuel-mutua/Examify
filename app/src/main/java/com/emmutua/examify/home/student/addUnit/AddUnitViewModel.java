@@ -95,7 +95,6 @@ public class AddUnitViewModel extends ViewModel {
         });
     }
 
-
     public Boolean registerUnits(List<String> selectedUnits) {
         if (selectedUnits.size() < 5) {
             return false;
