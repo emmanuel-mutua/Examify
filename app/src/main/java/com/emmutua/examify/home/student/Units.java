@@ -4,14 +4,24 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.emmutua.examify.R;
 import com.emmutua.examify.home.student.addUnit.AddUnit;
+import com.emmutua.examify.home.student.addUnit.AddUnitViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,6 +29,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
  * create an instance of this fragment.
  */
 public class Units extends Fragment {
+    UnitsViewModel unitsViewModel;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -64,6 +75,21 @@ public class Units extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_units, container, false);
+        unitsViewModel = new ViewModelProvider(this).get(UnitsViewModel.class);
+        ListView listView = view.findViewById(R.id.all_units_list_view);
+        TextView noRegisteredUnitsText = view.findViewById(R.id.no_registered_units_text);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1);
+        listView.setAdapter(adapter);
+
+        unitsViewModel.getUnitDetails().observe(getViewLifecycleOwner(), allUnits -> {
+            if (allUnits != null) {
+                adapter.clear();
+                adapter.addAll(allUnits);
+                adapter.notifyDataSetChanged();
+            }else {
+                noRegisteredUnitsText.setVisibility(View.VISIBLE);
+            }
+        });
         FloatingActionButton addUnitFab = view.findViewById(R.id.add_unit_fab);
         addUnitFab.setOnClickListener(onClick -> {
             startActivity(new Intent(getActivity(), AddUnit.class));

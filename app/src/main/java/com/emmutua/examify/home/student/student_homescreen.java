@@ -21,7 +21,6 @@ public class student_homescreen extends AppCompatActivity {
     Fragment academics_fragment = new academics();
 
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

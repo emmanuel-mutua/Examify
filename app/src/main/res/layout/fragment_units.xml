@@ -35,6 +35,26 @@
                 android:text="No registered units"
                 android:textSize="18sp"
                 android:visibility="gone" />
+            <LinearLayout
+                android:id="@+id/units_list_view_layout"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_below="@+id/no_registered_units_text"
+                android:orientation="vertical"
+                android:paddingTop="10dp">
+                <ListView
+                    android:id="@+id/all_units_list_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="16dp"
+                    android:choiceMode="multipleChoice"
+                    android:divider="@android:color/darker_gray"
+                    android:dividerHeight="1dp"
+                    android:listSelector="@android:color/darker_gray"
+                    android:padding="16dp"/>
+            </LinearLayout>
 
         </RelativeLayout>
 

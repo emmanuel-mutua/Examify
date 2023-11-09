@@ -51,7 +51,7 @@ public class AddUnit extends AppCompatActivity {
         } else {
             // Handle the case where no radio button is selected
             // You can provide a default value or show an error message.
-            selectedStage[0] = "No selection"; // For example
+            selectedStage[0] = "Select Stage"; // For example
         }
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -62,8 +62,8 @@ public class AddUnit extends AppCompatActivity {
                 progress_bar.setVisibility(ProgressBar.VISIBLE);
                 try {
                     addUnitViewModel.getAllUnitsAccordingToStage(selectedStage[0]);
-                }catch (Exception e){
-                    Toast.makeText(AddUnit.this, "Error: "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    Toast.makeText(AddUnit.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
                 unitsTextView.setText("Select AtLeast 5 units");
                 addUnitViewModel.getUnitDetails().observe(AddUnit.this, units -> {
@@ -87,13 +87,11 @@ public class AddUnit extends AppCompatActivity {
                     });
                     progress_bar.setVisibility(ProgressBar.INVISIBLE);
                 });
-
-                Toast.makeText(AddUnit.this, "Selected: " + selectedStage[0], Toast.LENGTH_SHORT).show();
             }
         });
         add_units_button.setOnClickListener(onClick -> {
             Boolean isSuccess = addUnitViewModel.registerUnits(selectedUnits);
-            if (isSuccess == true){
+            if (isSuccess == true) {
                 Toast.makeText(this, "Units added successfully", Toast.LENGTH_SHORT).show();
                 finish();
             } else {
