@@ -1,6 +1,8 @@
 package com.emmutua.examify.home.student;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.emmutua.examify.R;
+import com.emmutua.examify.authentication.Login;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,28 +72,35 @@ public class home extends Fragment {
         studentHomeViewModel = new ViewModelProvider(this).get(StudentHomeViewModel.class);
 
         TextView greetingTextView = view.findViewById(R.id.greetingTextView);
-        TextView courseTextView = view.findViewById(R.id.courseTextView);
         TextView regNoTextView = view.findViewById(R.id.regNoTextView);
         TextView nameTextView = view.findViewById(R.id.nameTextView);
-        TextView semesterTextView = view.findViewById(R.id.currentSemesterTextView);
         TextView emailTextView = view.findViewById(R.id.emailTextView);
         TextView phoneTextView = view.findViewById(R.id.phoneTextView);
+
+        TextView logoutTextView = view.findViewById(R.id.logoutTextView);
+        logoutTextView.setOnClickListener(v -> {
+            new AlertDialog.Builder(requireContext())
+                    .setTitle("Confirm Logout")
+                    .setMessage("Are you sure you want to log out?")
+                    .setPositiveButton("Yes", (dialog, which) -> {
+                        // Perform the logout action
+                        studentHomeViewModel.logout();
+                        startActivity(new Intent(getContext(), Login.class));
+                        requireActivity().finish(); // Finish the current activity
+                    })
+                    .setNegativeButton("No", null)  // Do nothing if "No" is clicked
+                    .show();
+        });
 
         // Observe LiveData from the ViewModel and update UI elements
         studentHomeViewModel.getGreetingText().observe(getViewLifecycleOwner(), greeting -> {
             greetingTextView.setText(greeting);
-        });
-        studentHomeViewModel.getCourseText().observe(getViewLifecycleOwner(), course -> {
-            courseTextView.setText(course);
         });
         studentHomeViewModel.getRegNoText().observe(getViewLifecycleOwner(), regNo -> {
             regNoTextView.setText(regNo);
         });
         studentHomeViewModel.getNameText().observe(getViewLifecycleOwner(), name -> {
             nameTextView.setText(name);
-        });
-        studentHomeViewModel.getSemesterText().observe(getViewLifecycleOwner(), semester -> {
-            semesterTextView.setText(semester);
         });
         studentHomeViewModel.getEmailText().observe(getViewLifecycleOwner(), email -> {
             emailTextView.setText(email);

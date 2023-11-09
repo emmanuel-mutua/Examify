@@ -60,10 +60,13 @@ public class welcomepage extends AppCompatActivity {
                                     finish();
                                 }
                                 else {
-                                    utility.showToast(welcomepage.this, "Unknown role: " + role);
-                                }
+                                    Intent loginIntent = new Intent(welcomepage.this, Login.class);
+                                    loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(loginIntent);                                }
                             } else {
-                                utility.showToast(welcomepage.this, "User role not found.");
+                                Intent loginIntent = new Intent(welcomepage.this, Login.class);
+                                loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(loginIntent);
                             }
                         }
                     });

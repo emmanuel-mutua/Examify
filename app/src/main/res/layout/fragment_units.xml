@@ -1,0 +1,72 @@
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/courses_fragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".home.student.Units">
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="fill_vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <!-- "Registered units" text -->
+            <TextView
+                android:id="@+id/registered_units_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Registered units"
+                android:textSize="24sp" />
+
+            <!-- "No registered units" text (initially not visible) -->
+            <TextView
+                android:id="@+id/no_registered_units_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No registered units"
+                android:textSize="18sp"
+                android:visibility="gone" />
+            <LinearLayout
+                android:id="@+id/units_list_view_layout"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_below="@+id/no_registered_units_text"
+                android:orientation="vertical"
+                android:paddingTop="10dp">
+                <ListView
+                    android:id="@+id/all_units_list_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="16dp"
+                    android:choiceMode="multipleChoice"
+                    android:divider="@android:color/darker_gray"
+                    android:dividerHeight="1dp"
+                    android:listSelector="@android:color/darker_gray"
+                    android:padding="16dp"/>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_unit_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_gravity="bottom|end"
+        android:src="@drawable/ic_add"
+        app:elevation="6dp" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

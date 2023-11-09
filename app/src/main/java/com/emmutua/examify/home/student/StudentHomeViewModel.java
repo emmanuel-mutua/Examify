@@ -88,4 +88,8 @@ public class StudentHomeViewModel extends ViewModel {
         });
     }
 
+    void logout() {
+        auth.signOut();
+    }
+
 }
