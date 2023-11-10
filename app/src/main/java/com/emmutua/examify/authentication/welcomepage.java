@@ -1,19 +1,15 @@
 package com.emmutua.examify.authentication;
 
-import static com.emmutua.examify.authentication.utility.showToast;
-
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.View;
 import android.widget.Button;
 
 import com.emmutua.examify.R;
 import com.emmutua.examify.home.admin.admin_homeScreen;
-import com.emmutua.examify.home.lecture.lecturer_homescreen;
+import com.emmutua.examify.home.lecture.lecturer_homeScreen;
 import com.emmutua.examify.home.student.student_homescreen;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -47,7 +43,7 @@ public class welcomepage extends AppCompatActivity {
                                 } else if (role.equals("Lecturer")) {
                                     // Navigate to the lecturer homepage and clear the activity stack
                                     utility.showToast(welcomepage.this, "Lecture loggedIn");
-                                    Intent lecturerIntent = new Intent(welcomepage.this, lecturer_homescreen.class);
+                                    Intent lecturerIntent = new Intent(welcomepage.this, lecturer_homeScreen.class);
                                     lecturerIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(lecturerIntent);
                                     finish(); // Finish the current welcome page activity
