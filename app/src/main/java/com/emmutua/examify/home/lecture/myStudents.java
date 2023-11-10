@@ -18,8 +18,8 @@ import java.util.ArrayList;
 
 public class myStudents extends AppCompatActivity {
     RecyclerView recyclerView;
-    StudentsAdapter studentsAdapter;
-    List<Student> studentsList;
+    //StudentsAdapter studentsAdapter;
+//    List<Student> studentsList;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -27,11 +27,11 @@ public class myStudents extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_students);
         recyclerView = findViewById(R.id.lecturer_recyclerView);
-        studentsList = new ArrayList<>();
-        studentsAdapter = new StudentsAdapter(studentsList);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(studentsAdapter);
+//        studentsList = new ArrayList<>();
+//        studentsAdapter = new StudentsAdapter(studentsList);
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+//        recyclerView.setLayoutManager(layoutManager);
+//        recyclerView.setAdapter(studentsAdapter);
 
         fetchAllMyStudentsFromFirebase();
 
@@ -43,7 +43,7 @@ public class myStudents extends AppCompatActivity {
         firebaseFirestore.collection("students")
                 .get().addOnCompleteListener(task -> {
                     if (task.isSuccessful()){
-                        studentsList.clear();
+//                        studentsList.clear();
                         for(QueryDocumentSnapshot studentDocument: task.getResult()){
                             String studentID = studentDocument.getId();
                             //Fetch the user document for the studentId from the users collection

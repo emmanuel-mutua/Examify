@@ -1,6 +1,7 @@
 package com.emmutua.examify.home.admin.HomeBar;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -23,7 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
  * create an instance of this fragment.
  */
 public class adminHome extends Fragment {
-    Button allUnitsButton,enrolledStudentsButton;
+    Button allUnitsButton, enrolledStudentsButton;
     Button logOutButton;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -77,14 +78,21 @@ public class adminHome extends Fragment {
         logOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut(); // Log out the user
-                // Start the login activity
-                Intent intent = new Intent(getContext(), Login.class); // Replace YourCurrentActivity with your current activity class and LoginActivity with your login activity class
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK); // This clears the current activity stack and creates a new one.
-                startActivity(intent);
-                getActivity().finish();
                 // logout user
-
+                new AlertDialog.Builder(requireContext())
+                        .setTitle("Confirm Logout")
+                        .setMessage("Are you sure you want to log out?")
+                        .setPositiveButton("Yes", (dialog, which) -> {
+                            // Perform the logout action
+                            FirebaseAuth.getInstance().signOut(); // Log out the user
+                            // Start the login activity
+                            Intent intent = new Intent(getContext(), Login.class); // Replace YourCurrentActivity with your current activity class and LoginActivity with your login activity class
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK); // This clears the current activity stack and creates a new one.
+                            startActivity(intent);
+                            getActivity().finish();
+                        })
+                        .setNegativeButton("No", null)  // Do nothing if "No" is clicked
+                        .show();
             }
         });
         allUnitsButton.setOnClickListener(new View.OnClickListener() {
@@ -93,7 +101,7 @@ public class adminHome extends Fragment {
                 startActivity(new Intent(getContext(), adminViewUnits.class));
             }
         });
-        enrolledStudentsButton.setOnClickListener((v)->{
+        enrolledStudentsButton.setOnClickListener((v) -> {
             startActivity(new Intent(getContext(), adminViewEnrolledStudents.class));
         });
         return view;
