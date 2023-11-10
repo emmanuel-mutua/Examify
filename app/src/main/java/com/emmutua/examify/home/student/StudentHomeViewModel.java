@@ -75,8 +75,8 @@ public class StudentHomeViewModel extends ViewModel {
                 // Update LiveData with the retrieved data
                 greetingText.setValue("Hi there, " + userFullName);
 //                courseText.setValue("Course: " + userCourse);
-                regNoText.setValue("RegNo: " + userRegNo);
-                nameText.setValue("Name: " + userName);
+                regNoText.setValue(userRegNo);
+                nameText.setValue(userName);
 //                semesterText.setValue("Current Semester: " + userSemester);
                 emailText.setValue("Email: " + userEmail);
                 phoneText.setValue("Phone: " + userPhone);
