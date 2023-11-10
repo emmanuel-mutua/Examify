@@ -106,7 +106,13 @@ public class SignUp extends AppCompatActivity {
                                                         String uid = user.getUid();
                                                         // Email sent successfully
                                                         User newUser = new User(uid, email, fullName, regNo, selectedRole, phoneNumber);
-                                                        saveUserToFirestore(newUser);
+                                                        LecturerDetails lecturerDetails = new LecturerDetails(uid, fullName, "", "", false);
+                                                        if (selectedRole.equals("Lecturer")){
+                                                            saveUserToFirestore(newUser);
+                                                            saveLectureDetails(lecturerDetails);
+                                                        }else {
+                                                            saveUserToFirestore(newUser);
+                                                        }
                                                         showToast("Account created successfully. Check your email to verify.");
                                                         finish();
                                                     } else {
@@ -135,6 +141,21 @@ public class SignUp extends AppCompatActivity {
                            String errorMessage =  task.getException().getLocalizedMessage();
                             Log.d("SignUpError", errorMessage);
                             showToast(errorMessage);
+                        }
+                    }
+                });
+    }
+    void saveLectureDetails(LecturerDetails lecturerDetails) {
+        firestore.collection("lectures")
+                .add(lecturerDetails)
+                .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentReference> task) {
+                        if (task.isSuccessful()) {
+                            // data saved to Firestore
+                        } else {
+                            String errorMessage =  task.getException().getLocalizedMessage();
+                            Log.d("FireStore", errorMessage);
                         }
                     }
                 });
