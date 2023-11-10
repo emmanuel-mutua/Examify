@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Erastus Munyao Kyalo"
-        android:id="@+id/student_name"
+        android:id="@+id/student_name_id"
         android:textSize="25sp"
         />
     <TextView

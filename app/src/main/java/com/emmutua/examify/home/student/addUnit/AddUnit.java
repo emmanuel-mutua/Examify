@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AddUnit extends AppCompatActivity {
+    StudentHomeViewModel studentHomeViewModel;
     AddUnitViewModel addUnitViewModel;
     MaterialButton add_units_button;
     private RadioGroup radioGroup;
@@ -37,6 +38,7 @@ public class AddUnit extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_unit);
+        studentHomeViewModel = new ViewModelProvider(this).get(StudentHomeViewModel.class);
         addUnitViewModel = new ViewModelProvider(this).get(AddUnitViewModel.class);
         add_units_button = findViewById(R.id.add_units_button);
         back_button = findViewById(R.id.back_button);
@@ -90,7 +92,10 @@ public class AddUnit extends AppCompatActivity {
             }
         });
         add_units_button.setOnClickListener(onClick -> {
-            Boolean isSuccess = addUnitViewModel.registerUnits(selectedUnits);
+            String studentName = studentHomeViewModel.getNameText().getValue();
+            String studentRegNo = studentHomeViewModel.getRegNoText().getValue();
+
+            Boolean isSuccess = addUnitViewModel.registerUnits(selectedUnits, studentName, studentRegNo);
             if (isSuccess == true) {
                 Toast.makeText(this, "Units added successfully", Toast.LENGTH_SHORT).show();
                 finish();

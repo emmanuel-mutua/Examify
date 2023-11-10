@@ -81,7 +81,7 @@ public class AddUnitViewModel extends ViewModel {
                     _stage.setValue(unitStage);
                     _unitCode.setValue(unitCode);
                     _unitLecturer.setValue(unitLecturer);
-                    new UnitDetails(unitName, unitCode, unitLecturer, "Computer Science", unitStage,0,0,0,0, 0 , 0);
+//                    new UnitDetails(unitName, unitCode, unitLecturer, "Computer Science", unitStage,0,0,0,0, 0 , 0);
                     unitDetailsList.add(unitName);
                 }
                 setUnitDetails(unitDetailsList);
@@ -95,17 +95,17 @@ public class AddUnitViewModel extends ViewModel {
         });
     }
 
-    public Boolean registerUnits(List<String> selectedUnits) {
+    public Boolean registerUnits(List<String> selectedUnits, String studentName, String studentRegNo) {
         if (selectedUnits.size() < 5) {
             return false;
         }
          String unitCode =  _unitCode.getValue().toString();
          String unitLecturer = _unitLecturer.getValue().toString();
-
          String unitDepartment = "Computer Science";
          String unitStage = _stage.getValue().toString();
+
         for (String unitName : selectedUnits) {
-            UnitDetails unitDetails =  new UnitDetails(unitName, unitCode, unitLecturer, unitDepartment, unitStage,0,0,0,0, 0 , 0);
+            UnitDetails unitDetails =  new UnitDetails(uid,studentName, studentRegNo, unitName, unitCode, unitLecturer, unitDepartment, unitStage,0,0,0,0, 0 , 0);
             registeredUnits.add(unitDetails)
                     .addOnSuccessListener(documentReference -> {
                         // Unit added successfully

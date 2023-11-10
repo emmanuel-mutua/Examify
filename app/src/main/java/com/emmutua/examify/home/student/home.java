@@ -97,10 +97,10 @@ public class home extends Fragment {
             greetingTextView.setText(greeting);
         });
         studentHomeViewModel.getRegNoText().observe(getViewLifecycleOwner(), regNo -> {
-            regNoTextView.setText(regNo);
+            regNoTextView.setText("RegNo: " + regNo);
         });
         studentHomeViewModel.getNameText().observe(getViewLifecycleOwner(), name -> {
-            nameTextView.setText(name);
+            nameTextView.setText("Name: " + name);
         });
         studentHomeViewModel.getEmailText().observe(getViewLifecycleOwner(), email -> {
             emailTextView.setText(email);
