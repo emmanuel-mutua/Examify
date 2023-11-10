@@ -78,29 +78,27 @@
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
-                <EditText
-                    android:id="@+id/unit_lecturer"
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:hint="Unit Lecturer"
-                    android:maxLines="1"
+                    android:layout_marginTop="20dp"
+                    android:text="Choose respective lecturer"
                     android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-
-                <EditText
-                    android:id="@+id/semester_stage"
-                    android:layout_width="290sp"
+                    android:textSize="20sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:hint="Semester"
-                    android:inputType="textPassword"
-                    android:maxLines="1"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/unit_lecturer_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:spinnerMode="dropdown"
+                        />
+                </LinearLayout>
+
 
                 <TextView
                     android:layout_width="match_parent"

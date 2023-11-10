@@ -2,7 +2,7 @@ package com.emmutua.examify.home.admin.AddUnitsBar;
 
 public class Units {
     // contains the details about the units registered by the admin
-    String unitName, unitCode, unitLecturer, semester, role;
+    String unitName, unitCode, unitLecturer, role;
 
     public String getUnitName() {
         return unitName;
@@ -28,13 +28,6 @@ public class Units {
         this.unitLecturer = unitLecturer;
     }
 
-    public String getSemester() {
-        return semester;
-    }
-
-    public void setSemester(String semester) {
-        this.semester = semester;
-    }
 
     public String getRole() {
         return role;
@@ -45,11 +38,10 @@ public class Units {
     }
 
     // set setter and getter
-    public Units(String unitName, String unitCode, String unitLecturer, String semester, String role) {
+    public Units(String unitName, String unitCode, String unitLecturer, String role) {
         this.unitName = unitName;
         this.unitCode = unitCode;
         this.unitLecturer = unitLecturer;
-        this.semester = semester;
         this.role = role;
     }
 
