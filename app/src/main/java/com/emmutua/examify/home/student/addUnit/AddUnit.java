@@ -18,7 +18,9 @@ import com.emmutua.examify.home.student.StudentHomeViewModel;
 import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AddUnit extends AppCompatActivity {
     StudentHomeViewModel studentHomeViewModel;
@@ -32,7 +34,7 @@ public class AddUnit extends AppCompatActivity {
     SingleSelectionAdapter adapter;
     private String[] options = {"Y1S1", "Y1S2", "Y2S1", "Y2S2", "Y3S1", "Y3S2", "Y4S1", "Y4S2", "Y5S1", "Y5S2"};
     ImageButton back_button;
-    private List<String> selectedUnits = new ArrayList<>();
+    private Map<String, UnitDetails> selectedUnitsMap = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,10 +70,13 @@ public class AddUnit extends AppCompatActivity {
                     Toast.makeText(AddUnit.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
                 unitsTextView.setText("Select AtLeast 5 units");
-                addUnitViewModel.getUnitDetails().observe(AddUnit.this, units -> {
+//                addUnitViewModel.getUnitDetails().observe(AddUnit.this, units -> {
+                addUnitViewModel.getUnitDetailsModels().observe(AddUnit.this, units -> {
+                    List<UnitDetails> unitModels = new ArrayList<>();
                     List<String> unitNames = new ArrayList<>();
                     for (int i = 0; i < units.size(); i++) {
-                        unitNames.add(units.get(i).toString());
+                        unitNames.add(units.get(i).getUnitName());
+                        unitModels.add(units.get(i));
                     }
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(AddUnit.this, android.R.layout.simple_list_item_multiple_choice, unitNames);
                     ListView listView = findViewById(R.id.units_list_view);
@@ -81,21 +86,35 @@ public class AddUnit extends AppCompatActivity {
                         boolean isChecked = listView.isItemChecked(position);
                         String selectedUnitName = unitNames.get(position);
                         if (isChecked) {
-                            selectedUnits.add(selectedUnitName);
+                            for (UnitDetails unitDetails : unitModels) {
+                                // Assuming there's a method in UnitDetails to get the unit name, adjust as needed
+                                String unitName = unitDetails.getUnitName();
+                                // Check if the unit name matches the selectedUnitName
+                                if (unitName != null && unitName.equals(selectedUnitName)) {
+                                   // The selectedUnitName is found in the list
+                                    selectedUnitsMap.put(selectedUnitName, unitDetails);
+                                }
+                            }
                             // Add the selected unit to your list
                         } else {
-                            selectedUnits.remove(selectedUnitName);
+                            selectedUnitsMap.remove(selectedUnitName);
                         }
                     });
                     progress_bar.setVisibility(ProgressBar.INVISIBLE);
                 });
             }
         });
+        addUnitViewModel.getToastMessage().observe(this, message -> {
+            if (message != null) {
+                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+            }
+        });
+
         add_units_button.setOnClickListener(onClick -> {
             String studentName = studentHomeViewModel.getNameText().getValue();
             String studentRegNo = studentHomeViewModel.getRegNoText().getValue();
 
-            Boolean isSuccess = addUnitViewModel.registerUnits(selectedUnits, studentName, studentRegNo);
+            Boolean isSuccess = addUnitViewModel.registerUnits(studentName, studentRegNo, selectedUnitsMap);
             if (isSuccess == true) {
                 Toast.makeText(this, "Units added successfully", Toast.LENGTH_SHORT).show();
                 finish();
@@ -110,4 +129,10 @@ public class AddUnit extends AppCompatActivity {
         });
 
     }
+    private boolean doesUnitListContainName(List<UnitDetails> unitDetailsList, String selectedUnitName) {
+
+        return false; // The selectedUnitName is not found in the list
+    }
+
+
 }

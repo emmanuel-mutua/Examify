@@ -34,9 +34,11 @@ public class UnitsViewModel extends ViewModel {
         this.allUnitDetails.setValue(unitDetails);
     }
     private void getAllStudentUnits() {
-        CollectionReference registeredUnits = db.collection("students").document(uid).collection("registered_units");
+        CollectionReference registeredUnits = db.collection("students_registered_units");
 
-        registeredUnits.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        registeredUnits.whereEqualTo("studentUid", uid)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 List<String> allUnitDetailsList = new ArrayList<>();
