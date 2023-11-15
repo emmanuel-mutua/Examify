@@ -11,6 +11,7 @@ import com.emmutua.examify.R;
 import com.emmutua.examify.databinding.ActivityAdminHomescreenBinding;
 import com.emmutua.examify.home.admin.AddUnitsBar.adminAddUnits;
 import com.emmutua.examify.home.admin.HomeBar.adminHome;
+import com.emmutua.examify.home.admin.StudentsPerformanceBar.studentsPerfomanceFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class admin_homeScreen extends AppCompatActivity {
     Toolbar toolbar;
@@ -18,6 +19,7 @@ public class admin_homeScreen extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
     Fragment admin_home_fragment = new adminHome();
+    Fragment admin_students_performance_fragment = new studentsPerfomanceFragment();
     Fragment admin_add_units_fragment = new adminAddUnits();
 
 
@@ -25,15 +27,6 @@ public class admin_homeScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_homescreen);
-       // toolbar = findViewById(R.id.admin_toolbar);
-        //setSupportActionBar(toolbar);
-        // Set the title in the ActionBar (AppBar)
-        //getSupportActionBar().setTitle("Admin Home");
-        // Enable the "up" button (back button)
-       // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //getSupportActionBar().setDisplayShowHomeEnabled(true);
-        // Handle the navigation button click (e.g., to navigate back)
-        //toolbar.setNavigationOnClickListener(v -> onBackPressed());
         binding = ActivityAdminHomescreenBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         replaceFragment(admin_home_fragment);
@@ -44,6 +37,8 @@ public class admin_homeScreen extends AppCompatActivity {
                 replaceFragment(admin_home_fragment);
             }else if (id == R.id.admin_nav_addUnit){
                 replaceFragment(admin_add_units_fragment);
+            } else if (id == R.id.admin_nav_studentsPerformance){
+                replaceFragment(admin_students_performance_fragment);
             }
             return true;
         });

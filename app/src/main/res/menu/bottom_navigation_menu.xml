@@ -10,5 +10,10 @@
         android:title="Add Unit"
         android:icon="@drawable/baseline_add_24"
         />
+    <item
+        android:id="@+id/admin_nav_studentsPerformance"
+        android:title="Performance"
+        android:icon="@drawable/baseline_read_more_24"
+        />
 
 </menu>

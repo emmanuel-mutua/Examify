@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:fillViewport="true"
+tools:context=".home.admin.StudentsPerformanceBar.studentsPerfomanceFragment">
+<FrameLayout
+    android:id="@+id/fragment_admin_home"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        tools:ignore="ExtraText">
+            <!--Students who have passed all units in a semester-->
+            <androidx.cardview.widget.CardView
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:id="@+id/passedAllCoursesInASemester"
+                android:layout_width="match_parent"
+                app:cardElevation="4dp"
+                app:cardCornerRadius="4dp"
+                app:cardBackgroundColor="@color/white"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+                    <TextView
+                        android:gravity="start"
+                        android:layout_width="match_parent"
+                        android:textColor="@android:color/black"
+                        android:layout_height="wrap_content"
+                        android:text="Pass List Per Semester"
+                        android:textSize="18sp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+            <!--Students Who have passed in All units in An academic year-->
+            <androidx.cardview.widget.CardView
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:id="@+id/studentPassedUnitsInAcademicYear"
+                android:layout_width="match_parent"
+                app:cardElevation="4dp"
+                app:cardCornerRadius="4dp"
+                app:cardBackgroundColor="@color/white"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+                    <TextView
+                        android:gravity="start"
+                        android:layout_width="match_parent"
+                        android:textColor="@android:color/black"
+                        android:layout_height="wrap_content"
+                        android:text="Pass List Per Academic Year"
+                        android:textSize="18sp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+            <!--Failed in one or more courses and the courses they failed in-->
+            <androidx.cardview.widget.CardView
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:id="@+id/studentsFailedOneOrMoreCourses_andTheCoursesFailed"
+                android:layout_width="match_parent"
+                app:cardElevation="4dp"
+                app:cardCornerRadius="4dp"
+                app:cardBackgroundColor="@color/white"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+                    <TextView
+                        android:gravity="start"
+                        android:layout_width="match_parent"
+                        android:textColor="@android:color/black"
+                        android:layout_height="wrap_content"
+                        android:text="Fail List Per Semester"
+                        android:textSize="18sp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+            <!--List of Supp in an academic year-->
+            <androidx.cardview.widget.CardView
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:id="@+id/ListOfSupplementaryStudents"
+                android:layout_width="match_parent"
+                app:cardElevation="4dp"
+                app:cardCornerRadius="4dp"
+                app:cardBackgroundColor="@color/white"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+                    <TextView
+                        android:gravity="start"
+                        android:layout_width="match_parent"
+                        android:textColor="@android:color/black"
+                        android:layout_height="wrap_content"
+                        android:text="Supplementary List Per Academic Year"
+                        android:textSize="18sp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+    <!--List of Special Examination-->
+    <androidx.cardview.widget.CardView
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:id="@+id/ListOfSpecialExaminationStudents"
+        android:layout_width="match_parent"
+        app:cardElevation="4dp"
+        app:cardCornerRadius="4dp"
+        app:cardBackgroundColor="@color/white"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+            <TextView
+                android:gravity="start"
+                android:layout_width="match_parent"
+                android:textColor="@android:color/black"
+                android:layout_height="wrap_content"
+                android:text="List of Special Examination"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+    <!--List of Students Who Do Not Have Marks Both Cats And Exam In At Least One Course-->
+    <androidx.cardview.widget.CardView
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:id="@+id/StudentsWhoDoNotHaveMarksBothCatsAndExamInAtLeastOneCourse"
+        android:layout_width="match_parent"
+        app:cardElevation="4dp"
+        app:cardCornerRadius="4dp"
+        app:cardBackgroundColor="@color/white"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+            <TextView
+                android:gravity="start"
+                android:layout_width="match_parent"
+                android:textColor="@android:color/black"
+                android:layout_height="wrap_content"
+                android:text="Missing Marks in at least one course"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+    <!--Students Who Registered But Are Missing Marks In All The Course-->
+    <androidx.cardview.widget.CardView
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:id="@+id/StudentsWhoRegisteredButAreMissingMarksInAllTheCourse"
+        android:layout_width="match_parent"
+        app:cardElevation="4dp"
+        app:cardCornerRadius="4dp"
+        app:cardBackgroundColor="@color/white"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+            <TextView
+                android:gravity="start"
+                android:layout_width="match_parent"
+                android:textColor="@android:color/black"
+                android:layout_height="wrap_content"
+                android:text="Missing Marks all the courses"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+    <!-- Students Attempting Course for the second Time-->
+        <androidx.cardview.widget.CardView
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:id="@+id/StudentsAttemptingCourseForSecondTime"
+            android:layout_width="match_parent"
+            app:cardElevation="4dp"
+            app:cardCornerRadius="4dp"
+            app:cardBackgroundColor="@color/white"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+                <TextView
+                    android:gravity="start"
+                    android:layout_width="match_parent"
+                    android:textColor="@android:color/black"
+                    android:layout_height="wrap_content"
+                    android:text="Students Attempting Course For Second Time"
+                    android:textSize="18sp" />
+            </LinearLayout>
+    </androidx.cardview.widget.CardView>
+    </LinearLayout>
+</FrameLayout>
+</ScrollView>
+
