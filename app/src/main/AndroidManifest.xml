@@ -11,8 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Base.Theme.Examify"
-        tools:targetApi="31"
-        tools:ignore="ExtraText">
+        tools:ignore="ExtraText"
+        tools:targetApi="31">
+        <activity
+            android:name=".home.admin.StudentsPerformanceBar.PassListPerSemester"
+            android:exported="false" />
         <activity
             android:name=".home.student.addUnit.AddUnit"
             android:exported="false"
