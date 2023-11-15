@@ -104,6 +104,12 @@ public class AddUnit extends AppCompatActivity {
                 });
             }
         });
+        addUnitViewModel.getToastMessage().observe(this, message -> {
+            if (message != null) {
+                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+            }
+        });
+
         add_units_button.setOnClickListener(onClick -> {
             String studentName = studentHomeViewModel.getNameText().getValue();
             String studentRegNo = studentHomeViewModel.getRegNoText().getValue();

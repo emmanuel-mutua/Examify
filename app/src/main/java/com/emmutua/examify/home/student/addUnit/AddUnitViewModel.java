@@ -48,6 +48,13 @@ public class AddUnitViewModel extends ViewModel {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     String uid = mAuth.getCurrentUser().getUid();
+    private MutableLiveData<String> toastMessage = new MutableLiveData<>();
+    public LiveData<String> getToastMessage() {
+        return toastMessage;
+    }
+    public void setToastMessage(String toastMessage) {
+        this.toastMessage.setValue(toastMessage);
+    }
     CollectionReference registeredUnits = db.collection("students_registered_units");
     private MutableLiveData<List<String>> unitDetails = new MutableLiveData<>();
     private MutableLiveData<List<UnitDetails>> unitDetailsModel = new MutableLiveData<>();
@@ -91,7 +98,7 @@ public class AddUnitViewModel extends ViewModel {
                     _stage.setValue(unitStage);
                     _unitCode.setValue(unitCode);
                     _unitLecturer.setValue(unitLecturer);
-                    UnitDetails unitDetails1 = new UnitDetails("","","",unitName, unitCode, unitLecturer, "Computer Science", unitStage,0,0,0,0, 0 , 0);
+                    UnitDetails unitDetails1 = new UnitDetails("", "", "", unitName, unitCode, unitLecturer, "Computer Science", unitStage, 0, 0, 0, 0, 0, 0);
                     unitDetailsModels.add(unitDetails1);
                     unitDetailsList.add(unitName);
                 }
@@ -112,23 +119,40 @@ public class AddUnitViewModel extends ViewModel {
             return false;
         }
 
-        for (Map.Entry<String,UnitDetails> entry : selectedUnitsMap.entrySet()){
+        for (Map.Entry<String, UnitDetails> entry : selectedUnitsMap.entrySet()) {
             UnitDetails unitDetailsFromMap = entry.getValue();
             unitDetailsFromMap.setStudentName(studentName);
             unitDetailsFromMap.setStudentUid(uid);
             unitDetailsFromMap.setRegistrationNumber(studentRegNo);
-            unitDetailsFromMap.setUnitDepartment("Computer Science");
-            registeredUnits.add(unitDetailsFromMap)
-                    .addOnSuccessListener(documentReference -> {
-                        // Unit added successfully
-                        String documentId = documentReference.getId();
-                        Log.d("Firestore", "Unit added with ID: " + documentId);
-                    })
-                    .addOnFailureListener(e -> {
-                        // Error occurred while adding the unit
-                        Log.e("Firestore", "Error adding unit", e);
+            registeredUnits
+                    .whereEqualTo("unitCode", unitDetailsFromMap.getUnitCode())
+                    .whereEqualTo("studentUid", uid)
+                    .get()
+                    .addOnSuccessListener(queryDocumentSnapshots -> {
+                        if (queryDocumentSnapshots.isEmpty()) {
+                            registeredUnits.add(unitDetailsFromMap)
+                                    .addOnSuccessListener(documentReference -> {
+                                        // Unit added successfully
+                                        String documentId = documentReference.getId();
+                                        Log.d("Firestore", "Unit added with ID: " + documentId);
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        // Error occurred while adding the unit
+                                        Log.e("Firestore", "Error adding unit", e);
+                                    });
+                            unitDetailsFromMap.setUnitDepartment("Computer Science");
+                        } else {
+                            // Document already exists, handle accordingly
+                            Log.d("Firestore", "Unit already exists");
+                            setToastMessage("Unit already exists");
+                            return;
+                        }
+                    }).addOnFailureListener(e -> {
+                        // Handle any errors that occur.
+                        Log.e("Firestore", "Error checking document existence: ", e);
                     });
         }
         return true;
     }
+
 }
