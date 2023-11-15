@@ -1,9 +1,9 @@
 package com.emmutua.examify.home.admin.StudentsPerformanceBar;
 
 public class StudentMark {
-String studentName,
-        studentRegNo,assignment1Marks,assignment2Marks,cat1Marks,cat2Marks,ExamMarks;
-    public StudentMark(String studentName, String studentRegNo, String assignment1Marks, String assignment2Marks, String cat1Marks, String cat2Marks, String examMarks) {
+String studentName, studentRegNo;
+Integer assignment1Marks,assignment2Marks,cat1Marks,cat2Marks,ExamMarks;
+    public StudentMark(String studentName, String studentRegNo, Integer assignment1Marks, Integer assignment2Marks, Integer cat1Marks, Integer cat2Marks, Integer examMarks) {
         this.studentName = studentName;
         this.studentRegNo = studentRegNo;
         this.assignment1Marks = assignment1Marks;
@@ -29,43 +29,43 @@ String studentName,
         this.studentRegNo = studentRegNo;
     }
 
-    public String getAssignment1Marks() {
+    public Integer getAssignment1Marks() {
         return assignment1Marks;
     }
 
-    public void setAssignment1Marks(String assignment1Marks) {
+    public void setAssignment1Marks(Integer assignment1Marks) {
         this.assignment1Marks = assignment1Marks;
     }
 
-    public String getAssignment2Marks() {
+    public Integer getAssignment2Marks() {
         return assignment2Marks;
     }
 
-    public void setAssignment2Marks(String assignment2Marks) {
+    public void setAssignment2Marks(Integer assignment2Marks) {
         this.assignment2Marks = assignment2Marks;
     }
 
-    public String getCat1Marks() {
+    public Integer getCat1Marks() {
         return cat1Marks;
     }
 
-    public void setCat1Marks(String cat1Marks) {
+    public void setCat1Marks(Integer cat1Marks) {
         this.cat1Marks = cat1Marks;
     }
 
-    public String getCat2Marks() {
+    public Integer getCat2Marks() {
         return cat2Marks;
     }
 
-    public void setCat2Marks(String cat2Marks) {
+    public void setCat2Marks(Integer cat2Marks) {
         this.cat2Marks = cat2Marks;
     }
 
-    public String getExamMarks() {
+    public Integer getExamMarks() {
         return ExamMarks;
     }
 
-    public void setExamMarks(String examMarks) {
+    public void setExamMarks(Integer examMarks) {
         ExamMarks = examMarks;
     }
 }

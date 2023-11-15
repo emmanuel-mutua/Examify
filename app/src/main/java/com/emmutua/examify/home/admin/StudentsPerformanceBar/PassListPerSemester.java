@@ -2,113 +2,121 @@ package com.emmutua.examify.home.admin.StudentsPerformanceBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.emmutua.examify.R;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class PassListPerSemester extends AppCompatActivity {
     private ListView passListView;
-    private List<StudentMark> passList;
+    private List<String> passList;
     private ArrayAdapter<String> passListAdapter;
+    Set<String> studentUids;
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pass_list_per_semester);
         passListView = findViewById(R.id.passListView);
-        // Call a method for fetching students' marks from Firebase and then calculate their pass list
         passList = new ArrayList<>();
+        studentUids = new HashSet<>();
         passListAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
         passListView.setAdapter(passListAdapter);
         fetchStudentsMarks();
-
-
     }
-     void fetchStudentsMarks() {
-        //fetch students marks from firebase
-         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
-         DocumentReference marksDocument = firebaseFirestore.
-                 collection("students").document().
-                 collection("registered_units").document();
-         marksDocument.get().addOnCompleteListener(task -> {
-             if(task.isSuccessful()) {
-                 DocumentSnapshot documentSnapshot = task.getResult();
-                 if(documentSnapshot.exists()){
-                     String studentName = documentSnapshot.getString("studentName");
-                     String studentRegNo = documentSnapshot.getString("registrationNumber");
-                     String assignment1Marks = documentSnapshot.getString("unitAssign1Marks");
-                     String assignment2Marks = documentSnapshot.getString("unitAssign2Marks");
-                     String cat1Marks = documentSnapshot.getString("unitCat1Marks");
-                     String cat2Marks = documentSnapshot.getString("unitCat2Marks");
-                     String ExamMarks = documentSnapshot.getString("unitExamMarks");
-                     //StudentMarks Object
-                     StudentMark studentMark = new StudentMark(
-                             studentName,studentRegNo,assignment1Marks,
-                             assignment2Marks,cat1Marks,cat2Marks,ExamMarks
-                     );
-                        calculateTotalMarksAndGrade(studentMark);
-                 }else{
-//                     Toast.makeText(this, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                 }
-             }else{
-                 Toast.makeText(this, "Details not fetched", Toast.LENGTH_SHORT).show();
-             }
-         });
-    }
-     void  calculateTotalMarksAndGrade(StudentMark studentMarks) {
-        //parse students marks as integers
-         int assignment1Marks = Integer.parseInt(studentMarks.getAssignment1Marks());
-         int assignment2Marks = Integer.parseInt(studentMarks.getAssignment2Marks());
-         int cat1Marks = Integer.parseInt(studentMarks.getCat1Marks());
-         int cat2Marks = Integer.parseInt(studentMarks.getCat2Marks());
-         int examMarks = Integer.parseInt(studentMarks.getExamMarks());
-         int totalMarks = assignment1Marks + assignment2Marks + cat1Marks + cat2Marks + examMarks;
-            String grade = calculateGrade(totalMarks);
-         if (!grade.equals("E")) {
-             // Add student to the pass list
-             passList.add(studentMarks);
 
-             // Update the ListView
-             updatePassListView();
-         }
+    void fetchStudentsMarks() {
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+        CollectionReference collectionReference = firebaseFirestore.collection("students_registered_units");
+        collectionReference.whereEqualTo("unitStage", "Y1S1").get().addOnSuccessListener(queryDocumentSnapshots -> {
+            for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                String studentUid = documentSnapshot.getString("studentUid");
+                studentUids.add(studentUid);
+            }
+            for (String studentId : studentUids) {
+                fetchStudentDetails(studentId);
+            }
+        }).addOnFailureListener(e -> {
+            Log.e("TAG", "Error getting documents: ", e);
+        });
     }
-    String calculateGrade(int totalMarks){
-        if(totalMarks>=70){
+
+    void fetchStudentDetails(String studentId) {
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+        CollectionReference collectionReference = firebaseFirestore.collection("students_registered_units");
+        collectionReference
+                .whereEqualTo("unitStage", "Y1S1")
+                .whereEqualTo("studentUid", studentId)
+                .get().addOnSuccessListener(queryDocumentSnapshots -> {
+                    List<StudentMark> studentMarks = new ArrayList<>();
+                    String studentName = "";
+                    String studentRegNo = "";
+                    for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                        studentName = documentSnapshot.getString("studentName");
+                        studentRegNo = documentSnapshot.getString("registrationNumber");
+                        Integer assignment1Marks = documentSnapshot.getLong("unitAssign1Marks").intValue();
+                        Integer assignment2Marks = documentSnapshot.getLong("unitAssign2Marks").intValue();
+                        Integer cat1Marks = documentSnapshot.getLong("unitCat1Marks").intValue();
+                        Integer cat2Marks = documentSnapshot.getLong("unitCat2Marks").intValue();
+                        Integer examMarks = documentSnapshot.getLong("unitExamMarks").intValue();
+
+                        StudentMark studentMark = new StudentMark(studentName, studentRegNo, assignment1Marks, assignment2Marks, cat1Marks, cat2Marks, examMarks);
+                        studentMarks.add(studentMark);
+                    }
+                    checkPassList(studentMarks, studentName, studentRegNo);
+                }).addOnFailureListener(e -> {
+                    Log.e("TAG", "Error getting documents: ", e);
+                });
+    }
+
+    void checkPassList(List<StudentMark> studentMarks, String studentName, String studentRegNo) {
+        for (StudentMark studentMark : studentMarks) {
+            String grade = calculateTotalMarksAndGrade(studentMark);
+            if (!grade.equals("E") && !passList.contains(studentName)) {
+                passList.add(studentName + " - " + studentRegNo);
+                updatePassListView();
+                break;  // Break the loop if the student has an "E" grade in any course
+            }
+        }
+    }
+
+    String calculateTotalMarksAndGrade(StudentMark studentMarks) {
+        int assignment1Marks = studentMarks.getAssignment1Marks();
+        int assignment2Marks = studentMarks.getAssignment2Marks();
+        int cat1Marks = studentMarks.getCat1Marks();
+        int cat2Marks = studentMarks.getCat2Marks();
+        int examMarks = studentMarks.getExamMarks();
+        int totalMarks = assignment1Marks + assignment2Marks + cat1Marks + cat2Marks + examMarks;
+        return calculateGrade(totalMarks);
+    }
+
+    String calculateGrade(int totalMarks) {
+        if (totalMarks >= 70) {
             return "A";
-    }else if(totalMarks>=60){
-        return "B";
-        }else if(totalMarks>=50){
+        } else if (totalMarks >= 60) {
+            return "B";
+        } else if (totalMarks >= 50) {
             return "C";
-    } 
-        else if(totalMarks>=40){
+        } else if (totalMarks >= 40) {
             return "D";
-    }else 
-    {
+        } else {
             return "E";
         }
     }
+
     private void updatePassListView() {
-        // Clear existing items in the adapter
         passListAdapter.clear();
-
-        // Add names and registration numbers of students in the pass list to the adapter
-        for (StudentMark studentMark : passList) {
-            String listItem = studentMark.getStudentName() + " - " + studentMark.getStudentRegNo();
-            passListAdapter.add(listItem);
-        }
-
-        // Notify the adapter that the data set has changed
+        passListAdapter.addAll(passList);
         passListAdapter.notifyDataSetChanged();
     }
 }
