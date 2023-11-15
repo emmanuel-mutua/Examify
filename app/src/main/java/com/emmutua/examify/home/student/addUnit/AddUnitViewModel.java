@@ -50,7 +50,7 @@ public class AddUnitViewModel extends ViewModel {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     String uid = mAuth.getCurrentUser().getUid();
-    CollectionReference registeredUnits = db.collection("students").document(uid).collection("registered_units");
+    CollectionReference registeredUnits = db.collection("students_registered_units");
     private MutableLiveData<List<String>> unitDetails = new MutableLiveData<>();
     private MutableLiveData<String> _stage = new MutableLiveData<>();
     private MutableLiveData<String> _unitName = new MutableLiveData<>();

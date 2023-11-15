@@ -28,16 +28,16 @@
         <FrameLayout
             android:id="@+id/Lecturer_AllRegStudents"
             android:layout_width="match_parent"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="6dp"
             android:layout_height="match_parent"
             >
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:layout_marginTop="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
                 tools:ignore="ExtraText">
                 <!-- cardView that shows all fetched students for that
                 particular lecturer
@@ -51,7 +51,7 @@
                         android:id="@+id/lecturer_recyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="60dp"
+                        android:layout_marginTop="45dp"
                         android:clipToPadding="false"
                         android:paddingTop="8dp"
                         android:paddingBottom="8dp" />
