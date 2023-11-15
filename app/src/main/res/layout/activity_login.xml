@@ -54,10 +54,10 @@
             android:layout_width="290sp"
             android:hint="Enter Email"
             android:maxLines="1"
-            android:textStyle="bold"
+            android:textStyle="normal"
             android:layout_marginBottom="15dp"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="15sp"
             />
 
         <EditText
@@ -65,11 +65,11 @@
             android:layout_height="wrap_content"
             android:layout_width="290sp"
             android:hint="Enter password"
-            android:textStyle="bold"
+            android:textStyle="normal"
             android:maxLines="1"
             android:inputType="textPassword"
             android:textColor="@color/black"
-            android:textSize="20sp"/>
+            android:textSize="15sp"/>
 
 
         <com.google.android.material.button.MaterialButton
