@@ -1,19 +1,16 @@
 package com.emmutua.examify.home.lecture;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Adapter;
-import android.widget.Toast;
 
 import com.emmutua.examify.R;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -24,27 +21,30 @@ public class myStudents extends AppCompatActivity {
     RecyclerView recyclerView;
     StudentAdapter studentsAdapter;
     List<StudentModel> studentsList;
+    LecturerHomeViewModel lecturerHomeViewModel;
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_students);
+        lecturerHomeViewModel = new ViewModelProvider(this).get(LecturerHomeViewModel.class);
         recyclerView = findViewById(R.id.lecturer_recyclerView);
         studentsList = new ArrayList<>();
         studentsAdapter = new StudentAdapter(studentsList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(studentsAdapter);
-
-        fetchAllMyStudentsFromFirebase();
-
+        lecturerHomeViewModel.getUnitCode().observe(this, unitCode -> {
+            fetchAllMyStudentsFromFirebase(unitCode);
+        });
     }
-    void fetchAllMyStudentsFromFirebase(){
+
+    void fetchAllMyStudentsFromFirebase(String unitCode) {
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         CollectionReference allStudents = firebaseFirestore.collection("students_registered_units");
 
-        allStudents.whereEqualTo("unitCode", "ccs 3553")
+        allStudents.whereEqualTo("unitCode", unitCode)
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     studentsList.clear();
@@ -67,7 +67,7 @@ public class myStudents extends AppCompatActivity {
 
                         // Now, you can use the retrieved data as needed
                         // For example, you can create a StudentModel object and add it to a list
-                        if (!isStudentInList(registrationNumber, studentsList)){
+                        if (!isStudentInList(registrationNumber, studentsList)) {
                             StudentModel student = new StudentModel(studentName, registrationNumber);
                             studentsList.add(student);
                         }
@@ -84,11 +84,11 @@ public class myStudents extends AppCompatActivity {
                 });
 
 
-
     }
-    private boolean isStudentInList(String studentRegNo, List<StudentModel> studentsList){
-        for (StudentModel i: studentsList){
-            if (i.getRegistrationNumber().equals(studentRegNo)){
+
+    private boolean isStudentInList(String studentRegNo, List<StudentModel> studentsList) {
+        for (StudentModel i : studentsList) {
+            if (i.getRegistrationNumber().equals(studentRegNo)) {
                 return true;
             }
         }
