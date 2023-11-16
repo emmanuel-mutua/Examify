@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.emmutua.examify.R;
 import com.google.firebase.firestore.CollectionReference;
@@ -22,6 +24,7 @@ public class PassListPerSemester extends AppCompatActivity {
     private List<String> passList;
     private ArrayAdapter<String> passListAdapter;
     Set<String> studentUids;
+    RadioGroup semesterRadioGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,30 +35,48 @@ public class PassListPerSemester extends AppCompatActivity {
         studentUids = new HashSet<>();
         passListAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
         passListView.setAdapter(passListAdapter);
-        fetchStudentsMarks();
+        semesterRadioGroup = findViewById(R.id.semesterRadioGroup);
+        semesterRadioGroup.setOnCheckedChangeListener((group,checkId)->{
+            passList.clear();
+            passListAdapter.clear();
+            passListAdapter.notifyDataSetChanged();
+            String selectedSemester = getSelectedSemester();
+            if (!selectedSemester.isEmpty()) {
+                fetchStudentsMarks(selectedSemester);
+            }
+        });
+
+
+    }
+    String getSelectedSemester(){
+        RadioButton selectedRadioButton = findViewById(semesterRadioGroup.getCheckedRadioButtonId());
+        if (selectedRadioButton != null) {
+            return selectedRadioButton.getText().toString();
+        }
+        return "";
     }
 
-    void fetchStudentsMarks() {
+    void fetchStudentsMarks(String selectedSemester) {
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         CollectionReference collectionReference = firebaseFirestore.collection("students_registered_units");
-        collectionReference.whereEqualTo("unitStage", "Y1S1").get().addOnSuccessListener(queryDocumentSnapshots -> {
+        collectionReference.whereEqualTo("unitStage", selectedSemester).get().addOnSuccessListener(queryDocumentSnapshots -> {
             for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                 String studentUid = documentSnapshot.getString("studentUid");
                 studentUids.add(studentUid);
             }
             for (String studentId : studentUids) {
-                fetchStudentDetails(studentId);
+                fetchStudentDetails(studentId,selectedSemester);
             }
         }).addOnFailureListener(e -> {
             Log.e("TAG", "Error getting documents: ", e);
         });
     }
 
-    void fetchStudentDetails(String studentId) {
+    void fetchStudentDetails(String studentId,String selectedSemester) {
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         CollectionReference collectionReference = firebaseFirestore.collection("students_registered_units");
         collectionReference
-                .whereEqualTo("unitStage", "Y1S1")
+                .whereEqualTo("unitStage", selectedSemester)
                 .whereEqualTo("studentUid", studentId)
                 .get().addOnSuccessListener(queryDocumentSnapshots -> {
                     List<StudentMark> studentMarks = new ArrayList<>();
