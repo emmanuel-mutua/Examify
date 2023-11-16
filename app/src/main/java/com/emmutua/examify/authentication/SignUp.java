@@ -29,7 +29,7 @@ public class SignUp extends AppCompatActivity {
 
     EditText emailedittext, passwordedittext, confirmpasswordedittext, fullNameEditText, regNo_pf;
     EditText phoneNumberEditText;
-    Button createaccbtn;
+    Button createAccBtn;
 
     RadioGroup radioGroup;
     TextView logintextview;
@@ -52,7 +52,7 @@ public class SignUp extends AppCompatActivity {
         emailedittext = findViewById(R.id.email);
         passwordedittext = findViewById(R.id.psw);
         confirmpasswordedittext = findViewById(R.id.confirm_psw);
-        createaccbtn = findViewById(R.id.create_account_btn);
+        createAccBtn = findViewById(R.id.create_account_btn);
         logintextview = findViewById(R.id.login_btn);
         progressBar = findViewById(R.id.progress_circular);
         radioGroup = findViewById(R.id.role_radio_group);
@@ -65,7 +65,7 @@ public class SignUp extends AppCompatActivity {
             }
         });
 
-        createaccbtn.setOnClickListener(new View.OnClickListener() {
+        createAccBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 createAccount();
@@ -152,7 +152,7 @@ public class SignUp extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<DocumentReference> task) {
                         if (task.isSuccessful()) {
-                            // data saved to Firestore
+                            // data saved to FireStore
                         } else {
                             String errorMessage =  task.getException().getLocalizedMessage();
                             Log.d("FireStore", errorMessage);
@@ -166,41 +166,35 @@ public class SignUp extends AppCompatActivity {
             showToast("Invalid email address");
             return false;
         }
-
         if (password.length() < 8) {
             showToast("Password must be at least 8 characters");
             return false;
         }
-
         if (!password.equals(confirmPassword)) {
             showToast("Passwords do not match");
             return false;
         }
-
-        if (fullName.isEmpty()) {
-            showToast("Full name is required");
+        if (email.isEmpty()&&fullName.isEmpty()&&regNo.isEmpty()&&phoneNumber.isEmpty()
+                &&password.isEmpty()&&confirmPassword.isEmpty()) {
+            fullNameEditText.setError("");
+            regNo_pf.setError("");
+            emailedittext.setError("");
+            phoneNumberEditText.setError("");
+            passwordedittext.setError("");
+            confirmpasswordedittext.setError("");
+            showToast("please fill all the fields");
             return false;
         }
-
-        if (regNo.isEmpty()) {
-            showToast("Registration number is required");
-            return false;
-        }
-        if (phoneNumber.isEmpty()) {
-            showToast("Phone number is required");
-            return false;
-        }
-
         return true;
     }
 
     void progressIndicator(boolean inProgress) {
         if (inProgress) {
             progressBar.setVisibility(View.VISIBLE);
-            createaccbtn.setEnabled(false);
+            createAccBtn.setEnabled(false);
         } else {
             progressBar.setVisibility(View.GONE);
-            createaccbtn.setEnabled(true);
+            createAccBtn.setEnabled(true);
         }
     }
 

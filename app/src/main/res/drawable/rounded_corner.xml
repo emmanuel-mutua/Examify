@@ -1,9 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-
-    android:shape="rectangle">
-    <corners android:radius="10dp"/>
-    <stroke android:width="1dp"
-        android:color="@color/colorPrimary"/>
-
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- roundShape with black color of the editTexts-->
+    <solid android:color="#FFFFFF" />
+    <corners android:radius="10dp" />
+    <!--put some space between the content of the editText and the border-->
+    <padding
+        android:bottom="2dp"
+        android:left="2dp"
+        android:right="2dp"
+        android:top="2dp" />
+    <!--increase the size of the editText-->
+    <size
+        android:width="300dp"
+        android:height="50dp" />
+    <!--if the user hovers or presses the editText the border color changes to blue and then the hint is placed in the border-->
+    <item android:state_focused="true"/>
+    <shape>
+        <solid android:color="#FAF5F5" />
+        <stroke
+            android:width="2dp"
+            android:color="#0000FF" />
+    </shape>
+    <stroke
+        android:width="2dp"
+        android:color="#06DBF7" />
 </shape>
