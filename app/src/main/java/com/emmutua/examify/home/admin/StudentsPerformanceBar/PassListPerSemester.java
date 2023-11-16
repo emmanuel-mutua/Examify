@@ -23,7 +23,7 @@ public class PassListPerSemester extends AppCompatActivity {
     private ListView passListView;
     private List<String> passList;
     private ArrayAdapter<String> passListAdapter;
-    Set<String> studentUids;
+    Set<String> studentUidS;
     RadioGroup semesterRadioGroup;
 
     @Override
@@ -32,15 +32,16 @@ public class PassListPerSemester extends AppCompatActivity {
         setContentView(R.layout.activity_pass_list_per_semester);
         passListView = findViewById(R.id.passListView);
         passList = new ArrayList<>();
-        studentUids = new HashSet<>();
+        studentUidS = new HashSet<>();
         passListAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
         passListView.setAdapter(passListAdapter);
         semesterRadioGroup = findViewById(R.id.semesterRadioGroup);
+        ReusableClass reusableClass = new ReusableClass(semesterRadioGroup, this);
         semesterRadioGroup.setOnCheckedChangeListener((group,checkId)->{
             passList.clear();
             passListAdapter.clear();
             passListAdapter.notifyDataSetChanged();
-            String selectedSemester = getSelectedSemester();
+            String selectedSemester = reusableClass.getSelectedSemester();
             if (!selectedSemester.isEmpty()) {
                 fetchStudentsMarks(selectedSemester);
             }
@@ -48,13 +49,7 @@ public class PassListPerSemester extends AppCompatActivity {
 
 
     }
-    String getSelectedSemester(){
-        RadioButton selectedRadioButton = findViewById(semesterRadioGroup.getCheckedRadioButtonId());
-        if (selectedRadioButton != null) {
-            return selectedRadioButton.getText().toString();
-        }
-        return "";
-    }
+
 
     void fetchStudentsMarks(String selectedSemester) {
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
@@ -62,9 +57,9 @@ public class PassListPerSemester extends AppCompatActivity {
         collectionReference.whereEqualTo("unitStage", selectedSemester).get().addOnSuccessListener(queryDocumentSnapshots -> {
             for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                 String studentUid = documentSnapshot.getString("studentUid");
-                studentUids.add(studentUid);
+                studentUidS.add(studentUid);
             }
-            for (String studentId : studentUids) {
+            for (String studentId : studentUidS) {
                 fetchStudentDetails(studentId,selectedSemester);
             }
         }).addOnFailureListener(e -> {
@@ -85,13 +80,15 @@ public class PassListPerSemester extends AppCompatActivity {
                     for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                         studentName = documentSnapshot.getString("studentName");
                         studentRegNo = documentSnapshot.getString("registrationNumber");
+                        String unitCode = documentSnapshot.getString("unitCode");
+                        String unitName = documentSnapshot.getString("unitName");
                         Integer assignment1Marks = documentSnapshot.getLong("unitAssign1Marks").intValue();
                         Integer assignment2Marks = documentSnapshot.getLong("unitAssign2Marks").intValue();
                         Integer cat1Marks = documentSnapshot.getLong("unitCat1Marks").intValue();
                         Integer cat2Marks = documentSnapshot.getLong("unitCat2Marks").intValue();
                         Integer examMarks = documentSnapshot.getLong("unitExamMarks").intValue();
 
-                        StudentMark studentMark = new StudentMark(studentName, studentRegNo, assignment1Marks, assignment2Marks, cat1Marks, cat2Marks, examMarks);
+                        StudentMark studentMark = new StudentMark(studentName,unitName,unitCode, studentRegNo, assignment1Marks, assignment2Marks, cat1Marks, cat2Marks, examMarks);
                         studentMarks.add(studentMark);
                     }
                     checkPassList(studentMarks, studentName, studentRegNo);
