@@ -1,11 +1,13 @@
 package com.emmutua.examify.home.admin.StudentsPerformanceBar;
 
 public class StudentMark {
-String studentName, studentRegNo;
+String studentName, studentRegNo,unitCode,unitName;
 Integer assignment1Marks,assignment2Marks,cat1Marks,cat2Marks,ExamMarks;
-    public StudentMark(String studentName, String studentRegNo, Integer assignment1Marks, Integer assignment2Marks, Integer cat1Marks, Integer cat2Marks, Integer examMarks) {
+    public StudentMark(String studentName,String unitName,String unitCode, String studentRegNo, Integer assignment1Marks, Integer assignment2Marks, Integer cat1Marks, Integer cat2Marks, Integer examMarks) {
         this.studentName = studentName;
         this.studentRegNo = studentRegNo;
+        this.unitName = unitName;
+        this.unitCode = unitCode;
         this.assignment1Marks = assignment1Marks;
         this.assignment2Marks = assignment2Marks;
         this.cat1Marks = cat1Marks;
@@ -59,6 +61,22 @@ Integer assignment1Marks,assignment2Marks,cat1Marks,cat2Marks,ExamMarks;
 
     public void setCat2Marks(Integer cat2Marks) {
         this.cat2Marks = cat2Marks;
+    }
+
+    public String getUnitCode() {
+        return unitCode;
+    }
+
+    public void setUnitCode(String unitCode) {
+        this.unitCode = unitCode;
+    }
+
+    public String getUnitName() {
+        return unitName;
+    }
+
+    public void setUnitName(String unitName) {
+        this.unitName = unitName;
     }
 
     public Integer getExamMarks() {
