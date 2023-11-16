@@ -19,6 +19,14 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
         this.studentList = studentList;
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(StudentModel student);
+    }
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+    private OnItemClickListener listener;
+
     @NonNull
     @Override
     public StudentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -33,6 +41,15 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
         // Bind data to the ViewHolder's views
         holder.nameTextView.setText(student.getStudentName());
         holder.regNoTextView.setText(student.getRegistrationNumber());
+        holder.assign1MarksTextView.setText(String.valueOf(student.getUnitAssign1Marks()));
+        holder.assign2MarksTextView.setText(String.valueOf(student.getUnitAssign2Marks()));
+        holder.cat1MarksTextView.setText(String.valueOf(student.getUnitCat1Marks()));
+        holder.cat2MarksTextView.setText(String.valueOf(student.getUnitCat2Marks()));
+        holder.examMarksTextView.setText(String.valueOf(student.getUnitExamMarks()));
+
+        holder.itemView.setOnClickListener(v -> {
+            listener.onItemClick(student);
+        });
     }
 
     @Override
@@ -42,11 +59,17 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
 
     public static class StudentViewHolder extends RecyclerView.ViewHolder {
         TextView nameTextView, regNoTextView;
+        TextView assign1MarksTextView, assign2MarksTextView, cat1MarksTextView, cat2MarksTextView, examMarksTextView;
 
         public StudentViewHolder(View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.student_name_id); // Replace with the appropriate resource ID
             regNoTextView = itemView.findViewById(R.id.student_registration_number); // Replace with the appropriate resource ID
+            assign1MarksTextView = itemView.findViewById(R.id.assign1_mark);
+            assign2MarksTextView = itemView.findViewById(R.id.assign2_mark);
+            cat1MarksTextView = itemView.findViewById(R.id.cat1mark);
+            cat2MarksTextView = itemView.findViewById(R.id.cat2mark);
+            examMarksTextView = itemView.findViewById(R.id.exam_mark);
         }
     }
 }

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:ignore="MissingDefaultResource">
+
+    <EditText
+        android:id="@+id/assign1MarksEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Assignment 1 Marks"
+        android:inputType="number"/>
+
+    <EditText
+        android:id="@+id/assign2MarksEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Assignment 2 Marks"
+        android:inputType="number"/>
+
+    <EditText
+        android:id="@+id/cat1MarksEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="CAT 1 Marks"
+        android:inputType="number"/>
+
+    <EditText
+        android:id="@+id/cat2MarksEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="CAT 2 Marks"
+        android:inputType="number"/>
+    <EditText
+        android:id="@+id/examMarksEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Exam Marks"
+        android:inputType="number"/>
+    <TextView
+        android:id="@+id/allMarksAddedTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="All marks added"
+        android:visibility="gone"
+        android:textColor="@android:color/holo_green_dark"
+        android:textSize="16sp" />
+</LinearLayout>
