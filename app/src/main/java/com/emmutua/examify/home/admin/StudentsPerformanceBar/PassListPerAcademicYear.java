@@ -36,39 +36,47 @@ public class PassListPerAcademicYear extends AppCompatActivity {
         passListViewPerAcademicYear.setAdapter(passListAdapterPerAcademicYear);
         AcademicYearRadioGroup = findViewById(R.id.AcademicYearRadioGroup);
         ReusableClass reusableClass = new ReusableClass(AcademicYearRadioGroup, this);
-        AcademicYearRadioGroup.setOnCheckedChangeListener((group,checkId)->{
+        AcademicYearRadioGroup.setOnCheckedChangeListener((group, checkId) -> {
             passListPerAcademicYear.clear();
             passListAdapterPerAcademicYear.clear();
             passListAdapterPerAcademicYear.notifyDataSetChanged();
-            String SelectedAcademicYear = reusableClass.getSelectedAcademicYear();
-            if (!SelectedAcademicYear.isEmpty()) {
-                fetchStudentsMarks(SelectedAcademicYear);
+            String selectedAcademicYear = reusableClass.getSelectedAcademicYear();
+            if (!selectedAcademicYear.isEmpty()) {
+                fetchStudentsMarks(selectedAcademicYear);
             }
-        });
-    }
-    void fetchStudentsMarks(String SelectedAcademicYear) {
-        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
-        CollectionReference collectionReference = firebaseFirestore.collection("students_registered_units");
-        collectionReference.whereEqualTo("unitStage", SelectedAcademicYear).get().addOnSuccessListener(queryDocumentSnapshots -> {
-            for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                String studentUid = documentSnapshot.getString("studentUid");
-                studentUidSPerAcademicYear.add(studentUid);
-            }
-            for (String studentId : studentUidSPerAcademicYear) {
-                fetchStudentDetails(studentId,SelectedAcademicYear);
-            }
-        }).addOnFailureListener(e -> {
-            Log.e("TAG", "Error getting documents: ", e);
         });
     }
 
-    void fetchStudentDetails(String studentId,String SelectedAcademicYear) {
+    void fetchStudentsMarks(String selectedAcademicYear) {
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+        CollectionReference collectionReference = firebaseFirestore.collection("students_registered_units");
+
+        // Fetch all semester stages within the selected academic year
+        collectionReference
+                .whereGreaterThanOrEqualTo("unitStage", selectedAcademicYear + "S1")
+                .whereLessThanOrEqualTo("unitStage", selectedAcademicYear + "S2")
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                        String studentUid = documentSnapshot.getString("studentUid");
+                        studentUidSPerAcademicYear.add(studentUid);
+                    }
+                    // Fetch units for semester 2 (S2)
+                    fetchUnitsForSemester(collectionReference, selectedAcademicYear, "S2");
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("TAG", "Error getting documents for semester 1: ", e);
+                });
+    }
+
+    void fetchStudentDetails(String studentId, String academicYearAndSemester) {
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         CollectionReference collectionReference = firebaseFirestore.collection("students_registered_units");
         collectionReference
-                .whereEqualTo("unitStage", SelectedAcademicYear)
+                .whereEqualTo("unitStage", academicYearAndSemester)
                 .whereEqualTo("studentUid", studentId)
-                .get().addOnSuccessListener(queryDocumentSnapshots -> {
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
                     List<StudentMark> studentMarks = new ArrayList<>();
                     String studentName = "";
                     String studentRegNo = "";
@@ -83,12 +91,32 @@ public class PassListPerAcademicYear extends AppCompatActivity {
                         Integer cat2Marks = documentSnapshot.getLong("unitCat2Marks").intValue();
                         Integer examMarks = documentSnapshot.getLong("unitExamMarks").intValue();
 
-                        StudentMark studentMark = new StudentMark(studentName,unitName,unitCode, studentRegNo, assignment1Marks, assignment2Marks, cat1Marks, cat2Marks, examMarks);
+                        StudentMark studentMark = new StudentMark(studentName, unitName, unitCode, studentRegNo, assignment1Marks, assignment2Marks, cat1Marks, cat2Marks, examMarks);
                         studentMarks.add(studentMark);
                     }
                     checkPassList(studentMarks, studentName, studentRegNo);
-                }).addOnFailureListener(e -> {
+                })
+                .addOnFailureListener(e -> {
                     Log.e("TAG", "Error getting documents: ", e);
+                });
+    }
+
+    void fetchUnitsForSemester(CollectionReference collectionReference, String academicYear, String semester) {
+        collectionReference
+                .whereGreaterThanOrEqualTo("unitStage", academicYear + semester)
+                .whereLessThanOrEqualTo("unitStage", academicYear + semester)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                        String studentUid = documentSnapshot.getString("studentUid");
+                        studentUidSPerAcademicYear.add(studentUid);
+                    }
+                    for (String studentId : studentUidSPerAcademicYear) {
+                        fetchStudentDetails(studentId, academicYear + semester);
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("TAG", "Error getting documents for semester " + semester + ": ", e);
                 });
     }
 
