@@ -121,14 +121,18 @@ public class PassListPerAcademicYear extends AppCompatActivity {
     }
 
     void checkPassList(List<StudentMark> studentMarks, String studentName, String studentRegNo) {
+        boolean canAddToPassList = true;
         for (StudentMark studentMark : studentMarks) {
             String grade = calculateTotalMarksAndGrade(studentMark);
-            if (!grade.equals("E") && !passListPerAcademicYear.contains(studentName)) {
-                passListPerAcademicYear.add(studentName + " - " + studentRegNo);
-                updatePassListView();
-                break;  // Break the loop if the student has an "E" grade in any course
+            if ("E".equals(grade)) {
+                canAddToPassList = false;  // Set the flag to false if any "E" grade is encountered
+                break;
             }
         }
+        if (canAddToPassList) {
+            passListPerAcademicYear.add(studentName + " - " + studentRegNo);
+        }
+        updatePassListView();
     }
 
     String calculateTotalMarksAndGrade(StudentMark studentMarks) {
@@ -156,6 +160,7 @@ public class PassListPerAcademicYear extends AppCompatActivity {
     }
 
     private void updatePassListView() {
+        passListPerAcademicYear.removeIf(entry -> entry.contains("-") || entry.contains(""));
         passListAdapterPerAcademicYear.clear();
         passListAdapterPerAcademicYear.addAll(passListPerAcademicYear);
         passListAdapterPerAcademicYear.notifyDataSetChanged();
