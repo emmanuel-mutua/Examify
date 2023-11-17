@@ -19,7 +19,8 @@ import com.emmutua.examify.R;
  */
 public class studentsPerfomanceFragment extends Fragment {
   CardView passlistPerSemesterCardview, passListPerAcademicYearCardView, failListPerSemesterCardView;
-  CardView  suppListPerAcademicYearCardView;
+  CardView  suppListPerAcademicYearCardView,ListOfSpecialsCardView;
+  CardView MissingMarksInAtLeastOneCourseCardView,MissingMarksInAllCoursesCardView,StudentsAttemptingCoursesForTheSecondTimeCardView;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -69,11 +70,19 @@ public class studentsPerfomanceFragment extends Fragment {
         passListPerAcademicYearCardView = view.findViewById(R.id.studentPassedUnitsInAcademicYear);
         failListPerSemesterCardView = view.findViewById(R.id.studentsFailedOneOrMoreCourses_andTheCoursesFailed);
         suppListPerAcademicYearCardView = view.findViewById(R.id.ListOfSupplementaryStudents);
+        ListOfSpecialsCardView = view.findViewById(R.id.ListOfSpecialExaminationStudents);
+        MissingMarksInAtLeastOneCourseCardView = view.findViewById(R.id.StudentsWhoDoNotHaveMarksBothCatsAndExamInAtLeastOneCourse);
+        MissingMarksInAllCoursesCardView = view.findViewById(R.id.StudentsWhoRegisteredButAreMissingMarksInAllTheCourse);
+        StudentsAttemptingCoursesForTheSecondTimeCardView = view.findViewById(R.id.StudentsAttemptingCourseForSecondTime);
         passlistPerSemesterCardview.setOnClickListener(V ->
                 startActivity(new Intent(getContext(), PassListPerSemester.class)));
         failListPerSemesterCardView.setOnClickListener(V ->startActivity(new Intent(getContext(), FailListPerSemester.class)) );
         passListPerAcademicYearCardView.setOnClickListener(V ->startActivity(new Intent(getContext(), PassListPerAcademicYear.class)));
         suppListPerAcademicYearCardView.setOnClickListener(V ->startActivity(new Intent(getContext(), SuppListPerAcademicYear.class)));
+        ListOfSpecialsCardView.setOnClickListener(M ->startActivity(new Intent(getContext(), SpecialExaminationsList.class)));
+        MissingMarksInAtLeastOneCourseCardView.setOnClickListener(M ->startActivity(new Intent(getContext(), MissingMarksInAtleastOneCourse.class)));
+        MissingMarksInAllCoursesCardView.setOnClickListener(M ->startActivity(new Intent(getContext(), RegisteredStudentsMissingMarksInAllCourses.class)));
+        StudentsAttemptingCoursesForTheSecondTimeCardView.setOnClickListener(M ->startActivity(new Intent(getContext(), SecondCourseAttempt.class)));
         return view;
     }
 }
