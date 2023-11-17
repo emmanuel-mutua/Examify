@@ -70,6 +70,7 @@ public class studentsPerfomanceFragment extends Fragment {
         passlistPerSemesterCardview.setOnClickListener(V ->
                 startActivity(new Intent(getContext(), PassListPerSemester.class)));
         failListPerSemesterCardView.setOnClickListener(V ->startActivity(new Intent(getContext(), FailListPerSemester.class)) );
+        passListPerAcademicYearCardView.setOnClickListener(V ->startActivity(new Intent(getContext(), PassListPerAcademicYear.class)));
         return view;
     }
 }
