@@ -168,7 +168,7 @@ tools:context=".home.admin.StudentsPerformanceBar.studentsPerfomanceFragment">
                 android:layout_width="match_parent"
                 android:textColor="@android:color/black"
                 android:layout_height="wrap_content"
-                android:text="Missing Marks in at least one course"
+                android:text="Missing Marks in at least one course(Cats and Exam)"
                 android:textSize="18sp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
@@ -194,7 +194,7 @@ tools:context=".home.admin.StudentsPerformanceBar.studentsPerfomanceFragment">
                 android:layout_width="match_parent"
                 android:textColor="@android:color/black"
                 android:layout_height="wrap_content"
-                android:text="Missing Marks all the courses"
+                android:text="Missing Marks all the courses(Registered Students)"
                 android:textSize="18sp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
