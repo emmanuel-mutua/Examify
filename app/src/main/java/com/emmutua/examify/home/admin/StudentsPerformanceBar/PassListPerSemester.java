@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.emmutua.examify.R;
@@ -23,21 +22,27 @@ public class PassListPerSemester extends AppCompatActivity {
     private ListView passListView;
     private List<String> passList;
     private ArrayAdapter<String> passListAdapter;
-    Set<String> studentUidS;
-    RadioGroup semesterRadioGroup;
+    private Set<String> studentUidSet;
+    private RadioGroup semesterRadioGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pass_list_per_semester);
+
+        // Initialize UI components
         passListView = findViewById(R.id.passListView);
+        semesterRadioGroup = findViewById(R.id.semesterRadioGroup);
+
+        // Initialize data structures
         passList = new ArrayList<>();
-        studentUidS = new HashSet<>();
+        studentUidSet = new HashSet<>();
         passListAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
         passListView.setAdapter(passListAdapter);
-        semesterRadioGroup = findViewById(R.id.semesterRadioGroup);
+
+        // Set up RadioGroup listener
         ReusableClass reusableClass = new ReusableClass(semesterRadioGroup, this);
-        semesterRadioGroup.setOnCheckedChangeListener((group,checkId)->{
+        semesterRadioGroup.setOnCheckedChangeListener((group, checkId) -> {
             passList.clear();
             passListAdapter.clear();
             passListAdapter.notifyDataSetChanged();
@@ -46,34 +51,36 @@ public class PassListPerSemester extends AppCompatActivity {
                 fetchStudentsMarks(selectedSemester);
             }
         });
-
-
     }
 
-
-    void fetchStudentsMarks(String selectedSemester) {
+    private void fetchStudentsMarks(String selectedSemester) {
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         CollectionReference collectionReference = firebaseFirestore.collection("students_registered_units");
-        collectionReference.whereEqualTo("unitStage", selectedSemester).get().addOnSuccessListener(queryDocumentSnapshots -> {
-            for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                String studentUid = documentSnapshot.getString("studentUid");
-                studentUidS.add(studentUid);
-            }
-            for (String studentId : studentUidS) {
-                fetchStudentDetails(studentId,selectedSemester);
-            }
-        }).addOnFailureListener(e -> {
-            Log.e("TAG", "Error getting documents: ", e);
-        });
+
+        collectionReference.whereEqualTo("unitStage", selectedSemester)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                        String studentUid = documentSnapshot.getString("studentUid");
+                        studentUidSet.add(studentUid);
+                    }
+                    for (String studentId : studentUidSet) {
+                        fetchStudentDetails(studentId, selectedSemester);
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("TAG", "Error getting documents: ", e);
+                });
     }
 
-    void fetchStudentDetails(String studentId,String selectedSemester) {
+    private void fetchStudentDetails(String studentId, String selectedSemester) {
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         CollectionReference collectionReference = firebaseFirestore.collection("students_registered_units");
-        collectionReference
-                .whereEqualTo("unitStage", selectedSemester)
+
+        collectionReference.whereEqualTo("unitStage", selectedSemester)
                 .whereEqualTo("studentUid", studentId)
-                .get().addOnSuccessListener(queryDocumentSnapshots -> {
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
                     List<StudentMark> studentMarks = new ArrayList<>();
                     String studentName = "";
                     String studentRegNo = "";
@@ -88,27 +95,34 @@ public class PassListPerSemester extends AppCompatActivity {
                         Integer cat2Marks = documentSnapshot.getLong("unitCat2Marks").intValue();
                         Integer examMarks = documentSnapshot.getLong("unitExamMarks").intValue();
 
-                        StudentMark studentMark = new StudentMark(studentName,unitName,unitCode, studentRegNo, assignment1Marks, assignment2Marks, cat1Marks, cat2Marks, examMarks);
+                        StudentMark studentMark = new StudentMark(studentName, unitName, unitCode, studentRegNo,
+                                assignment1Marks, assignment2Marks, cat1Marks, cat2Marks, examMarks);
                         studentMarks.add(studentMark);
                     }
                     checkPassList(studentMarks, studentName, studentRegNo);
-                }).addOnFailureListener(e -> {
+                })
+                .addOnFailureListener(e -> {
                     Log.e("TAG", "Error getting documents: ", e);
                 });
     }
 
-    void checkPassList(List<StudentMark> studentMarks, String studentName, String studentRegNo) {
+    private void checkPassList(List<StudentMark> studentMarks, String studentName, String studentRegNo) {
+        boolean canAddToPassList = true;
         for (StudentMark studentMark : studentMarks) {
             String grade = calculateTotalMarksAndGrade(studentMark);
-            if (!grade.equals("E") && !passList.contains(studentName)) {
-                passList.add(studentName + " - " + studentRegNo);
-                updatePassListView();
-                break;  // Break the loop if the student has an "E" grade in any course
+            // Check if the grade is "E"
+            if ("E".equals(grade)) {
+                canAddToPassList = false;  // Set the flag to false if any "E" grade is encountered
+                break;
             }
         }
+        if (canAddToPassList) {
+            passList.add(studentName + " - " + studentRegNo);
+        }
+        updatePassListView();
     }
 
-    String calculateTotalMarksAndGrade(StudentMark studentMarks) {
+    private String calculateTotalMarksAndGrade(StudentMark studentMarks) {
         int assignment1Marks = studentMarks.getAssignment1Marks();
         int assignment2Marks = studentMarks.getAssignment2Marks();
         int cat1Marks = studentMarks.getCat1Marks();
@@ -118,7 +132,7 @@ public class PassListPerSemester extends AppCompatActivity {
         return calculateGrade(totalMarks);
     }
 
-    String calculateGrade(int totalMarks) {
+    private String calculateGrade(int totalMarks) {
         if (totalMarks >= 70) {
             return "A";
         } else if (totalMarks >= 60) {
@@ -133,6 +147,9 @@ public class PassListPerSemester extends AppCompatActivity {
     }
 
     private void updatePassListView() {
+        // Remove all occurrences of "-" from the entries in passList
+        passList.removeIf(entry -> entry.contains("-") || entry.contains(""));
+
         passListAdapter.clear();
         passListAdapter.addAll(passList);
         passListAdapter.notifyDataSetChanged();
