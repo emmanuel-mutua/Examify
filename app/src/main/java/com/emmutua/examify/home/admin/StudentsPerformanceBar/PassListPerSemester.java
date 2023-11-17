@@ -41,7 +41,7 @@ public class PassListPerSemester extends AppCompatActivity {
             passList.clear();
             passListAdapter.clear();
             passListAdapter.notifyDataSetChanged();
-            String selectedSemester = reusableClass.getSelectedSemester();
+            String selectedSemester = reusableClass.getSelectedAcademicYear();
             if (!selectedSemester.isEmpty()) {
                 fetchStudentsMarks(selectedSemester);
             }
