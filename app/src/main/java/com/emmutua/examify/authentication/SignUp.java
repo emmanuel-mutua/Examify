@@ -68,26 +68,40 @@ public class SignUp extends AppCompatActivity {
         createAccBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createAccount();
+                setCreateAccBtn();
             }
         });
     }
-
-    void createAccount() {
+    void setCreateAccBtn() {
         String email = emailedittext.getText().toString();
         String password = passwordedittext.getText().toString();
         String confirmPassword = confirmpasswordedittext.getText().toString();
         String fullName = fullNameEditText.getText().toString();
         String regNo = regNo_pf.getText().toString();
         String phoneNumber = phoneNumberEditText.getText().toString();
-
         int selectedRoleId = radioGroup.getCheckedRadioButtonId();
-        RadioButton selectedRadioButton = findViewById(selectedRoleId);
-        String selectedRole = selectedRadioButton.getText().toString();
+        String selectedRole = "";
+        if (selectedRoleId != -1) {
+            RadioButton selectedRadioButton = findViewById(selectedRoleId);
+            if (selectedRadioButton != null) {
+                selectedRole = selectedRadioButton.getText().toString();
+            } else {
+                return;
+            }
+        } else {
+            return;
+        }
 
         boolean isValid = validateInput(email, password, confirmPassword, fullName, regNo, phoneNumber);
+        if (!isValid) {
+            return;
+        } else {
+            createAccount(email, password, fullName, regNo, phoneNumber, selectedRole);
+        }
+    }
 
-        if (isValid) {
+    void createAccount(String email, String password, String fullName, String regNo, String phoneNumber, String selectedRole) {
+        String finalSelectedRole = selectedRole;
             progressIndicator(true);
             firebaseAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -105,9 +119,9 @@ public class SignUp extends AppCompatActivity {
                                                     if (emailTask.isSuccessful()) {
                                                         String uid = user.getUid();
                                                         // Email sent successfully
-                                                        User newUser = new User(uid, email, fullName, regNo, selectedRole, phoneNumber);
+                                                        User newUser = new User(uid, email, fullName, finalSelectedRole, regNo, phoneNumber);
                                                         LecturerDetails lecturerDetails = new LecturerDetails(uid, fullName, "", "", false);
-                                                        if (selectedRole.equals("Lecturer")){
+                                                        if (finalSelectedRole.equals("Lecturer")){
                                                             saveUserToFirestore(newUser);
                                                             saveLectureDetails(lecturerDetails);
                                                         }else {
@@ -127,7 +141,6 @@ public class SignUp extends AppCompatActivity {
                         }
                     });
         }
-    }
 
     void saveUserToFirestore(User user) {
         firestore.collection("users")
@@ -138,7 +151,7 @@ public class SignUp extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // User data saved to Firestore
                         } else {
-                           String errorMessage =  task.getException().getLocalizedMessage();
+                            String errorMessage =  task.getException().getLocalizedMessage();
                             Log.d("SignUpError", errorMessage);
                             showToast(errorMessage);
                         }
@@ -162,6 +175,16 @@ public class SignUp extends AppCompatActivity {
     }
 
     boolean validateInput(String email, String password, String confirmPassword, String fullName, String regNo, String phoneNumber) {
+            // Set errors for empty fields
+            if (fullName.isEmpty()&&regNo.isEmpty()&&email.isEmpty()&&phoneNumber.isEmpty()&&password.isEmpty()&&confirmPassword.isEmpty()) {
+                fullNameEditText.setError("Please enter full name");
+                regNo_pf.setError("Please enter registration number");
+                emailedittext.setError("Please enter email");
+                phoneNumberEditText.setError("Please enter phone number");
+                passwordedittext.setError("Please enter password");
+                confirmpasswordedittext.setError("Please confirm password");
+            return false;
+            }
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             showToast("Invalid email address");
             return false;
@@ -174,19 +197,10 @@ public class SignUp extends AppCompatActivity {
             showToast("Passwords do not match");
             return false;
         }
-        if (email.isEmpty()&&fullName.isEmpty()&&regNo.isEmpty()&&phoneNumber.isEmpty()
-                &&password.isEmpty()&&confirmPassword.isEmpty()) {
-            fullNameEditText.setError("");
-            regNo_pf.setError("");
-            emailedittext.setError("");
-            phoneNumberEditText.setError("");
-            passwordedittext.setError("");
-            confirmpasswordedittext.setError("");
-            showToast("please fill all the fields");
-            return false;
-        }
+
         return true;
     }
+
 
     void progressIndicator(boolean inProgress) {
         if (inProgress) {

@@ -123,12 +123,12 @@ public class Login extends AppCompatActivity {
 
 
     boolean validateInput(String email, String password) {
-        if (email.isEmpty()) {
+        if (email.isEmpty()&&password.isEmpty()) {
             emailedittext.setError("Please enter email");
-            return false;
-        }
-        if (password.isEmpty()) {
             passwordedittext.setError("Please enter password");
+            return false;
+        }else if(password.isEmpty()) {
+
             return false;
         }
         return true;
