@@ -86,15 +86,16 @@ public class FailListPerSemester extends AppCompatActivity {
                         StudentMark studentMark = new StudentMark(studentName, unitName, unitCode, studentRegNo, assignment1Marks, assignment2Marks, cat1Marks, cat2Marks, examMarks);
                         studentMarks.add(studentMark);
                     }
-                    checkPassList(studentMarks, studentName, studentRegNo, unitName, unitCode);
+                    checkPassList(studentMarks, studentRegNo, unitName, unitCode);
                 }).addOnFailureListener(e -> {
                     Log.e("TAG", "Error getting documents: ", e);
                 });
     }
-    void checkPassList(List<StudentMark> studentMarks, String studentName,
+    void checkPassList(List<StudentMark> studentMarks,
                        String studentRegNo,String unitName,String unitCode) {
         for (StudentMark studentMark : studentMarks) {
             String grade = calculateTotalMarksAndGrade(studentMark);
+            String studentName = studentMark.getStudentName();
             if (grade.equals("E") && !FailList.contains(studentName)) {
                 FailList.add(studentName + " - " + studentRegNo + "\n" + "   " + unitCode + "- " + unitName );
                 updatePassListView();
