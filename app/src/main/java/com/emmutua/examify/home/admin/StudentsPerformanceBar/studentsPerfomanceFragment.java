@@ -19,6 +19,7 @@ import com.emmutua.examify.R;
  */
 public class studentsPerfomanceFragment extends Fragment {
   CardView passlistPerSemesterCardview, passListPerAcademicYearCardView, failListPerSemesterCardView;
+  CardView  suppListPerAcademicYearCardView;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -67,10 +68,12 @@ public class studentsPerfomanceFragment extends Fragment {
         passlistPerSemesterCardview = view.findViewById(R.id.passedAllCoursesInASemester);
         passListPerAcademicYearCardView = view.findViewById(R.id.studentPassedUnitsInAcademicYear);
         failListPerSemesterCardView = view.findViewById(R.id.studentsFailedOneOrMoreCourses_andTheCoursesFailed);
+        suppListPerAcademicYearCardView = view.findViewById(R.id.ListOfSupplementaryStudents);
         passlistPerSemesterCardview.setOnClickListener(V ->
                 startActivity(new Intent(getContext(), PassListPerSemester.class)));
         failListPerSemesterCardView.setOnClickListener(V ->startActivity(new Intent(getContext(), FailListPerSemester.class)) );
         passListPerAcademicYearCardView.setOnClickListener(V ->startActivity(new Intent(getContext(), PassListPerAcademicYear.class)));
+        suppListPerAcademicYearCardView.setOnClickListener(V ->startActivity(new Intent(getContext(), SuppListPerAcademicYear.class)));
         return view;
     }
 }

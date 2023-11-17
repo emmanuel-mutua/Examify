@@ -1,9 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:fillViewport="true"
+tools:context=".home.admin.StudentsPerformanceBar.SuppListPerAcademicYear">
+<com.google.android.material.appbar.AppBarLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/SuppListPerSemester_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:title="SuppList Per Academic Year"
+        app:titleTextColor="@android:color/white"
+        app:titleTextAppearance="@style/ToolbarTitle"
+        android:gravity="center"
+        />
+</com.google.android.material.appbar.AppBarLayout>
+<ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".home.admin.StudentsPerformanceBar.SuppListPerAcademicYear">
+    android:fillViewport="true">
+    <FrameLayout
+        android:id="@+id/SuppListPerAcademicYear"
+        android:layout_width="match_parent"
+        android:layout_marginTop="60dp"
+        android:layout_height="match_parent">
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginBottom="40dp"
+            >
+            <RadioGroup
+                android:id="@+id/SuppListRadioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginBottom="30dp"
+                android:orientation="horizontal">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <!-- Radio Buttons For all the Academic Years-->
+                <RadioButton
+                    android:id="@+id/radioY1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Y1"
+                    />
+                <RadioButton
+                    android:id="@+id/radioY2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Y2"
+                    />
+                <RadioButton
+                    android:id="@+id/radioY3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Y3"
+                    />
+                <RadioButton
+                    android:id="@+id/radioY4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Y4"
+                    />
+            </RadioGroup>
+        </HorizontalScrollView>
+
+        <ListView
+            android:id="@+id/SuppListViewPerAcademicYear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="1dp"
+            android:padding="2dp"/>
+    </FrameLayout>
+</ScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
