@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 
 import com.emmutua.examify.R;
 import com.emmutua.examify.databinding.ActivityStudentHomescreenBinding;
+import com.emmutua.examify.home.admin.StudentsPerformanceBar.studentsPerfomanceFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -17,6 +18,7 @@ public class student_homescreen extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
     Fragment home_fragment = new home();
+    Fragment admin_students_performance_fragment = new studentsPerfomanceFragment();
     Fragment units_fragment = new Units();
     Fragment academics_fragment = new academics();
 
@@ -36,7 +38,7 @@ public class student_homescreen extends AppCompatActivity {
             }else if (id == R.id.units){
                 replaceFragment(units_fragment);
             }else if (id == R.id.academics){
-                replaceFragment(academics_fragment);
+                replaceFragment(admin_students_performance_fragment);
             }
             return true;
         });
