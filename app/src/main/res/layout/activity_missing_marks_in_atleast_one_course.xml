@@ -22,10 +22,6 @@ tools:context=".home.admin.StudentsPerformanceBar.MissingMarksInAtleastOneCourse
         android:gravity="center"
         />
 </com.google.android.material.appbar.AppBarLayout>
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true">
     <FrameLayout
         android:id="@+id/MissingMarksInAtLeastOneCourse"
         android:layout_width="match_parent"
@@ -104,6 +100,6 @@ tools:context=".home.admin.StudentsPerformanceBar.MissingMarksInAtleastOneCourse
             android:layout_marginEnd="1dp"
             android:padding="2dp"/>
     </FrameLayout>
-</ScrollView>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

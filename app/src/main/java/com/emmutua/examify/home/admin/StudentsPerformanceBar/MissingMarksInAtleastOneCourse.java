@@ -110,11 +110,12 @@ public class MissingMarksInAtleastOneCourse extends AppCompatActivity {
         StringBuilder suppUnits = new StringBuilder();
         for (StudentMark studentMark : studentMarks) {
             String grade = calculateTotalMarksAndGrade(studentMark);
+            String missingMarksInfo = getMissingMarksDetails(studentMark);
             Log.d("TAG", "checkPassList: " + grade);
             // Check if the grade is "E"
-            if ("M".equals(grade)) {
+            if ("M".equals(grade)&& !missingMarksInfo.isEmpty()) {
                 canAddToMissingMarkList = true;  // Set the flag to false if any "E" grade is encountered
-                suppUnits.append(studentMark.getUnitCode()).append(" - ").append(studentMark.getUnitName()).append("\n");
+                suppUnits.append(studentMark.getUnitCode()).append(" - ").append(studentMark.getUnitName()).append("\n").append(missingMarksInfo).append("\n");
 
             }
         }
@@ -160,4 +161,30 @@ public class MissingMarksInAtleastOneCourse extends AppCompatActivity {
         MissingMarksListAdapter.addAll(MissingMarksList);
         MissingMarksListAdapter.notifyDataSetChanged();
     }
+    private String getMissingMarksDetails(StudentMark studentMark) {
+        StringBuilder details = new StringBuilder();
+
+        if (studentMark.getAssignment1Marks()==null||studentMark.getAssignment1Marks() == 0) {
+            details.append("Missing marks in Assignment 1\n");
+        }
+
+        if (studentMark.getAssignment2Marks()==null||studentMark.getAssignment2Marks() == 0) {
+            details.append("Missing marks in Assignment 2\n");
+        }
+
+        if (studentMark.getAssignment1Marks()==null||studentMark.getCat1Marks() == 0) {
+            details.append("Missing marks in Cat 1\n");
+        }
+
+        if (studentMark.getAssignment2Marks()==null||studentMark.getCat2Marks() == 0) {
+            details.append("Missing marks in Cat 2\n");
+        }
+
+        if (studentMark.getExamMarks()==null||studentMark.getExamMarks() == 0) {
+            details.append("Missing marks in Exam\n");
+        }
+
+        return details.toString();
+    }
+
 }
