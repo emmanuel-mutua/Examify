@@ -1,4 +1,4 @@
-package com.emmutua.examify.home.admin.HomeBar;
+package com.emmutua.examify.home.admin.homeBar;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -14,8 +14,8 @@ import android.widget.Button;
 
 import com.emmutua.examify.R;
 import com.emmutua.examify.authentication.Login;
-import com.emmutua.examify.home.admin.HomeBar.EnrolledStudents.adminViewEnrolledStudents;
-import com.emmutua.examify.home.admin.HomeBar.Units.adminViewUnits;
+import com.emmutua.examify.home.admin.homeBar.units.adminViewUnits;
+import com.emmutua.examify.home.admin.homeBar.editmarks.AdminEditMarks;
 import com.google.firebase.auth.FirebaseAuth;
 
 /**
@@ -24,7 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
  * create an instance of this fragment.
  */
 public class adminHome extends Fragment {
-    Button allUnitsButton, enrolledStudentsButton;
+    Button allUnitsButton, enrolledStudentsButton, editMarks;
     Button logOutButton;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -74,7 +74,7 @@ public class adminHome extends Fragment {
         View view = inflater.inflate(R.layout.fragment_admin_home, container, false);
         allUnitsButton = view.findViewById(R.id.all_units_button);
         logOutButton = view.findViewById(R.id.log_out_button);
-        enrolledStudentsButton = view.findViewById(R.id.all_enrolled_students_button);
+        editMarks = view.findViewById(R.id.edit_marks_button);
         logOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,8 +101,8 @@ public class adminHome extends Fragment {
                 startActivity(new Intent(getContext(), adminViewUnits.class));
             }
         });
-        enrolledStudentsButton.setOnClickListener((v) -> {
-            startActivity(new Intent(getContext(), adminViewEnrolledStudents.class));
+        editMarks.setOnClickListener(onclick -> {
+            startActivity(new Intent(getContext(), AdminEditMarks.class));
         });
         return view;
     }

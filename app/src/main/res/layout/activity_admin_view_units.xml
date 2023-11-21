@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_margin="10dp"
     android:layout_height="wrap_content"
-    tools:context=".home.admin.HomeBar.Units.adminViewUnits">
+    tools:context=".home.admin.homeBar.units.adminViewUnits">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

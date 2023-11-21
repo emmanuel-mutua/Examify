@@ -10,12 +10,13 @@ import androidx.fragment.app.Fragment;
 import com.emmutua.examify.R;
 import com.emmutua.examify.databinding.ActivityAdminHomescreenBinding;
 import com.emmutua.examify.home.admin.AddUnitsBar.adminAddUnits;
-import com.emmutua.examify.home.admin.HomeBar.adminHome;
+import com.emmutua.examify.home.admin.homeBar.adminHome;
 import com.emmutua.examify.home.admin.StudentsPerformanceBar.studentsPerfomanceFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class admin_homeScreen extends AppCompatActivity {
     Toolbar toolbar;
-    @NonNull ActivityAdminHomescreenBinding binding;
+    @NonNull
+    ActivityAdminHomescreenBinding binding;
 
     BottomNavigationView bottomNavigationView;
     Fragment admin_home_fragment = new adminHome();

@@ -1,4 +1,4 @@
-package com.emmutua.examify.home.lecture;
+package com.emmutua.examify.home.admin.homeBar.editmarks;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,33 +9,38 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.emmutua.examify.R;
+import com.emmutua.examify.home.lecture.StudentModel;
 
 import java.util.List;
 
-public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentViewHolder> {
+public class EditMarksAdapter extends RecyclerView.Adapter<EditMarksAdapter.EditMarksViewHolder> {
     List<StudentModel> studentList;
 
-    public StudentAdapter(List<StudentModel> studentList) {
+    public EditMarksAdapter(List<StudentModel> studentList) {
         this.studentList = studentList;
     }
 
     public interface OnItemClickListener {
         void onItemClick(StudentModel student);
     }
-    public void setOnItemClickListener(OnItemClickListener listener) {
+
+    public void setOnItemClickListener(com.emmutua.examify.home.lecture.StudentAdapter.OnItemClickListener listener) {
         this.listener = listener;
     }
-    private OnItemClickListener listener;
+
+    private com.emmutua.examify.home.lecture.StudentAdapter.OnItemClickListener listener;
 
     @NonNull
     @Override
-    public StudentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public EditMarksAdapter.EditMarksViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.admin_edit_marks_cardview, parent, false);
-        return new StudentViewHolder(view);
+        return new EditMarksAdapter.EditMarksViewHolder(view);
     }
 
+
+
     @Override
-    public void onBindViewHolder(@NonNull StudentViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull EditMarksAdapter.EditMarksViewHolder holder, int position) {
         StudentModel student = studentList.get(position);
 
         // Bind data to the ViewHolder's views
@@ -57,11 +62,11 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
         return studentList.size();
     }
 
-    public static class StudentViewHolder extends RecyclerView.ViewHolder {
+    public static class EditMarksViewHolder extends RecyclerView.ViewHolder {
         TextView nameTextView, regNoTextView;
         TextView assign1MarksTextView, assign2MarksTextView, cat1MarksTextView, cat2MarksTextView, examMarksTextView;
 
-        public StudentViewHolder(View itemView) {
+        public EditMarksViewHolder(View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.student_name_id); // Replace with the appropriate resource ID
             regNoTextView = itemView.findViewById(R.id.student_registration_number); // Replace with the appropriate resource ID

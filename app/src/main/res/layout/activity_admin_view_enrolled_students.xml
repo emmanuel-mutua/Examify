@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_margin="10dp"
     android:layout_height="wrap_content"
-    tools:context=".home.admin.HomeBar.EnrolledStudents.adminViewEnrolledStudents">
+    tools:context=".home.admin.homeBar.enrolledStudents.adminViewEnrolledStudents">
     <TextView
         android:id="@+id/EnrolledStudents_textView"
         android:layout_width="match_parent"

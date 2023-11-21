@@ -1,4 +1,4 @@
-package com.emmutua.examify.home.admin.HomeBar.EnrolledStudents;
+package com.emmutua.examify.home.admin.homeBar.enrolledStudents;
 
 import android.view.LayoutInflater;
 import android.view.View;

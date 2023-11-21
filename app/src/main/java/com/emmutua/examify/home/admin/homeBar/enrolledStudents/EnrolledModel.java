@@ -1,4 +1,4 @@
-package com.emmutua.examify.home.admin.HomeBar.EnrolledStudents;
+package com.emmutua.examify.home.admin.homeBar.enrolledStudents;
 
 // create model EnrolledModel
 // package com.emmutua.examify.home.admin.HomeBar.EnrolledStudents;
