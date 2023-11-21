@@ -1,13 +1,14 @@
-package com.emmutua.examify.home.lecture;
+package com.emmutua.examify.home.admin.homeBar.editmarks;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.emmutua.examify.home.admin.homeBar.editmarks.EditMarksViewModel;
+
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.emmutua.examify.R;
+import com.emmutua.examify.home.lecture.StudentAdapter;
+import com.emmutua.examify.home.lecture.StudentModel;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -23,30 +26,29 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class myStudents extends AppCompatActivity {
+public class AdminEditMarks extends AppCompatActivity {
     RecyclerView recyclerView;
-    StudentAdapter studentsAdapter;
+    EditMarksAdapter editMarksAdapter;
     List<StudentModel> studentsList;
-    LecturerHomeViewModel lecturerHomeViewModel;
+    EditMarksViewModel adminEditMarksViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_students);
-        lecturerHomeViewModel = new ViewModelProvider(this).get(LecturerHomeViewModel.class);
-        recyclerView = findViewById(R.id.lecturer_recyclerView);
+        setContentView(R.layout.activity_admin_edit_marks);
+        adminEditMarksViewModel = new ViewModelProvider(this).get(EditMarksViewModel.class);
+        recyclerView = findViewById(R.id.admin_recyclerView);
         studentsList = new ArrayList<>();
-        studentsAdapter = new StudentAdapter(studentsList);
+        editMarksAdapter = new EditMarksAdapter(studentsList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(studentsAdapter);
-        lecturerHomeViewModel.getUnitCode().observe(this, unitCode -> {
-            fetchAllMyStudentsFromFirebase(unitCode);
-        });
-        studentsAdapter.setOnItemClickListener(student -> {
+        recyclerView.setAdapter(editMarksAdapter);
+        fetchAllMyStudentsFromFirebase("ccs 3553");
+        editMarksAdapter.setOnItemClickListener(student -> {
             showEditMarksDialog(student);
         });
     }
+
     private void showEditMarksDialog(StudentModel student) {
         // Create and show a dialog with the student details
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -68,12 +70,6 @@ public class myStudents extends AppCompatActivity {
         cat2MarksEditText.setText(String.valueOf(student.getUnitCat2Marks()));
         examMarksEditText.setText(String.valueOf(student.getUnitExamMarks()));
 
-        // Check if each field has 0 marks, and hide them if true
-        checkAndHideZeroMarks(assign1MarksEditText, student.getUnitAssign1Marks());
-        checkAndHideZeroMarks(assign2MarksEditText, student.getUnitAssign2Marks());
-        checkAndHideZeroMarks(cat1MarksEditText, student.getUnitCat1Marks());
-        checkAndHideZeroMarks(cat2MarksEditText, student.getUnitCat2Marks());
-        checkAndHideZeroMarks(examMarksEditText, student.getUnitExamMarks());
 
         // Set positive and negative buttons
         builder.setPositiveButton("Save", (dialog, which) -> {
@@ -88,22 +84,13 @@ public class myStudents extends AppCompatActivity {
             updateMarksInFirestore(student);
 
             // Notify the adapter that the data set has changed
-            studentsAdapter.notifyDataSetChanged();
+            editMarksAdapter.notifyDataSetChanged();
         });
 
         builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
 
         // Show the dialog
         builder.create().show();
-        // Check if all EditText fields are gone, and show the message
-        boolean allMarksAdded = student.getUnitAssign1Marks() > 0
-                && student.getUnitAssign1Marks() >0
-                && student.getUnitAssign2Marks() >0
-                && student.getUnitCat1Marks() >0
-                && student.getUnitCat2Marks() >0
-                && student.getUnitExamMarks() >0;
-        TextView allMarksAddedTextView = dialogView.findViewById(R.id.allMarksAddedTextView);
-        allMarksAddedTextView.setVisibility(allMarksAdded ? View.VISIBLE : View.GONE);
     }
 
     private void updateMarksInFirestore(StudentModel student) {
@@ -179,7 +166,7 @@ public class myStudents extends AppCompatActivity {
                         // Now, you can use the retrieved data as needed
                         // For example, you can create a StudentModel object and add it to a list
                         if (!isStudentInList(registrationNumber, studentsList)) {
-                            StudentModel student = new StudentModel( studentUid,unitCodeFromFirestore,studentName, registrationNumber, unitAssign1Marks, unitAssign2Marks, unitCat1Marks, unitCat2Marks, unitExamMarks);
+                            StudentModel student = new StudentModel(studentUid, unitCodeFromFirestore, studentName, registrationNumber, unitAssign1Marks, unitAssign2Marks, unitCat1Marks, unitCat2Marks, unitExamMarks);
                             studentsList.add(student);
                         }
 
@@ -187,7 +174,7 @@ public class myStudents extends AppCompatActivity {
                         // Add more fields to the StudentModel as needed
                         // Do something with the student data, such as adding it to a list or updating UI
                     }
-                    studentsAdapter.notifyDataSetChanged();
+                    editMarksAdapter.notifyDataSetChanged();
                 })
                 .addOnFailureListener(e -> {
                     // Handle any errors that occur
@@ -204,11 +191,6 @@ public class myStudents extends AppCompatActivity {
             }
         }
         return false;
-    }
-    private void checkAndHideZeroMarks(EditText editText, int marks) {
-        if (marks != 0) {
-            editText.setVisibility(View.GONE);
-        }
     }
 }
 

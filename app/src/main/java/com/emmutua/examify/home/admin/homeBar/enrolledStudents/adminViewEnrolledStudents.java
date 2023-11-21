@@ -1,4 +1,4 @@
-package com.emmutua.examify.home.admin.HomeBar.EnrolledStudents;
+package com.emmutua.examify.home.admin.homeBar.enrolledStudents;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -6,18 +6,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.emmutua.examify.R;
-import com.emmutua.examify.home.admin.HomeBar.Units.UnitModel;
-import com.emmutua.examify.home.admin.HomeBar.Units.UnitsAdapter;
-import com.emmutua.examify.home.admin.HomeBar.Units.adminViewUnits;
+import com.emmutua.examify.home.admin.homeBar.units.UnitModel;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

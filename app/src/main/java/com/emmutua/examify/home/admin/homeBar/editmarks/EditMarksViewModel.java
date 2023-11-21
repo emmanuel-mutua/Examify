@@ -1,4 +1,4 @@
-package com.emmutua.examify.home.lecture;
+package com.emmutua.examify.home.admin.homeBar.editmarks;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -11,8 +11,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
-public class LecturerHomeViewModel extends ViewModel {
-
+public class EditMarksViewModel extends ViewModel{
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -20,7 +19,6 @@ public class LecturerHomeViewModel extends ViewModel {
 
     CollectionReference usersCollection = db.collection("users");
     CollectionReference lecturersCollection = db.collection("lectures");
-    private MutableLiveData<String> greetingText = new MutableLiveData<>();
     private MutableLiveData<String> courseText = new MutableLiveData<>();
     private MutableLiveData<String> _unitCode = new MutableLiveData<>();
     private MutableLiveData<String> nameText = new MutableLiveData<>();
@@ -28,15 +26,12 @@ public class LecturerHomeViewModel extends ViewModel {
     private MutableLiveData<String> emailText = new MutableLiveData<>();
     private MutableLiveData<String> phoneText = new MutableLiveData<>();
 
-    public LecturerHomeViewModel() {
+    public EditMarksViewModel() {
         // Initialize the ViewModel and load user data immediately
 //        loadUserDataFromFirebase(currentUser.getUid());
-//        loadLecDataFromFirebase(currentUser.getUid());
+        loadLecDataFromFirebase(currentUser.getUid());
     }
 
-    public LiveData<String> getGreetingText() {
-        return greetingText;
-    }
 
     public LiveData<String> getCourseText() {
         return courseText;
@@ -72,14 +67,14 @@ public class LecturerHomeViewModel extends ViewModel {
                 String userFullName = documentSnapshot.getString("fullName");
                 String userName = documentSnapshot.getString("fullName");
                 String _unitName = documentSnapshot.getString("fullName");
-                String unitCode = documentSnapshot.getString("unitCode");
-                greetingText.setValue("Hi there, " + userFullName);
+//                String unitCode = documentSnapshot.getString("unitCode");
+                String unitCode = "ccs 3553";
                 nameText.setValue(userName);
                 this._unitCode.setValue(unitCode);
                 unitName.setValue(_unitName);
 
             } else {
-      }
+            }
         }).addOnFailureListener(e -> {
             // Handle errors, such as network issues or Firebase exceptions
         });
@@ -100,7 +95,6 @@ public class LecturerHomeViewModel extends ViewModel {
                 String userPhone = documentSnapshot.getString("phoneNumber");
 
                 // Update LiveData with the retrieved data
-                greetingText.setValue("Hi there, " + userFullName);
 //                courseText.setValue("Course: " + userCourse);
                 nameText.setValue(userName);
 //                semesterText.setValue("Current Semester: " + userSemester);
@@ -113,10 +107,4 @@ public class LecturerHomeViewModel extends ViewModel {
             // Handle errors, such as network issues or Firebase exceptions
         });
     }
-
-    void logout() {
-        auth.signOut();
-    }
-
 }
-

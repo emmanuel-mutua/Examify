@@ -1,7 +1,6 @@
-package com.emmutua.examify.home.admin.HomeBar.Units;
+package com.emmutua.examify.home.admin.homeBar.units;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 

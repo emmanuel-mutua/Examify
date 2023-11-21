@@ -29,7 +29,7 @@ public class SignUp extends AppCompatActivity {
 
     EditText emailedittext, passwordedittext, confirmpasswordedittext, fullNameEditText, regNo_pf;
     EditText phoneNumberEditText;
-    Button createAccBtn;
+    Button createaccbtn;
 
     RadioGroup radioGroup;
     TextView logintextview;
@@ -52,7 +52,7 @@ public class SignUp extends AppCompatActivity {
         emailedittext = findViewById(R.id.email);
         passwordedittext = findViewById(R.id.psw);
         confirmpasswordedittext = findViewById(R.id.confirm_psw);
-        createAccBtn = findViewById(R.id.create_account_btn);
+        createaccbtn = findViewById(R.id.create_account_btn);
         logintextview = findViewById(R.id.login_btn);
         progressBar = findViewById(R.id.progress_circular);
         radioGroup = findViewById(R.id.role_radio_group);
@@ -65,43 +65,29 @@ public class SignUp extends AppCompatActivity {
             }
         });
 
-        createAccBtn.setOnClickListener(new View.OnClickListener() {
+        createaccbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setCreateAccBtn();
+                createAccount();
             }
         });
     }
-    void setCreateAccBtn() {
+
+    void createAccount() {
         String email = emailedittext.getText().toString();
         String password = passwordedittext.getText().toString();
         String confirmPassword = confirmpasswordedittext.getText().toString();
         String fullName = fullNameEditText.getText().toString();
         String regNo = regNo_pf.getText().toString();
         String phoneNumber = phoneNumberEditText.getText().toString();
+
         int selectedRoleId = radioGroup.getCheckedRadioButtonId();
-        String selectedRole = "";
-        if (selectedRoleId != -1) {
-            RadioButton selectedRadioButton = findViewById(selectedRoleId);
-            if (selectedRadioButton != null) {
-                selectedRole = selectedRadioButton.getText().toString();
-            } else {
-                return;
-            }
-        } else {
-            return;
-        }
+        RadioButton selectedRadioButton = findViewById(selectedRoleId);
+        String selectedRole = selectedRadioButton.getText().toString();
 
         boolean isValid = validateInput(email, password, confirmPassword, fullName, regNo, phoneNumber);
-        if (!isValid) {
-            return;
-        } else {
-            createAccount(email, password, fullName, regNo, phoneNumber, selectedRole);
-        }
-    }
 
-    void createAccount(String email, String password, String fullName, String regNo, String phoneNumber, String selectedRole) {
-        String finalSelectedRole = selectedRole;
+        if (isValid) {
             progressIndicator(true);
             firebaseAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -119,9 +105,9 @@ public class SignUp extends AppCompatActivity {
                                                     if (emailTask.isSuccessful()) {
                                                         String uid = user.getUid();
                                                         // Email sent successfully
-                                                        User newUser = new User(uid, email, fullName, finalSelectedRole, regNo, phoneNumber);
+                                                        User newUser = new User(uid, email, fullName, regNo, selectedRole, phoneNumber);
                                                         LecturerDetails lecturerDetails = new LecturerDetails(uid, fullName, "", "", false);
-                                                        if (finalSelectedRole.equals("Lecturer")){
+                                                        if (selectedRole.equals("Lecturer")){
                                                             saveUserToFirestore(newUser);
                                                             saveLectureDetails(lecturerDetails);
                                                         }else {
@@ -141,6 +127,7 @@ public class SignUp extends AppCompatActivity {
                         }
                     });
         }
+    }
 
     void saveUserToFirestore(User user) {
         firestore.collection("users")
@@ -165,7 +152,7 @@ public class SignUp extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<DocumentReference> task) {
                         if (task.isSuccessful()) {
-                            // data saved to FireStore
+                            // data saved to Firestore
                         } else {
                             String errorMessage =  task.getException().getLocalizedMessage();
                             Log.d("FireStore", errorMessage);
@@ -175,40 +162,45 @@ public class SignUp extends AppCompatActivity {
     }
 
     boolean validateInput(String email, String password, String confirmPassword, String fullName, String regNo, String phoneNumber) {
-            // Set errors for empty fields
-            if (fullName.isEmpty()&&regNo.isEmpty()&&email.isEmpty()&&phoneNumber.isEmpty()&&password.isEmpty()&&confirmPassword.isEmpty()) {
-                fullNameEditText.setError("Please enter full name");
-                regNo_pf.setError("Please enter registration number");
-                emailedittext.setError("Please enter email");
-                phoneNumberEditText.setError("Please enter phone number");
-                passwordedittext.setError("Please enter password");
-                confirmpasswordedittext.setError("Please confirm password");
-            return false;
-            }
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             showToast("Invalid email address");
             return false;
         }
+
         if (password.length() < 8) {
             showToast("Password must be at least 8 characters");
             return false;
         }
+
         if (!password.equals(confirmPassword)) {
             showToast("Passwords do not match");
+            return false;
+        }
+
+        if (fullName.isEmpty()) {
+            showToast("Full name is required");
+            return false;
+        }
+
+        if (regNo.isEmpty()) {
+            showToast("Registration number is required");
+            return false;
+        }
+        if (phoneNumber.isEmpty()) {
+            showToast("Phone number is required");
             return false;
         }
 
         return true;
     }
 
-
     void progressIndicator(boolean inProgress) {
         if (inProgress) {
             progressBar.setVisibility(View.VISIBLE);
-            createAccBtn.setEnabled(false);
+            createaccbtn.setEnabled(false);
         } else {
             progressBar.setVisibility(View.GONE);
-            createAccBtn.setEnabled(true);
+            createaccbtn.setEnabled(true);
         }
     }
 
