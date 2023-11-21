@@ -129,8 +129,6 @@ public class Units extends Fragment {
                 document().update("appliedSpecial", appliedForSpecial).addOnCompleteListener(task -> {
                     if(task.isSuccessful()){
                         utility.showToast(getContext(), "Successfully Applied for special exam for " + selectedUnit );
-                    }else{
-                        utility.showToast(getContext(), "Failed to apply for special exam");
                     }
                         // show success message
                 }).addOnFailureListener(
