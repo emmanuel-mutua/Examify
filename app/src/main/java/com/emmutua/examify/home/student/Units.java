@@ -3,6 +3,7 @@ package com.emmutua.examify.home.student;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -16,9 +17,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.emmutua.examify.R;
+import com.emmutua.examify.authentication.Login;
+import com.emmutua.examify.authentication.utility;
+import com.emmutua.examify.home.lecture.lecturer_homeScreen;
 import com.emmutua.examify.home.student.addUnit.AddUnit;
 import com.emmutua.examify.home.student.addUnit.AddUnitViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,10 +96,45 @@ public class Units extends Fragment {
                 noRegisteredUnitsText.setVisibility(View.VISIBLE);
             }
         });
+        listView.setOnItemClickListener((parent, view1, position, id) -> {
+            String selectedItem = adapter.getItem(position);
+            ShowAlertDialog(selectedItem);
+        });
         FloatingActionButton addUnitFab = view.findViewById(R.id.add_unit_fab);
         addUnitFab.setOnClickListener(onClick -> {
             startActivity(new Intent(getActivity(), AddUnit.class));
         });
         return view;
+    }
+    void ShowAlertDialog(String selectedItem){
+        // show alert dialog to allow for registration of special exams
+            AlertDialog.Builder builder = new AlertDialog
+                   .Builder(getContext());
+           builder.setTitle("Apply For Special EXam");
+           builder.setMessage("Are you sure you want to apply for special for  " + selectedItem + "?");
+           builder.setPositiveButton("Apply", (dialog, which) -> {
+               sendAppliedSpecialsToFirebase(selectedItem);
+           });
+            builder.setNegativeButton("Cancel",(dialog, which) ->{
+               dialog.dismiss();
+            });
+            AlertDialog dialog = builder.create();
+          dialog.show();
+    }
+    void sendAppliedSpecialsToFirebase(String selectedUnit){
+        utility utility = new utility();
+        boolean appliedForSpecial = true;
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseFirestore.collection("students_registered_units").
+                document().update("appliedForSpecial", appliedForSpecial).addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){
+                        utility.showToast(getContext(), "Successfully Applied for special exam for " + selectedUnit );
+                    }else{
+                        utility.showToast(getContext(), "Failed to apply for special exam");
+                    }
+                        // show success message
+                }).addOnFailureListener(
+                            e -> utility.showToast(getContext(), "Failed to apply for special exam")
+                );
     }
 }

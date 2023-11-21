@@ -46,7 +46,7 @@ public class PassListPerSemester extends AppCompatActivity {
             passList.clear();
             passListAdapter.clear();
             passListAdapter.notifyDataSetChanged();
-            String selectedSemester = reusableClass.getSelectedAcademicYear();
+            String selectedSemester = reusableClass.getSelectedSemester();
             if (!selectedSemester.isEmpty()) {
                 fetchStudentsMarks(selectedSemester);
             }
@@ -141,8 +141,10 @@ public class PassListPerSemester extends AppCompatActivity {
             return "C";
         } else if (totalMarks >= 40) {
             return "D";
-        } else {
+        } else if(totalMarks >= 1 && totalMarks <= 39) {
             return "E";
+        }else {
+            return "M";
         }
     }
 

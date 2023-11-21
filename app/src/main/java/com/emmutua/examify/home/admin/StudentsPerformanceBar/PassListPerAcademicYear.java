@@ -154,8 +154,10 @@ public class PassListPerAcademicYear extends AppCompatActivity {
             return "C";
         } else if (totalMarks >= 40) {
             return "D";
-        } else {
+        } else if(totalMarks >= 1 && totalMarks <= 39) {
             return "E";
+        }else {
+            return "M";
         }
     }
 
