@@ -12,6 +12,7 @@ import android.app.AlertDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,19 +32,30 @@ public class AdminEditMarks extends AppCompatActivity {
     EditMarksAdapter editMarksAdapter;
     List<StudentModel> studentsList;
     EditMarksViewModel adminEditMarksViewModel;
+    Button searchButton;
+    EditText searchEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_edit_marks);
         adminEditMarksViewModel = new ViewModelProvider(this).get(EditMarksViewModel.class);
+        searchButton = findViewById(R.id.searchButton);
+        searchEditText = findViewById(R.id.search_edit_text);
         recyclerView = findViewById(R.id.admin_recyclerView);
         studentsList = new ArrayList<>();
         editMarksAdapter = new EditMarksAdapter(studentsList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(editMarksAdapter);
-        fetchAllMyStudentsFromFirebase("ccs 3553");
+        fetchAllMyStudentsFromFirebase("ccs 2423");
+        searchButton.setOnClickListener(onClick -> {
+            String unitCode = searchEditText.getText().toString();
+            if (unitCode.isEmpty()){
+                return;
+            }
+            fetchAllMyStudentsFromFirebase(unitCode);
+        });
         editMarksAdapter.setOnItemClickListener(student -> {
             showEditMarksDialog(student);
         });
