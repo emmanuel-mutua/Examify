@@ -126,7 +126,7 @@ public class Units extends Fragment {
         boolean appliedForSpecial = true;
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseFirestore.collection("students_registered_units").
-                document().update("appliedForSpecial", appliedForSpecial).addOnCompleteListener(task -> {
+                document().update("appliedSpecial", appliedForSpecial).addOnCompleteListener(task -> {
                     if(task.isSuccessful()){
                         utility.showToast(getContext(), "Successfully Applied for special exam for " + selectedUnit );
                     }else{

@@ -98,7 +98,7 @@ public class AddUnitViewModel extends ViewModel {
                     _stage.setValue(unitStage);
                     _unitCode.setValue(unitCode);
                     _unitLecturer.setValue(unitLecturer);
-                    UnitDetails unitDetails1 = new UnitDetails("", "", "", unitName, unitCode, unitLecturer, "Computer Science", unitStage, 0, 0, 0, 0, 0, 0);
+                    UnitDetails unitDetails1 = new UnitDetails("", "", "", unitName, unitCode, unitLecturer, "Computer Science", unitStage, 0, 0, 0, 0, 0, 0, false);
                     unitDetailsModels.add(unitDetails1);
                     unitDetailsList.add(unitName);
                 }

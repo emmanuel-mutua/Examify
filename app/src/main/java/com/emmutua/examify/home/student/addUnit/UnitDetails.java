@@ -16,9 +16,10 @@ public class UnitDetails {
     private Integer unitCat2Marks = 0;
     private Integer unitExamMarks = 0;
     private Integer unitTotalMarks = 0;
+    Boolean appliedSpecial;
 
     //generate constructor
-    public UnitDetails(String studentUid, String studentName, String registrationNumber, String unitName, String unitCode, String unitLecturer, String unitDepartment, String unitStage, Integer unitAssign1Marks, Integer unitAssign2Marks, Integer unitCat1Marks, Integer unitCat2Marks, Integer unitExamMarks, Integer unitTotalMarks) {
+    public UnitDetails(String studentUid, String studentName, String registrationNumber, String unitName, String unitCode, String unitLecturer, String unitDepartment, String unitStage, Integer unitAssign1Marks, Integer unitAssign2Marks, Integer unitCat1Marks, Integer unitCat2Marks, Integer unitExamMarks, Integer unitTotalMarks, Boolean appliedSpecial) {
         this.studentUid = studentUid;
         this.studentName = studentName;
         this.registrationNumber = registrationNumber;
@@ -33,9 +34,18 @@ public class UnitDetails {
         this.unitCat2Marks = unitCat2Marks;
         this.unitExamMarks = unitExamMarks;
         this.unitTotalMarks = unitTotalMarks;
+        this.appliedSpecial = appliedSpecial;
     }
     //generate getters and setters
 
+
+    public Boolean getAppliedSpecial() {
+        return appliedSpecial;
+    }
+
+    public void setAppliedSpecial(Boolean appliedSpecial) {
+        this.appliedSpecial = appliedSpecial;
+    }
 
     public String getStudentUid() {
         return studentUid;

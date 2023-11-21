@@ -24,15 +24,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-
-                <androidx.appcompat.widget.SearchView
+                <EditText
                     android:id="@+id/searchView"
-                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:iconifiedByDefault="false"
-                    android:queryHint="Enter Unit Code"
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="15dp"
+                    android:hint="Enter unit code"
+                    android:textStyle="normal"
+                    android:outlineProvider="background"
+                    android:maxLines="1"
+                    android:inputType="textPassword"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"/>
 
             </LinearLayout>
 
