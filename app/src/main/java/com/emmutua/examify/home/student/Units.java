@@ -24,7 +24,9 @@ import com.emmutua.examify.home.student.addUnit.AddUnit;
 import com.emmutua.examify.home.student.addUnit.AddUnitViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -121,20 +123,37 @@ public class Units extends Fragment {
             AlertDialog dialog = builder.create();
           dialog.show();
     }
-    void sendAppliedSpecialsToFirebase(String selectedUnit){
-        utility utility = new utility();
+    void sendAppliedSpecialsToFirebase(String selectedUnit) {
+     // Assuming Utility is a class or utility method
         boolean appliedForSpecial = true;
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
-        firebaseFirestore.collection("students_registered_units").
-                document().update("appliedSpecial", appliedForSpecial).addOnCompleteListener(task -> {
-                    if(task.isSuccessful()){
-                        utility.showToast(getContext(), "Successfully Applied for special exam for " + selectedUnit );
-                    }else{
-                        utility.showToast(getContext(), "Failed to apply for special exam");
+
+        // Query the collection to get the document with the specified unitName
+        firebaseFirestore.collection("students_registered_units")
+                .whereEqualTo("unitName", selectedUnit)
+                .whereEqualTo("studentUid", currentUser.getUid())
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful() && task.getResult() != null) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            // Update the 'appliedSpecial' field for the found document
+                            document.getReference()
+                                    .update("appliedSpecial", appliedForSpecial)
+                                    .addOnSuccessListener(aVoid -> {
+                                        utility.showToast(getContext(), "Successfully Applied for special exam for " + selectedUnit);
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        utility.showToast(getContext(), "Failed to apply for special exam");
+                                    });
+                        }
+                    } else {
+                        utility.showToast(getContext(), "Failed to retrieve document for " + selectedUnit);
                     }
-                        // show success message
-                }).addOnFailureListener(
-                            e -> utility.showToast(getContext(), "Failed to apply for special exam")
-                );
+                });
     }
+
+
 }
