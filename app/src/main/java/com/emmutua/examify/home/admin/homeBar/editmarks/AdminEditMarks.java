@@ -166,7 +166,7 @@ public class AdminEditMarks extends AppCompatActivity {
                         // Now, you can use the retrieved data as needed
                         // For example, you can create a StudentModel object and add it to a list
                         if (!isStudentInList(registrationNumber, studentsList)) {
-                            StudentModel student = new StudentModel(studentUid, unitCodeFromFirestore, studentName, registrationNumber, unitAssign1Marks, unitAssign2Marks, unitCat1Marks, unitCat2Marks, unitExamMarks);
+                            StudentModel student = new StudentModel(studentUid, unitCodeFromFirestore, studentName, registrationNumber, unitAssign1Marks, unitAssign2Marks, unitCat1Marks, unitCat2Marks, unitExamMarks, false);
                             studentsList.add(student);
                         }
 
