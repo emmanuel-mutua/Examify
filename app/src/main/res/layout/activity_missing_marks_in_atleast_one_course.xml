@@ -22,7 +22,7 @@ tools:context=".home.admin.StudentsPerformanceBar.MissingMarksInAtleastOneCourse
         android:gravity="center"
         />
 </com.google.android.material.appbar.AppBarLayout>
-<androidx.core.widget.NestedScrollView
+<ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
@@ -31,6 +31,70 @@ tools:context=".home.admin.StudentsPerformanceBar.MissingMarksInAtleastOneCourse
         android:layout_width="match_parent"
         android:layout_marginTop="60dp"
         android:layout_height="match_parent">
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:layout_marginBottom="40dp"
+            >
+            <RadioGroup
+                android:id="@+id/MissingMarksInAtLeastOneCourseRadioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:orientation="horizontal">
+
+                <!-- Radio Buttons For all the semester stages-->
+                <RadioButton
+                    android:id="@+id/radioY1S1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Y1S1"
+                    />
+                <RadioButton
+                    android:id="@+id/radioY1S2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Y1S2"
+                    />
+                <RadioButton
+                    android:id="@+id/radioY2S1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Y2S1"
+                    />
+                <RadioButton
+                    android:id="@+id/radioY2S2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Y2S2"
+                    />
+                <RadioButton
+                    android:id="@+id/radioY3S1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Y3S1"
+                    />
+                <RadioButton
+                    android:id="@+id/radioY3S2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Y3S2"
+                    />
+                <RadioButton
+                    android:id="@+id/radioY4S1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Y4S1"
+                    />
+                <RadioButton
+                    android:id="@+id/radioY4S2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Y4S2"
+                    />
+            </RadioGroup>
+        </HorizontalScrollView>
         <ListView
             android:id="@+id/missingMarksInAtLeastOneCourseListView"
             android:layout_width="match_parent"
@@ -40,6 +104,6 @@ tools:context=".home.admin.StudentsPerformanceBar.MissingMarksInAtleastOneCourse
             android:layout_marginEnd="1dp"
             android:padding="2dp"/>
     </FrameLayout>
-</androidx.core.widget.NestedScrollView>
+</ScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
