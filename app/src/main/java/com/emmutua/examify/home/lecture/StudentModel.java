@@ -10,7 +10,8 @@ public class StudentModel {
     Integer unitCat1Marks;
     Integer unitCat2Marks;
     Integer unitExamMarks;
-    public StudentModel(String studentUid, String unitCode,String studentName, String registrationNumber, Integer unitAssign1Marks, Integer unitAssign2Marks, Integer unitCat1Marks, Integer unitCat2Marks, Integer unitExamMarks) {
+    Boolean appliedSpecial;
+    public StudentModel(String studentUid, String unitCode,String studentName, String registrationNumber, Integer unitAssign1Marks, Integer unitAssign2Marks, Integer unitCat1Marks, Integer unitCat2Marks, Integer unitExamMarks, Boolean appliedSpecial) {
         this.studentUid = studentUid;
         this.unitCode = unitCode;
         this.studentName = studentName;
@@ -20,6 +21,15 @@ public class StudentModel {
         this.unitCat1Marks = unitCat1Marks;
         this.unitCat2Marks = unitCat2Marks;
         this.unitExamMarks = unitExamMarks;
+        this.appliedSpecial = appliedSpecial;
+    }
+
+    public Boolean getAppliedSpecial() {
+        return appliedSpecial;
+    }
+
+    public void setAppliedSpecial(Boolean appliedSpecial) {
+        this.appliedSpecial = appliedSpecial;
     }
 
     public String getStudentUid() {
