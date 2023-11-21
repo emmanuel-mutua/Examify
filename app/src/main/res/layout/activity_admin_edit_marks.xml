@@ -16,36 +16,18 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:title="All Students Marks "
+            app:title="Edit all Students Marks "
             app:titleTextAppearance="@style/ToolbarTitle"
             app:titleTextColor="@android:color/white">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <EditText
-                    android:id="@+id/searchView"
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="15dp"
-                    android:hint="Enter unit code"
-                    android:textStyle="normal"
-                    android:outlineProvider="background"
-                    android:maxLines="1"
-                    android:inputType="textPassword"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"/>
-
-            </LinearLayout>
 
         </androidx.appcompat.widget.Toolbar>
 
+
     </com.google.android.material.appbar.AppBarLayout>
 
-
-
     <androidx.core.widget.NestedScrollView
+        android:paddingTop="70dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true">
@@ -55,9 +37,41 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="6dp">
+            <LinearLayout
+                android:id="@+id/search_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical">
+
+                <EditText
+                    android:id="@+id/search_edit_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:hint="Enter unit code for a specific class"
+                    android:inputType="textAutoComplete"
+                    android:maxLines="1"
+                    android:outlineProvider="background"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:textStyle="normal" />
+
+                <Button
+                    android:id="@+id/searchButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Search"
+                    android:onClick="performSearch" />
+
+            </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_below="@+id/search_view"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
