@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import com.emmutua.examify.R;
 import com.emmutua.examify.authentication.Login;
+import com.emmutua.examify.home.student.StudentGrades.MyGrades;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -75,9 +77,15 @@ public class home extends Fragment {
         TextView regNoTextView = view.findViewById(R.id.regNoTextView);
         TextView nameTextView = view.findViewById(R.id.nameTextView);
         TextView emailTextView = view.findViewById(R.id.emailTextView);
+        CardView myGradesCardview = view.findViewById(R.id.myGradesCardView);
         TextView phoneTextView = view.findViewById(R.id.phoneTextView);
-
         TextView logoutTextView = view.findViewById(R.id.logoutTextView);
+        myGradesCardview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), MyGrades.class));
+            }
+        });
         logoutTextView.setOnClickListener(v -> {
             new AlertDialog.Builder(requireContext())
                     .setTitle("Confirm Logout")
