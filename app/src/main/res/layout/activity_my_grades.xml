@@ -27,14 +27,137 @@ tools:context=".home.student.StudentGrades.MyGrades">
         android:layout_width="match_parent"
         android:layout_marginTop="60dp"
         android:layout_height="match_parent">
-        <ListView
-            android:id="@+id/MyGrades_listView"
+            <HorizontalScrollView
+                android:id="@+id/radio_button_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:layout_marginBottom="40dp"
+                >
+                <RadioGroup
+                    android:id="@+id/myGradesRadioGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="30dp"
+                    android:orientation="horizontal">
+
+                    <!-- Radio Buttons For all the semester stages-->
+                    <RadioButton
+                        android:id="@+id/radioY1S1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Y1S1"
+                        />
+                    <RadioButton
+                        android:id="@+id/radioY1S2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Y1S2"
+                        />
+                    <RadioButton
+                        android:id="@+id/radioY2S1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Y2S1"
+                        />
+                    <RadioButton
+                        android:id="@+id/radioY2S2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Y2S2"
+                        />
+                    <RadioButton
+                        android:id="@+id/radioY3S1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Y3S1"
+                        />
+                    <RadioButton
+                        android:id="@+id/radioY3S2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Y3S2"
+                        />
+                    <RadioButton
+                        android:id="@+id/radioY4S1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Y4S1"
+                        />
+                    <RadioButton
+                        android:id="@+id/radioY4S2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Y4S2"
+                        />
+                </RadioGroup>
+            </HorizontalScrollView>
+        <LinearLayout
+            android:id="@+id/totalGrades"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="1dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginEnd="1dp"
-            android:padding="2dp"/>
+            android:layout_height="match_parent"
+            android:layout_below="@+id/radio_button_list"
+            android:orientation="vertical"
+            android:layout_marginTop="60dp"
+            android:paddingTop="10dp">
+            <TextView
+                android:id="@+id/overall_mark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Total Marks"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:id="@+id/mean_marks_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:textStyle="normal"
+                />
+            <TextView
+                android:id="@+id/total_grade"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Grade"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:textStyle="normal"
+                />
+            <TextView
+                android:id="@+id/Recommendation_textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pass"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:textStyle="normal"
+                />
+
+        </LinearLayout>
+            <LinearLayout
+                android:id="@+id/units_list_view_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/totalGrades"
+                android:orientation="vertical"
+                android:layout_marginTop="110dp"
+                android:paddingTop="20dp">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/units_recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="45dp"
+                    android:clipToPadding="false"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp" />
+            </LinearLayout>
+
     </FrameLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
 

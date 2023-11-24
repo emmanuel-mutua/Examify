@@ -5,9 +5,14 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.List;
 
 public class MyGradesViewModel extends ViewModel {
+    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+    //Fetch all semesters registered
     private MutableLiveData<List<Grades>> gradesList = new MutableLiveData<>();
 
     public LiveData<List<Grades>> getGradesList() {

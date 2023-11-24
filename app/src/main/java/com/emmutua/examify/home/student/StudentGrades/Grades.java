@@ -17,6 +17,7 @@ public class Grades {
     private Integer unitExamMarks;
     private Integer unitTotalMarks;
     Boolean appliedSpecial;
+    public Grades(){}
 
     public Grades(String studentUid, String studentName, String registrationNumber, String unitName, String unitCode, String unitLecturer, String unitDepartment, String unitStage, Integer unitAssign1Marks, Integer unitAssign2Marks, Integer unitCat1Marks, Integer unitCat2Marks, Integer unitExamMarks, Integer unitTotalMarks, Boolean appliedSpecial) {
         this.studentUid = studentUid;
@@ -35,6 +36,7 @@ public class Grades {
         this.unitTotalMarks = unitTotalMarks;
         this.appliedSpecial = appliedSpecial;
     }
+
 
     public String getStudentUid() {
         return studentUid;
@@ -141,11 +143,30 @@ public class Grades {
     }
 
     public Integer getUnitTotalMarks() {
+        Integer unitTotalMarks = unitAssign1Marks + unitAssign2Marks + unitCat1Marks + unitCat2Marks + unitExamMarks;
         return unitTotalMarks;
     }
 
     public void setUnitTotalMarks(Integer unitTotalMarks) {
         this.unitTotalMarks = unitTotalMarks;
+    }
+
+    public String getUnitGrade() {
+       Integer unitTotalMarks =  unitAssign1Marks + unitAssign2Marks + unitCat1Marks + unitCat2Marks + unitExamMarks;
+       setUnitTotalMarks(unitTotalMarks);
+        if (unitTotalMarks >= 70) {
+            return "A";
+        } else if (unitTotalMarks >= 60) {
+            return "B";
+        } else if (unitTotalMarks >= 50) {
+            return "C";
+        } else if (unitTotalMarks >= 40) {
+            return "D";
+        } else if(unitTotalMarks >= 1 && unitTotalMarks <= 39) {
+            return "E";
+        }else {
+            return "Missing Mark";
+        }
     }
 
     public Boolean getAppliedSpecial() {
