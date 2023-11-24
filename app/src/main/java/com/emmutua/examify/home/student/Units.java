@@ -124,34 +124,32 @@ public class Units extends Fragment {
           dialog.show();
     }
     void sendAppliedSpecialsToFirebase(String selectedUnit) {
-        // Assuming Utility is a class or utility method
         boolean appliedForSpecial = true;
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
 
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
-                        // Query the collection to get the document with the specified unitName
-                        firebaseFirestore.collection("students_registered_units")
-                                .whereEqualTo("unitName", selectedUnit)
-                                .whereEqualTo("studentUid", currentUser.getUid())
-                                .get()
-                                .addOnCompleteListener(task -> {
-                                    if (task.isSuccessful() && task.getResult() != null) {
-                                        for (QueryDocumentSnapshot document : task.getResult()) {
-                                            // Update the 'appliedSpecial' field for the found document
-                                            document.getReference()
-                                                    .update("appliedSpecial", appliedForSpecial)
-                                                    .addOnSuccessListener(aVoid -> {
-                                                        utility.showToast(getContext(), "Successfully Applied for special exam for " + selectedUnit);
-                                                    })
-                                                    .addOnFailureListener(e -> {
-                                                        utility.showToast(getContext(), "Failed to apply for special exam");
-                                                    });
-                                        }
-                                    } else {
-                                        utility.showToast(getContext(), "Failed to retrieve document for " + selectedUnit);
-                                    }
-                                });
-                    }
-
-                }
+        // Query the collection to get the document with the specified unitName
+        firebaseFirestore.collection("students_registered_units")
+        .whereEqualTo("unitName", selectedUnit)
+        .whereEqualTo("studentUid", currentUser.getUid())
+        .get()
+        .addOnCompleteListener(task -> {
+        if (task.isSuccessful() && task.getResult() != null) {
+        for (QueryDocumentSnapshot document : task.getResult()) {
+        // Update the 'appliedSpecial' field for the found document
+        document.getReference()
+        .update("appliedSpecial", appliedForSpecial)
+        .addOnSuccessListener(aVoid -> {
+        utility.showToast(getContext(), "Successfully Applied for special exam for " + selectedUnit);
+        })
+        .addOnFailureListener(e -> {
+        utility.showToast(getContext(), "Failed to apply for special exam");
+        });
+        }
+        } else {
+        utility.showToast(getContext(), "Failed to retrieve document for " + selectedUnit);
+        }
+        });
+        }
+        }
