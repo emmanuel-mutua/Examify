@@ -94,7 +94,7 @@ public class Units extends Fragment {
                 adapter.clear();
                 adapter.addAll(allUnits);
                 adapter.notifyDataSetChanged();
-            }else {
+            } else {
                 noRegisteredUnitsText.setVisibility(View.VISIBLE);
             }
         });
@@ -108,7 +108,8 @@ public class Units extends Fragment {
         });
         return view;
     }
-    void ShowAlertDialog(String selectedItem){
+
+    void ShowAlertDialog(String selectedItem) {
         // show alert dialog to allow for registration of special exams
         AlertDialog.Builder builder = new AlertDialog
                 .Builder(getContext());
@@ -117,12 +118,13 @@ public class Units extends Fragment {
         builder.setPositiveButton("Apply", (dialog, which) -> {
             sendAppliedSpecialsToFirebase(selectedItem);
         });
-        builder.setNegativeButton("Cancel",(dialog, which) ->{
+        builder.setNegativeButton("Cancel", (dialog, which) -> {
             dialog.dismiss();
         });
         AlertDialog dialog = builder.create();
         dialog.show();
     }
+
     void sendAppliedSpecialsToFirebase(String selectedUnit) {
         boolean appliedForSpecial = true;
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();

@@ -13,72 +13,85 @@ import com.emmutua.examify.R;
 
 import java.util.List;
 
-public class GradesAdapter extends RecyclerView.Adapter<GradesAdapter.GradesViewHolder> {
 
-    private List<Grades> gradesList;
+public class GradesAdapter extends RecyclerView.Adapter<GradesAdapter.GradesViewHolder> {
+    List<Grades> gradesList;
 
     public GradesAdapter(List<Grades> gradesList) {
         this.gradesList = gradesList;
     }
+    public void setUserList(List<Grades> userList) {
+        this.gradesList = userList;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(Grades grades);
+    }
+
+    public void setOnItemClickListener(GradesAdapter.OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
+    private GradesAdapter.OnItemClickListener listener;
 
     @NonNull
     @Override
-    public GradesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_grades, parent, false);
-        return new GradesViewHolder(view);
+    public GradesAdapter.GradesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.student_marks_card, parent, false);
+        return new GradesAdapter.GradesViewHolder(view);
     }
 
+
+
     @Override
-    public void onBindViewHolder(@NonNull GradesViewHolder holder, int position) {
-        // Bind data to the ViewHolder
+    public void onBindViewHolder(@NonNull GradesAdapter.GradesViewHolder holder, int position) {
         Grades grades = gradesList.get(position);
-        holder.bind(grades);
+
+        // Bind data to the ViewHolder's views
+        holder.unitNameTextView.setText(grades.getUnitName());
+        holder.unitCodeTextView.setText(grades.getUnitCode());
+        holder.totalMarksTextView.setText("Total Mark: " + grades.getUnitTotalMarks() + "  Grade: " + grades.getUnitGrade());
+        holder.assign1MarksTextView.setText(String.valueOf(grades.getUnitAssign1Marks()));
+        holder.assign2MarksTextView.setText(String.valueOf(grades.getUnitAssign2Marks()));
+        holder.cat1MarksTextView.setText(String.valueOf(grades.getUnitCat1Marks()));
+        holder.cat2MarksTextView.setText(String.valueOf(grades.getUnitCat2Marks()));
+        holder.examMarksTextView.setText(String.valueOf(grades.getUnitExamMarks()));
     }
 
     @Override
     public int getItemCount() {
-        return gradesList.size();
+         return gradesList != null ? gradesList.size() : 0;
+    }
+     Integer calculateTotalMarks() {
+         if (gradesList!=null){
+             int totalMarks = 0;
+             for (Grades grades : gradesList) {
+                 totalMarks += grades.getUnitTotalMarks();
+             }
+             return totalMarks;
+         }else {
+             return 0;
+         }
     }
 
-    // ViewHolder class
-    public class GradesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-         TextView SemesterStageTextView,RecommendationTextView,MeanGradeTextView;
-         TextView totalMarksTextView;
-        ListView SemesterCoursesListView;
-        // Add more TextViews for other details
-        public GradesViewHolder(@NonNull View itemView) {
+    public static class GradesViewHolder extends RecyclerView.ViewHolder {
+        TextView unitNameTextView, unitCodeTextView, totalMarksTextView, gradeTextView;
+        TextView assign1MarksTextView, assign2MarksTextView, cat1MarksTextView, cat2MarksTextView, examMarksTextView;
+
+        public GradesViewHolder(View itemView) {
             super(itemView);
-            SemesterCoursesListView = itemView.findViewById(R.id.semesterCoursesListView);
-            SemesterStageTextView = itemView.findViewById(R.id.Semester_stage_per_semester);
-            RecommendationTextView = itemView.findViewById(R.id.Recommendation_textView);
-            totalMarksTextView = itemView.findViewById(R.id.totalMarksForAllCourses);
-            MeanGradeTextView = itemView.findViewById(R.id.Mean_grade_for_allTheCourses);
-            // Initialize other TextViews
+            unitNameTextView = itemView.findViewById(R.id.unit_name); // Replace with the appropriate resource ID
+            unitCodeTextView = itemView.findViewById(R.id.unit_code); // Replace with the appropriate resource ID
+            totalMarksTextView = itemView.findViewById(R.id.total_mark); // Replace with the appropriate resource ID
+            gradeTextView = itemView.findViewById(R.id.grade);
+            assign1MarksTextView = itemView.findViewById(R.id.assign1_mark);
+            assign2MarksTextView = itemView.findViewById(R.id.assign2_mark);
+            cat1MarksTextView = itemView.findViewById(R.id.cat1mark);
+            cat2MarksTextView = itemView.findViewById(R.id.cat2mark);
+            examMarksTextView = itemView.findViewById(R.id.exam_mark);
 
-            itemView.setOnClickListener(this);
         }
-
-        public void bind(Grades grades) {
-            // Bind data to the TextViews
-            SemesterStageTextView.setText(grades.getUnitStage());
-            totalMarksTextView.setText("Total Marks: " + grades.getUnitTotalMarks());
-            // Bind other details
-        }
-
-        @Override
-        public void onClick(View view) {
-            // Handle card click event
-            // Implement logic to show AlertDialog with detailed marks for the selected unit
-            // For simplicity, I'll assume a method showUnitDetailsAlertDialog()
-            showUnitDetailsAlertDialog(getAdapterPosition());
-        }
-    }
-
-    private void showUnitDetailsAlertDialog(int position) {
-        // Implement AlertDialog logic to show details for the selected unit
-        // Use gradesList.get(position) to get the selected Grades object
-        // Show assignment marks, cat marks, exam marks, total marks, and grade
     }
 }
 
