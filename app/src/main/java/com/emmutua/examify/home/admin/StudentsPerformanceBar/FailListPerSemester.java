@@ -62,11 +62,13 @@ public class FailListPerSemester extends AppCompatActivity {
         });
     }
     void fetchStudentDetails(String studentId,String selectedSemester) {
+        boolean appliedForSpecial = false;
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         CollectionReference collectionReference = firebaseFirestore.collection("students_registered_units");
         collectionReference
                 .whereEqualTo("unitStage", selectedSemester)
                 .whereEqualTo("studentUid", studentId)
+                .whereEqualTo("appliedSpecial", appliedForSpecial)
                 .get().addOnSuccessListener(queryDocumentSnapshots -> {
                     List<StudentMark> studentMarks = new ArrayList<>();
                     String studentName = "";
@@ -86,12 +88,12 @@ public class FailListPerSemester extends AppCompatActivity {
                         StudentMark studentMark = new StudentMark(studentName, unitName, unitCode, studentRegNo, assignment1Marks, assignment2Marks, cat1Marks, cat2Marks, examMarks);
                         studentMarks.add(studentMark);
                     }
-                    checkPassList(studentMarks, studentRegNo, unitName, unitCode);
+                    checkFailList(studentMarks, studentRegNo, unitName, unitCode);
                 }).addOnFailureListener(e -> {
                     Log.e("TAG", "Error getting documents: ", e);
                 });
     }
-    void checkPassList(List<StudentMark> studentMarks,
+    void checkFailList(List<StudentMark> studentMarks,
                        String studentRegNo,String unitName,String unitCode) {
         for (StudentMark studentMark : studentMarks) {
             String grade = calculateTotalMarksAndGrade(studentMark);
