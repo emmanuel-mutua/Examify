@@ -124,7 +124,6 @@ public class Units extends Fragment {
           dialog.show();
     }
     void sendAppliedSpecialsToFirebase(String selectedUnit) {
-     // Assuming Utility is a class or utility method
         boolean appliedForSpecial = true;
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
