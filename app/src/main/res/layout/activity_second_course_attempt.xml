@@ -22,10 +22,6 @@ tools:context=".home.admin.StudentsPerformanceBar.SecondCourseAttempt">
         android:gravity="center"
         />
 </com.google.android.material.appbar.AppBarLayout>
-<androidx.core.widget.NestedScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true">
     <FrameLayout
         android:id="@+id/SecondCourseAttempt"
         android:layout_width="match_parent"
@@ -40,6 +36,5 @@ tools:context=".home.admin.StudentsPerformanceBar.SecondCourseAttempt">
             android:layout_marginEnd="1dp"
             android:padding="2dp"/>
     </FrameLayout>
-</androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

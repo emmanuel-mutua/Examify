@@ -74,11 +74,13 @@ public class PassListPerSemester extends AppCompatActivity {
     }
 
     private void fetchStudentDetails(String studentId, String selectedSemester) {
+        boolean appliedSpecial = false;
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         CollectionReference collectionReference = firebaseFirestore.collection("students_registered_units");
 
         collectionReference.whereEqualTo("unitStage", selectedSemester)
                 .whereEqualTo("studentUid", studentId)
+                .whereEqualTo("appliedSpecial", appliedSpecial)
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     List<StudentMark> studentMarks = new ArrayList<>();
