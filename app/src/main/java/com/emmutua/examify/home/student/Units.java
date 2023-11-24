@@ -110,46 +110,48 @@ public class Units extends Fragment {
     }
     void ShowAlertDialog(String selectedItem){
         // show alert dialog to allow for registration of special exams
-            AlertDialog.Builder builder = new AlertDialog
-                   .Builder(getContext());
-           builder.setTitle("Apply For Special EXam");
-           builder.setMessage("Are you sure you want to apply for special for  " + selectedItem + "?");
-           builder.setPositiveButton("Apply", (dialog, which) -> {
-               sendAppliedSpecialsToFirebase(selectedItem);
-           });
-            builder.setNegativeButton("Cancel",(dialog, which) ->{
-               dialog.dismiss();
-            });
-            AlertDialog dialog = builder.create();
-          dialog.show();
+        AlertDialog.Builder builder = new AlertDialog
+                .Builder(getContext());
+        builder.setTitle("Apply For Special EXam");
+        builder.setMessage("Are you sure you want to apply for special for  " + selectedItem + "?");
+        builder.setPositiveButton("Apply", (dialog, which) -> {
+            sendAppliedSpecialsToFirebase(selectedItem);
+        });
+        builder.setNegativeButton("Cancel",(dialog, which) ->{
+            dialog.dismiss();
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
     void sendAppliedSpecialsToFirebase(String selectedUnit) {
+        // Assuming Utility is a class or utility method
         boolean appliedForSpecial = true;
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
 
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+
         // Query the collection to get the document with the specified unitName
         firebaseFirestore.collection("students_registered_units")
-        .whereEqualTo("unitName", selectedUnit)
-        .whereEqualTo("studentUid", currentUser.getUid())
-        .get()
-        .addOnCompleteListener(task -> {
-        if (task.isSuccessful() && task.getResult() != null) {
-        for (QueryDocumentSnapshot document : task.getResult()) {
-        // Update the 'appliedSpecial' field for the found document
-        document.getReference()
-        .update("appliedSpecial", appliedForSpecial)
-        .addOnSuccessListener(aVoid -> {
-        utility.showToast(getContext(), "Successfully Applied for special exam for " + selectedUnit);
-        })
-        .addOnFailureListener(e -> {
-        utility.showToast(getContext(), "Failed to apply for special exam");
-        });
-        }
-        } else {
-        utility.showToast(getContext(), "Failed to retrieve document for " + selectedUnit);
-        }
-        });
-        }
-        }
+                .whereEqualTo("unitName", selectedUnit)
+                .whereEqualTo("studentUid", currentUser.getUid())
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful() && task.getResult() != null) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            // Update the 'appliedSpecial' field for the found document
+                            document.getReference()
+                                    .update("appliedSpecial", appliedForSpecial)
+                                    .addOnSuccessListener(aVoid -> {
+                                        utility.showToast(getContext(), "Successfully Applied for special exam for " + selectedUnit);
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        utility.showToast(getContext(), "Failed to apply for special exam");
+                                    });
+                        }
+                    } else {
+                        utility.showToast(getContext(), "Failed to retrieve document for " + selectedUnit);
+                    }
+                });
+    }
+}
