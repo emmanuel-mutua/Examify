@@ -14,6 +14,9 @@
         tools:ignore="ExtraText"
         tools:targetApi="31">
         <activity
+            android:name=".home.student.StudentGrades.MyGrades"
+            android:exported="false" />
+        <activity
             android:name=".home.admin.homeBar.editmarks.AdminEditMarks"
             android:exported="false" />
         <activity

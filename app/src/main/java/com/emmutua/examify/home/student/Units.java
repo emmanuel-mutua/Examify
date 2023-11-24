@@ -110,18 +110,18 @@ public class Units extends Fragment {
     }
     void ShowAlertDialog(String selectedItem){
         // show alert dialog to allow for registration of special exams
-            AlertDialog.Builder builder = new AlertDialog
-                   .Builder(getContext());
-           builder.setTitle("Apply For Special EXam");
-           builder.setMessage("Are you sure you want to apply for special for  " + selectedItem + "?");
-           builder.setPositiveButton("Apply", (dialog, which) -> {
-               sendAppliedSpecialsToFirebase(selectedItem);
-           });
-            builder.setNegativeButton("Cancel",(dialog, which) ->{
-               dialog.dismiss();
-            });
-            AlertDialog dialog = builder.create();
-          dialog.show();
+        AlertDialog.Builder builder = new AlertDialog
+                .Builder(getContext());
+        builder.setTitle("Apply For Special EXam");
+        builder.setMessage("Are you sure you want to apply for special for  " + selectedItem + "?");
+        builder.setPositiveButton("Apply", (dialog, which) -> {
+            sendAppliedSpecialsToFirebase(selectedItem);
+        });
+        builder.setNegativeButton("Cancel",(dialog, which) ->{
+            dialog.dismiss();
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
     void sendAppliedSpecialsToFirebase(String selectedUnit) {
         boolean appliedForSpecial = true;
