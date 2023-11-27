@@ -74,13 +74,14 @@ public class PassListPerSemester extends AppCompatActivity {
     }
 
     private void fetchStudentDetails(String studentId, String selectedSemester) {
-        boolean appliedSpecial = false;
+        passList.clear();
+//        boolean appliedSpecial = false;
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         CollectionReference collectionReference = firebaseFirestore.collection("students_registered_units");
 
         collectionReference.whereEqualTo("unitStage", selectedSemester)
                 .whereEqualTo("studentUid", studentId)
-                .whereEqualTo("appliedSpecial", appliedSpecial)
+                .whereEqualTo("appliedSpecial", false)
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     List<StudentMark> studentMarks = new ArrayList<>();
@@ -109,19 +110,15 @@ public class PassListPerSemester extends AppCompatActivity {
     }
 
     private void checkPassList(List<StudentMark> studentMarks, String studentName, String studentRegNo) {
-        boolean canAddToPassList = true;
         for (StudentMark studentMark : studentMarks) {
             String grade = calculateTotalMarksAndGrade(studentMark);
             // Check if the grade is "E"
-            if ("E".equals(grade)) {
-                canAddToPassList = false;  // Set the flag to false if any "E" grade is encountered
+            if (!grade.equals("E")) {
+                passList.add(studentName + " - " + studentRegNo);
+                updatePassListView();
                 break;
             }
         }
-        if (canAddToPassList) {
-            passList.add(studentName + " - " + studentRegNo);
-        }
-        updatePassListView();
     }
 
     private String calculateTotalMarksAndGrade(StudentMark studentMarks) {
@@ -151,9 +148,6 @@ public class PassListPerSemester extends AppCompatActivity {
     }
 
     private void updatePassListView() {
-        // Remove all occurrences of "-" from the entries in passList
-        passList.removeIf(entry -> entry.contains("-") || entry.contains(""));
-
         passListAdapter.clear();
         passListAdapter.addAll(passList);
         passListAdapter.notifyDataSetChanged();
