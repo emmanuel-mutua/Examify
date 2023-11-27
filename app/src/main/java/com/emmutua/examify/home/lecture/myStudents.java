@@ -41,6 +41,7 @@ public class myStudents extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(studentsAdapter);
         lecturerHomeViewModel.getUnitCode().observe(this, unitCode -> {
+            Log.d("myStudents", "Unit Code LiveData Updated: " + unitCode);
             fetchAllMyStudentsFromFirebase(unitCode);
         });
         studentsAdapter.setOnItemClickListener(student -> {
@@ -152,6 +153,7 @@ public class myStudents extends AppCompatActivity {
 
 
     void fetchAllMyStudentsFromFirebase(String unitCode) {
+        Log.d("TAG", "fetchAllMyStudentsFromFirebase: " + unitCode);
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         CollectionReference allStudents = firebaseFirestore.collection("students_registered_units");
 
@@ -180,6 +182,7 @@ public class myStudents extends AppCompatActivity {
                         // For example, you can create a StudentModel object and add it to a list
                         if (!isStudentInList(registrationNumber, studentsList)) {
                             StudentModel student = new StudentModel( studentUid,unitCodeFromFirestore,studentName, registrationNumber, unitAssign1Marks, unitAssign2Marks, unitCat1Marks, unitCat2Marks, unitExamMarks, false);
+                            Log.d("TAG", "fetchAllMyStudentsFromFirebase: " + student.getStudentName());
                             studentsList.add(student);
                         }
 

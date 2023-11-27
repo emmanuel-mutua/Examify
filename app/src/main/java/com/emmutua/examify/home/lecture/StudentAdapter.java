@@ -30,7 +30,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
     @NonNull
     @Override
     public StudentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.admin_edit_marks_cardview, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.lecturer_regstudentscardview, parent, false);
         return new StudentViewHolder(view);
     }
 
@@ -73,4 +73,3 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
         }
     }
 }
-

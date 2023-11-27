@@ -30,6 +30,7 @@ public class LecturerHomeViewModel extends ViewModel {
 
     public LecturerHomeViewModel() {
         loadUserDataFromFirebase(currentUser.getUid());
+        loadLecDataFromFirebase(currentUser.getUid());
     }
 
     public LiveData<String> getGreetingText() {
