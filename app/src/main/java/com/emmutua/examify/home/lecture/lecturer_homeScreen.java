@@ -3,6 +3,8 @@ package com.emmutua.examify.home.lecture;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -21,17 +23,25 @@ public class lecturer_homeScreen extends AppCompatActivity {
     TextView goodMorningLecturerTextview;
     Button myStudentsButton,addMarksButton,lecturerLogOutButton;
     Toolbar LecturerToolbar;
+    LecturerHomeViewModel lecturerHomeViewModel;
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lecturer_homescreen);
+        lecturerHomeViewModel = new ViewModelProvider(this).get(LecturerHomeViewModel.class);
         goodMorningLecturerTextview = findViewById(R.id.Lecturer_greetingTextView);
         myStudentsButton = findViewById(R.id.Lecturer_myStudents_button);
         LecturerToolbar = findViewById(R.id.Lecturer_toolbar);
         setSupportActionBar(LecturerToolbar);
         getSupportActionBar().setTitle("Lecturer Dashboard");
+        lecturerHomeViewModel.getGreetingText().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String greetingText) {
+                goodMorningLecturerTextview.setText(greetingText);
+            }
+        });
         addMarksButton = findViewById(R.id.Lecturer_AddMarks_button);
         lecturerLogOutButton = findViewById(R.id.Lecturer_log_out_button);
         lecturerLogOutButton.setOnClickListener(v ->{
@@ -52,6 +62,10 @@ public class lecturer_homeScreen extends AppCompatActivity {
          dialog.show();
         });
         myStudentsButton.setOnClickListener(v ->{
+            Intent intent = new Intent(lecturer_homeScreen.this, myStudents.class);
+            startActivity(intent);
+        });
+        addMarksButton.setOnClickListener(v ->{
             Intent intent = new Intent(lecturer_homeScreen.this, myStudents.class);
             startActivity(intent);
         });

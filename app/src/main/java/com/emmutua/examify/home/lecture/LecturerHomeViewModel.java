@@ -29,9 +29,7 @@ public class LecturerHomeViewModel extends ViewModel {
     private MutableLiveData<String> phoneText = new MutableLiveData<>();
 
     public LecturerHomeViewModel() {
-        // Initialize the ViewModel and load user data immediately
-//        loadUserDataFromFirebase(currentUser.getUid());
-//        loadLecDataFromFirebase(currentUser.getUid());
+        loadUserDataFromFirebase(currentUser.getUid());
     }
 
     public LiveData<String> getGreetingText() {

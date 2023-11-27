@@ -14,6 +14,7 @@ import android.widget.Button;
 
 import com.emmutua.examify.R;
 import com.emmutua.examify.authentication.Login;
+import com.emmutua.examify.home.admin.homeBar.editmarks.AdminEditMarks;
 import com.emmutua.examify.home.admin.homeBar.units.adminViewUnits;
 // com.emmutua.examify.home.admin.homeBar.editmarks.AdminEditMarks;
 import com.google.firebase.auth.FirebaseAuth;
@@ -101,9 +102,9 @@ public class adminHome extends Fragment {
                 startActivity(new Intent(getContext(), adminViewUnits.class));
             }
         });
-//        editMarks.setOnClickListener(onclick -> {
-//            startActivity(new Intent(getContext(), AdminEditMarks.class));
-//        });
+        editMarks.setOnClickListener(onclick -> {
+            startActivity(new Intent(getContext(), AdminEditMarks.class));
+        });
         return view;
     }
     //method for fetching allUnits In fireBase
